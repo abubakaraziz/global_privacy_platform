@@ -1,0 +1,36 @@
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const uspPing = async page => {
+    try {
+        const uspString = await page.evaluate(() => new Promise(resolve => {
+            // Check if __uspapi function exists on the window object
+            // @ts-ignore
+            if (typeof window.__uspapi !== 'function') {
+                resolve(null); // Resolve with null if __uspapi doesn't exist
+                return;
+            }
+            // Call the __uspapi function if it exists
+            // @ts-ignore
+            window.__uspapi('getUSPData',1, (uspData, success) => {
+                if (success) {
+                    resolve(uspData);
+                } else {
+                    resolve(null);
+                }
+            });
+        }));
+        if (uspString) {
+            console.log('USP string retrieved:', uspString);
+        } else {
+            console.log('No USP string retrieved.');
+        }
+        return uspString; // Return the retrieved object
+    } catch (error) {
+        console.error('Error calling USP function:', error);
+        return null;
+    }
+};
+
+module.exports = uspPing;
