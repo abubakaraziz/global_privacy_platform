@@ -7,6 +7,7 @@ const gppPing = require('../helpers/gppPing');
 const callGPPhasSections = require('../helpers/gppHasSections');
 const callGPPgetSections = require('../helpers/gppGetSections');
 const callGPPgetField = require('../helpers/gppGetField');
+const tcfPing = require('../helpers/tcfPing');
 
 /**
  * @typedef {Object} ScanResult
@@ -15,6 +16,7 @@ const callGPPgetField = require('../helpers/gppGetField');
  * @property {{ api: any; getSection: any; }[]} getSections
  * @property {any[]} getField
  * @property {string[]} uspString
+ * @property {string[]} tcfString
  */
 
 /**
@@ -42,7 +44,8 @@ class GPPCollector extends BaseCollector {
             hasSections: [],
             getSections: [],
             getField: [],
-            uspString: []
+            uspString: [],
+            tcfString: []
         };
     }
 
@@ -118,6 +121,16 @@ class GPPCollector extends BaseCollector {
             } else {
                 console.log('No USP string retrieved.');
             }
+
+            console.log('Attempting to retrieve TCF string...');
+            const tcfString = await tcfPing(page);
+
+            if (tcfString) {
+                this.scanResult.tcfString.push(tcfString);
+                console.log('TCF string retrieved:', tcfString);
+            }else {
+                console.log('No TCF string retrieved.');
+            }
         }
         this.pendingScan.resolve();
         this.scanResult = {
@@ -125,7 +138,8 @@ class GPPCollector extends BaseCollector {
             hasSections,
             getSections,
             getField: getFields,
-            uspString: this.scanResult.uspString
+            uspString: this.scanResult.uspString,
+            tcfString: this.scanResult.tcfString
         };
         console.log('Scan result:', this.scanResult);
     }
