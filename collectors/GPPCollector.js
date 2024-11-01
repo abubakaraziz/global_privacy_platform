@@ -1,9 +1,6 @@
 /* eslint-disable no-await-in-loop */
 const BaseCollector = require('./BaseCollector');
 const createDeferred = require('../helpers/deferred');
-const tld = require('tldts');
-const { URL } = require('url');
-const fs = require('fs');
 
 /**
  * @typedef {Object} ScanResult
@@ -19,26 +16,6 @@ const fs = require('fs');
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  * @returns {Promise<void>} - A promise that resolves when the page has been scrolled to the bottom.
  */
-// Function for scrolling to the top of the page
-async function scrollToTop(page) {
-    await page.evaluate(async () => {
-        await new Promise((resolve) => {
-            let totalHeight = document.body.scrollHeight;
-            const distance = 200; // Scroll by 200 pixels at a time
-            const timer = setInterval(() => {
-                window.scrollBy(0, -distance); // Scroll upwards by reducing the y-position
-                totalHeight -= distance;
-
-                // Stop when totalHeight is less than or equal to 0 (top of the page)
-                if (window.scrollY === 0) {
-                    console.log("Done scrolling to the top of the page");
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 10); // Scroll every 10 milliseconds
-        });
-    });
-}
 
 class GPPCollector extends BaseCollector {
     id() {
@@ -61,58 +38,46 @@ class GPPCollector extends BaseCollector {
         };
     }
 
-    // @ts-ignore
-    async addTarget({ page, type }) {
-        if (page && type === 'page') {
-            try {
-                // Need to add something over here
-                // page.evaluateOnNewDocument(linkHelperSrc);
-            } catch (error) {
-                this._log(`AdCollector: Error while adding target: ${error}`);
-            }
-        }
-    }
-
     /**
      * @param {import('puppeteer').Page} page - The Puppeteer page instance.
      */
+    /* eslint-disable no-undef */
     async callGPPPing(page) {
         try {
-            const gppObject = await page.evaluate(() => {
-                return new Promise(resolve => {
+            const gppObject = await page.evaluate(() => new Promise(resolve => {
                     // Check if __gpp function exists on the window object
                     // @ts-ignore
-                    if (typeof window.__gpp !== 'function') {
-                        resolve(null); // Resolve with null if __gpp doesn't exist
-                        return;
-                    }
+                if (typeof window.__gpp !== 'function') {
+                    resolve(null); // Resolve with null if __gpp doesn't exist
+                    return;
+                }
                     // Call the __gpp function if it exists
                     // @ts-ignore
-                    window.__gpp('ping', (gppData, success) => {
-                        if (success) {
-                            resolve(gppData);
-                        } else {
-                            resolve(null);
-                        }
-                    });
+                window.__gpp('ping', (gppData, success) => {
+                    if (success) {
+                        resolve(gppData);
+                    } else {
+                        resolve(null);
+                    }
                 });
-            });
-
+            }));
             if (gppObject) {
                 console.log('GPP object retrieved:', gppObject);
-                return gppObject; // Return the retrieved object
             } else {
-                console.log('No GPP object retrieved or __gpp function does not exist.');
-                return null;
+                console.log('No GPP object retrieved.');
             }
+            return gppObject; // Return the retrieved object
         } catch (error) {
             console.error('Error calling GPP function:', error);
             return null;
         }
     }
+    /* eslint-disable no-undef */
+    
 
     /**
      * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+     * @param {any} gppObject - The GPP object to use for the hasSection calls.
      */
     async callGPPhasSections(page, gppObject) {
         try {
@@ -127,28 +92,26 @@ class GPPCollector extends BaseCollector {
 
                 // Check if we have a valid apiIdentifier
                 if (apiIdentifier) {
-                    const hasSection = await page.evaluate((apiId) => {
-                        return new Promise(resolve => {
+                    const hasSection = await page.evaluate(apiId => new Promise(resolve => {
                             // Check if __gpp function exists on the window object
                             // @ts-ignore
-                            if (typeof window.__gpp !== 'function') {
-                                resolve(null); // Resolve with null if __gpp doesn't exist
-                                return;
-                            }
+                        if (typeof window.__gpp !== 'function') {
+                            resolve(null); // Resolve with null if __gpp doesn't exist
+                            return;
+                        }
                             // Call the __gpp function with the apiId
                             // @ts-ignore
-                            window.__gpp('hasSection', (/** @type {Boolean} */ data, /** @type {Boolean} */ success) => {
-                                if (success) {
-                                    resolve(data);
-                                } else {
-                                    resolve(null);
-                                }
-                            }, apiId); // Pass the dynamic apiId (e.g., 'tcfcav1')
-                        });
-                    }, apiIdentifier);
+                        window.__gpp('hasSection', (/** @type {Boolean} */ data, /** @type {Boolean} */ success) => {
+                            if (success) {
+                                resolve(data);
+                            } else {
+                                resolve(null);
+                            }
+                        }, apiId); // Pass the dynamic apiId (e.g., 'tcfcav1')
+                    }), apiIdentifier);
 
                     // Add the result (true/false/null) to the hasSections array
-                    hasSections.push({ api: apiIdentifier, hasSection });
+                    hasSections.push({api: apiIdentifier, hasSection});
                 }
             }
             return hasSections; // Return the array of sections
@@ -161,6 +124,7 @@ class GPPCollector extends BaseCollector {
 
     /**
      * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+     * @param {any} gppObject - The GPP object to use for the getSection calls.
      */
     async callGPPgetSections(page, gppObject) {
         try {
@@ -175,28 +139,26 @@ class GPPCollector extends BaseCollector {
 
                 // Check if we have a valid apiIdentifier
                 if (apiIdentifier) {
-                    const getSection = await page.evaluate((apiId) => {
-                        return new Promise(resolve => {
+                    const getSection = await page.evaluate(apiId => new Promise(resolve => {
                             // Check if __gpp function exists on the window object
                             // @ts-ignore
-                            if (typeof window.__gpp !== 'function') {
-                                resolve(null); // Resolve with null if __gpp doesn't exist
-                                return;
-                            }
+                        if (typeof window.__gpp !== 'function') {
+                            resolve(null); // Resolve with null if __gpp doesn't exist
+                            return;
+                        }
                             // Call the __gpp function with the apiId
                             // @ts-ignore
-                            window.__gpp('getSection', (/** @type {Boolean} */ data, /** @type {Boolean} */ success) => {
-                                if (success) {
-                                    resolve(data);
-                                } else {
-                                    resolve(null);
-                                }
-                            }, apiId); // Pass the dynamic apiId (e.g., 'tcfcav1')
-                        });
-                    }, apiIdentifier);
+                        window.__gpp('getSection', (/** @type {Boolean} */ data, /** @type {Boolean} */ success) => {
+                            if (success) {
+                                resolve(data);
+                            } else {
+                                resolve(null);
+                            }
+                        }, apiId); // Pass the dynamic apiId (e.g., 'tcfcav1')
+                    }), apiIdentifier);
 
                     // Add the result (true/false/null) to the getSections array
-                    getSections.push({ api: apiIdentifier, getSection });
+                    getSections.push({api: apiIdentifier, getSection});
                 }
             }
             return getSections; // Return the array of sections
@@ -212,33 +174,30 @@ class GPPCollector extends BaseCollector {
      */
     async callGPPgetField(page, fieldName) {
         try {
-            const getField = await page.evaluate((field) => {
-                return new Promise(resolve => {
+            const getField = await page.evaluate(field => new Promise(resolve => {
                     // Check if __gpp function exists on the window object
                     // @ts-ignore
-                    if (typeof window.__gpp !== 'function') {
-                        resolve(null); // Resolve with null if __gpp doesn't exist
-                        return;
-                    }
+                if (typeof window.__gpp !== 'function') {
+                    resolve(null); // Resolve with null if __gpp doesn't exist
+                    return;
+                }
                     // Call the __gpp function if it exists
                     // @ts-ignore
-                    window.__gpp('getField', (gppData, success) => {
-                        if (success) {
-                            resolve(gppData);
-                        } else {
-                            resolve(null);
-                        }
-                    }, field);
-                });
-            }, fieldName);  // Pass fieldName as an argument here
+                window.__gpp('getField', (gppData, success) => {
+                    if (success) {
+                        resolve(gppData);
+                    } else {
+                        resolve(null);
+                    }
+                }, field);
+            }), fieldName);  // Pass fieldName as an argument here
             
             if (getField) {
                 console.log('GPP field retrieved:', getField);
-                return getField; // Return the retrieved object
             } else {
-                console.log('No GPP field retrieved or __gpp function does not exist.');
-                return null;
+                console.log('No GPP field retrieved.');
             }
+            return getField; // Return the retrieved object
         } catch (error) {
             console.error('Error calling GPP function:', error);
             return null;
@@ -272,8 +231,7 @@ class GPPCollector extends BaseCollector {
             if (gppObject) {
                 gppObjects.push(gppObject);
                 console.log('GPP object retrieved:', gppObject);
-            }
-            else {
+            } else {
                 console.log('No GPP object retrieved.');
             }
 
@@ -281,10 +239,9 @@ class GPPCollector extends BaseCollector {
             const hasSection = await this.callGPPhasSections(page, gppObject);
 
             if (hasSection) {
-                hasSections.push(hasSection);
+                hasSections.push(...hasSection);
                 console.log('Sections found:', hasSection);
-            }
-            else {
+            } else {
                 console.log('No sections found.');
             }
 
@@ -292,10 +249,9 @@ class GPPCollector extends BaseCollector {
             const getSection = await this.callGPPgetSections(page, gppObject);
 
             if (getSection) {
-                getSections.push(getSection);
+                getSections.push(...getSection);
                 console.log('Sections found:', getSection);
-            }
-            else {
+            } else {
                 console.log('No sections found.');
             }
 
@@ -306,25 +262,21 @@ class GPPCollector extends BaseCollector {
             if (getField) {
                 getFields.push(getField);
                 console.log('Field found:', getField);
-            }
-            else {
+            } else {
                 console.log('No field found.');
             }
         }
         this.pendingScan.resolve();
         this.scanResult = {
-            gppObjects: gppObjects,
-            hasSections: hasSections,
-            getSections: getSections,
+            gppObjects,
+            hasSections,
+            getSections,
             getField: getFields
         };
         console.log('Scan result:', this.scanResult);
     }
 
-    /**
-     * @param {{ finalUrl?: string; urlFilter?: any; page?: any; }} [options]
-     */
-    async getData(options) {
+    getData() {
         // await options.page.waitForTimeout(5000);
         // scroll to the top of the page
         // await scrollToTop(options.page);
@@ -332,7 +284,6 @@ class GPPCollector extends BaseCollector {
         // await options.page.evaluate(() => {
         //     window.scrollTo(0, 0);
         // });
-        const page = options.page;
         
         return this.scanResult;
     }
