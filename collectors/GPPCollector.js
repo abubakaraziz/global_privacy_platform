@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-await-in-loop */
 const BaseCollector = require('./BaseCollector');
 const createDeferred = require('../helpers/deferred');
@@ -8,6 +9,7 @@ const callGPPhasSections = require('../helpers/gppHasSections');
 const callGPPgetSections = require('../helpers/gppGetSections');
 const callGPPgetField = require('../helpers/gppGetField');
 const tcfPing = require('../helpers/tcfPing');
+const tcfEventListener = require('../helpers/tcfEventListener');
 
 /**
  * @typedef {Object} ScanResult
@@ -17,6 +19,7 @@ const tcfPing = require('../helpers/tcfPing');
  * @property {any[]} getField
  * @property {string[]} uspString
  * @property {string[]} tcfString
+ * @property {string[]} tcfEventListenerData
  */
 
 /**
@@ -45,7 +48,8 @@ class GPPCollector extends BaseCollector {
             getSections: [],
             getField: [],
             uspString: [],
-            tcfString: []
+            tcfString: [],
+            tcfEventListenerData: []
         };
     }
 
@@ -67,8 +71,17 @@ class GPPCollector extends BaseCollector {
             // Scroll to the bottom of the page to load all the content
             // await page.waitForTimeout(2000);
             // await scrollToBottom(page);
-          
-            // let gppObject  = [""]
+
+            // Callback to store tcData in scanResult
+            // @ts-ignore
+            const updateScanResultWithEventData = tcData => {
+                this.scanResult.tcfEventListenerData.push(tcData);
+                console.log('TCF event data added to scanResult:', tcData);
+            };
+
+            // Add event listener to listen for TCF events
+            await tcfEventListener(page, updateScanResultWithEventData);
+
             console.log('Attempting to retrieve GPP objects...');
             const gppObject = await gppPing(page);
 
@@ -131,6 +144,17 @@ class GPPCollector extends BaseCollector {
             }else {
                 console.log('No TCF string retrieved.');
             }
+
+            // Triggering the accept all option on the cookie banner on the website
+            await page.evaluate(() => {
+                // Checking first if the didomi consent prompt is visible
+                // @ts-ignore
+                if (window.Didomi.notice.isVisible()) {
+                    // Trigger the function for opting out
+                    // @ts-ignore
+                    window.Didomi.setUserAgreeToAll();
+                }
+            });
         }
         this.pendingScan.resolve();
         this.scanResult = {
@@ -139,7 +163,8 @@ class GPPCollector extends BaseCollector {
             getSections,
             getField: getFields,
             uspString: this.scanResult.uspString,
-            tcfString: this.scanResult.tcfString
+            tcfString: this.scanResult.tcfString,
+            tcfEventListenerData: this.scanResult.tcfEventListenerData
         };
         console.log('Scan result:', this.scanResult);
     }
