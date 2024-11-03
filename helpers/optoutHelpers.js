@@ -40,14 +40,16 @@ async function optOutOneTrust(page) {
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 async function optOutQuantcast(page) {
-    console.log("Quantcast CMP detected");
+   
     await page.evaluate(() => {
+        console.log("Opting out of Quantcast");
         const consentDialog = document.querySelector(".qc-cmp2-summary-buttons");
         if (consentDialog) {
             const innerButtons = Array.from(consentDialog.querySelectorAll("button"));
             const rejectButton = innerButtons.find(button => button.textContent.toLowerCase().includes("reject") ||
                     button.textContent.toLowerCase().includes("disagree"));
             if (rejectButton) {
+                console.log("Reject button clicked");
                 rejectButton.click();
             } else {        //if there isnt a reject button on main banner, look for a button that leads to more options in a sub-banner which should contain a Reject All button
                 const moreOptionsButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.includes('More options'));

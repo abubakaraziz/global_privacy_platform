@@ -92,6 +92,17 @@ class GPPCollector extends BaseCollector {
         if (pages.length > 0) {
             const page = pages[0];
 
+            // Callback to store tcData in scanResult
+            // @ts-ignore
+            const updateScanResultWithEventData = tcData => {
+                this.scanResult.tcfEventListenerData.push(tcData);
+                // console.log('TCF event data added to scanResult:', tcData);
+            };
+
+            // Add event listener defined above to listen for TCF events
+            await tcfEventListener(page, updateScanResultWithEventData);
+
+            //next step: try detecting CMPs and opting out of data sharing
             try {
                 //call the CMP collector postLoad
                 await this.cmpCollector.postLoad();
@@ -129,16 +140,6 @@ class GPPCollector extends BaseCollector {
             // Scroll to the bottom of the page to load all the content
             // await page.waitForTimeout(2000);
             // await scrollToBottom(page);
-
-            // Callback to store tcData in scanResult
-            // @ts-ignore
-            const updateScanResultWithEventData = tcData => {
-                this.scanResult.tcfEventListenerData.push(tcData);
-                // console.log('TCF event data added to scanResult:', tcData);
-            };
-
-            // Add event listener to listen for TCF events
-            await tcfEventListener(page, updateScanResultWithEventData);
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
