@@ -15,6 +15,7 @@ const {
     optOutDidomi,
     optOutOneTrust,
     optOutQuantcast,
+    optOutCookieBot,
 } = require("../helpers/optoutHelpers");
 
 /**
@@ -120,14 +121,20 @@ class GPPCollector extends BaseCollector {
 
                         await optOutDidomi(page);
                     } else if (cmpData[0].name === "Onetrust") {
-                        //if the CMP is OneTrust, we follow the OneTrust specific logic - reference for this can be found on: https://developer.onetrust.com/onetrust/docs/javascript-api
+                        //if the CMP is OneTrust, we follow the OneTrust specific logic based on: https://developer.onetrust.com/onetrust/docs/javascript-api
                         console.log("OneTrust CMP detected");
 
                         await optOutOneTrust(page);
                     } else if (cmpData[0].name === "quantcast") {
+                        //if the CMP is Quantcast, we follow the Quantcast specific logic based on: 
                         console.log("Quantcast CMP detected");
 
                         await optOutQuantcast(page);
+                    } else if (cmpData[0].name === "Cybotcookiebot") {
+                        //if the CMP is CookieBot, we follow the CookieBot specific logic based on: https://www.cookiebot.com/en/developer/ 
+                        console.log("CookieBot CMP detected");
+
+                        await optOutCookieBot(page);
                     }
                 }
             } catch (error) {

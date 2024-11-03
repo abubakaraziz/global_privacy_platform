@@ -15,6 +15,8 @@ async function optOutDidomi(page) {
             console.log("didomi banner visible, opting out");
             // @ts-ignore
             window.Didomi.setUserDisagreeToAll();
+        } else {
+            console.log("Didomi CMP or its functions not found");
         }
     });
 }
@@ -32,6 +34,8 @@ async function optOutOneTrust(page) {
             // @ts-ignore
             // eslint-disable-next-line new-cap
             window.OneTrust.RejectAll();
+        } else {
+            console.log("OneTrust CMP or its functions not found");
         }
     });
 }
@@ -61,8 +65,41 @@ async function optOutQuantcast(page) {
                     }
                 }
             }
+        } else {
+            console.log("Quantcast CMP consent banner not found");
         }
     });
 }
 
-module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast};
+/**
+ * Cookiebot opt-out logic
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+async function optOutCookieBot(page) {
+    await page.evaluate(() => {
+        // Precautionary check to see if the Cookie Consent framework is loaded and that submitCustomConsent is a function
+        // @ts-ignore
+        if (window.CookieConsent && typeof window.CookieConsent.submitCustomConsent === 'function') {
+            // @ts-ignore
+            window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
+            console.log("Opted out of Cookiebot");
+            
+            //no need for verifying this atm as declined doesnt get updated on time even though it has often opted out successfully
+            
+            // setTimeout(() => {
+            //     // @ts-ignore
+            //     if (window.CookieConsent.declined) {
+            //         console.log("Successfully declined consent for Cookiebot.");
+            //     } else {
+            //         console.log("Failed to decline consent for Cookiebot.");
+            //         //Optional: can include DOM traversal method here as a backup in the future in case the above method fails
+            //     }
+            // }, 500);
+           
+        } else {
+            console.log("Cookiebot Consent banner not found.");
+        }
+    });
+}
+
+module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot};
