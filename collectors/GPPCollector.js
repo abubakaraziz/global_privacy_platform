@@ -11,6 +11,11 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const CMPCollector = require("./CMPCollector");
+const {
+    optOutDidomi,
+    optOutOneTrust,
+    optOutQuantcast,
+} = require("../helpers/optoutHelpers");
 
 /**
  * @typedef {Object} ScanResult
@@ -102,29 +107,16 @@ class GPPCollector extends BaseCollector {
                         //if the CMP is Didomi, we follow the Didomi specific logic
                         console.log("Didomi CMP detected");
 
-                        await page.evaluate(() => {
-                            // Checking first if the didomi consent prompt is visible
-                            console.log("checking for didomi notice");
-
-                            // @ts-ignore
-                            if (window.Didomi.notice.isVisible()) {
-                                console.log("didomi banner visible, opting out");
-                                // Trigger the function for opting out
-                                // @ts-ignore
-                                window.Didomi.setUserDisagreeToAll();
-                            }
-                        });
+                        await optOutDidomi(page);
                     } else if (cmpData[0].name === "Onetrust") {
                         //if the CMP is OneTrust, we follow the OneTrust specific logic - reference for this can be found on: https://developer.onetrust.com/onetrust/docs/javascript-api
                         console.log("OneTrust CMP detected");
 
-                        await page.evaluate(() => {
-                            console.log("Opting out of OneTrust");
+                        await optOutOneTrust(page);
+                    } else if (cmpData[0].name === "quantcast") {
+                        console.log("Quantcast CMP detected");
 
-                            // @ts-ignore
-                            // eslint-disable-next-line new-cap
-                            window.OneTrust.RejectAll();
-                        });
+                        await optOutQuantcast(page);
                     }
                 }
             } catch (error) {
