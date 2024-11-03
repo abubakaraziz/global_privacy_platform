@@ -113,7 +113,7 @@ class GPPCollector extends BaseCollector {
 
                 console.log("CMP data retrieved by GPP collector:", cmpData);
 
-                if (cmpData) {
+                if (cmpData.length > 0) {
                     //now that we have the CMP data, we can check if it belongs to one of our target CMPs
                     if (cmpData[0].name === "com_didomi.io") {
                         //if the CMP is Didomi, we follow the Didomi specific logic
