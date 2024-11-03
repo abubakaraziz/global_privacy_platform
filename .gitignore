@@ -3,3 +3,5 @@ node_modules
 .vscode/
 data/
 summary.json
+testingGPP/
+testingLinks/
