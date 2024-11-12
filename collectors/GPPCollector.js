@@ -257,7 +257,6 @@ class GPPCollector extends BaseCollector {
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
         };
         // console.log('Scan result:', this.scanResult);
-
        
         
     }
