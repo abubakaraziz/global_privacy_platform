@@ -1,0 +1,78 @@
+{
+  "global": {
+    "validFiles": 50,
+    "failingFiles": 2,
+    "timeouts": 50,
+    "totalTime": null,
+    "avgTime": 0,
+    "gppApiEntries": 4
+  },
+  "gppApiEntries": [
+    {
+      "url": "https://www.drudgereport.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "signalStatus": "ready",
+        "supportedAPIs": [],
+        "sectionList": [],
+        "applicableSections": [],
+        "parsedSections": {},
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "gppString": ""
+      }
+    },
+    {
+      "url": "https://www.zerohedge.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "disabled",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "usnat"
+        ],
+        "cmpId": 300,
+        "sectionList": [],
+        "applicableSections": [
+          -1
+        ],
+        "gppString": "",
+        "parsedSections": {}
+      }
+    },
+    {
+      "url": "https://www.drudgereport.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "signalStatus": "ready",
+        "supportedAPIs": [],
+        "sectionList": [],
+        "applicableSections": [],
+        "parsedSections": {},
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "gppString": ""
+      }
+    },
+    {
+      "url": "https://www.zerohedge.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "disabled",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "usnat"
+        ],
+        "cmpId": 300,
+        "sectionList": [],
+        "applicableSections": [
+          -1
+        ],
+        "gppString": "",
+        "parsedSections": {}
+      }
+    }
+  ]
+}
