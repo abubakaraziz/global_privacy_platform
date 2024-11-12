@@ -11,12 +11,12 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const CMPCollector = require("./CMPCollector");
-const {
-    optOutDidomi,
-    optOutOneTrust,
-    optOutQuantcast,
-    optOutCookieBot,
-} = require("../helpers/optoutHelpers");
+// const {
+//     optOutDidomi,
+//     optOutOneTrust,
+//     optOutQuantcast,
+//     optOutCookieBot,
+// } = require("../helpers/optoutHelpers");
 
 /**
  * @typedef {Object} ScanResult
@@ -103,46 +103,46 @@ class GPPCollector extends BaseCollector {
             // Add event listener defined above to listen for TCF events
             await tcfEventListener(page, updateScanResultWithEventData);
 
-            //next step: try detecting CMPs and opting out of data sharing
-            try {
-                //call the CMP collector postLoad
-                await this.cmpCollector.postLoad();
+            // //next step: try detecting CMPs and opting out of data sharing
+            // try {
+            //     //call the CMP collector postLoad
+            //     await this.cmpCollector.postLoad();
 
-                //get the data from the CMP collector
-                cmpData = await this.cmpCollector.getData();
+            //     //get the data from the CMP collector
+            //     cmpData = await this.cmpCollector.getData();
 
-                console.log("CMP data retrieved by GPP collector:", cmpData);
+            //     console.log("CMP data retrieved by GPP collector:", cmpData);
 
-                if (cmpData.length > 0) {
-                    //now that we have the CMP data, we can check if it belongs to one of our target CMPs
-                    if (cmpData[0].name === "com_didomi.io") {
-                        //if the CMP is Didomi, we follow the Didomi specific logic
-                        console.log("Didomi CMP detected");
+            //     if (cmpData.length > 0) {
+            //         //now that we have the CMP data, we can check if it belongs to one of our target CMPs
+            //         if (cmpData[0].name === "com_didomi.io") {
+            //             //if the CMP is Didomi, we follow the Didomi specific logic
+            //             console.log("Didomi CMP detected");
 
-                        await optOutDidomi(page);
-                    } else if (cmpData[0].name === "Onetrust") {
-                        //if the CMP is OneTrust, we follow the OneTrust specific logic based on: https://developer.onetrust.com/onetrust/docs/javascript-api
-                        console.log("OneTrust CMP detected");
+            //             await optOutDidomi(page);
+            //         } else if (cmpData[0].name === "Onetrust") {
+            //             //if the CMP is OneTrust, we follow the OneTrust specific logic based on: https://developer.onetrust.com/onetrust/docs/javascript-api
+            //             console.log("OneTrust CMP detected");
 
-                        await optOutOneTrust(page);
-                    } else if (cmpData[0].name === "quantcast") {
-                        //if the CMP is Quantcast, we follow the Quantcast specific logic based on: 
-                        console.log("Quantcast CMP detected");
+            //             await optOutOneTrust(page);
+            //         } else if (cmpData[0].name === "quantcast") {
+            //             //if the CMP is Quantcast, we follow the Quantcast specific logic based on: 
+            //             console.log("Quantcast CMP detected");
 
-                        await optOutQuantcast(page);
-                    } else if (cmpData[0].name === "Cybotcookiebot") {
-                        //if the CMP is CookieBot, we follow the CookieBot specific logic based on: https://www.cookiebot.com/en/developer/ 
-                        console.log("CookieBot CMP detected");
+            //             await optOutQuantcast(page);
+            //         } else if (cmpData[0].name === "Cybotcookiebot") {
+            //             //if the CMP is CookieBot, we follow the CookieBot specific logic based on: https://www.cookiebot.com/en/developer/ 
+            //             console.log("CookieBot CMP detected");
 
-                        await optOutCookieBot(page);
-                    }
-                }
-            } catch (error) {
-                console.error(
-                    "Error while processing CMP data or opting out:",
-                    error
-                );
-            }
+            //             await optOutCookieBot(page);
+            //         }
+            //     }
+            // } catch (error) {
+            //     console.error(
+            //         "Error while processing CMP data or opting out:",
+            //         error
+            //     );
+            // }
 
             // Scroll to the bottom of the page to load all the content
             // await page.waitForTimeout(2000);
