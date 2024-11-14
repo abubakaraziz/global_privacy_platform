@@ -217,10 +217,15 @@ async function getSiteData(context, url, {
             throw e;
         }
     }
+    
+    console.log("Waiting for timeout before calling GPP postload");
+    await page.waitForTimeout(15000);
 
     for (let collector of collectors) {
         const postLoadTimer = createTimer();
         try {
+            // eslint-disable-next-line no-await-in-loop
+            // await new Promise(res => setTimeout(res, 15000));
             // eslint-disable-next-line no-await-in-loop
             await collector.postLoad();
             log(`${collector.id()} postLoad took ${postLoadTimer.getElapsedTime()}s`);

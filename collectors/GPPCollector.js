@@ -103,18 +103,24 @@ class GPPCollector extends BaseCollector {
             } catch{
                 console.log("Unable to scroll to the bottom of the page");
             }
-            // console.log("Done scrolling to the bottom of the page");
 
 
-            // // Wait for 20 seconds and print time for reference
-            // console.log("Waiting before starting GPP scan...", new Date().toLocaleTimeString("en-US", {hour12: false}));
-    
-            // // await new Promise(resolve => setTimeout(resolve, 5000));
+            console.log("Done scrolling to the bottom of the page");
+
+            // Wait for 20 seconds and print time for reference
+            // console.log(
+            //     "Waiting before starting GPP scan...",
+            //     new Date().toLocaleTimeString("en-US", {hour12: false})
+            // );
+
+            // await new Promise(resolve => setTimeout(resolve, 5000));
             // await page.waitForTimeout(20000);        //using this approach to be consistent with TRC
-    
-            // //print current time with seconds for reference
-            // console.log("Done waiting, starting GPP scan...", new Date().toLocaleTimeString("en-US", {hour12: false}));
 
+            //print current time with seconds for reference
+            console.log(
+                "Done waiting, starting GPP scan...",
+                new Date().toLocaleTimeString("en-US", {hour12: false})
+            );
 
             // Callback to store tcData in scanResult
             // @ts-ignore
@@ -149,12 +155,12 @@ class GPPCollector extends BaseCollector {
 
             //             await optOutOneTrust(page);
             //         } else if (cmpData[0].name === "quantcast") {
-            //             //if the CMP is Quantcast, we follow the Quantcast specific logic based on: 
+            //             //if the CMP is Quantcast, we follow the Quantcast specific logic based on:
             //             console.log("Quantcast CMP detected");
 
             //             await optOutQuantcast(page);
             //         } else if (cmpData[0].name === "Cybotcookiebot") {
-            //             //if the CMP is CookieBot, we follow the CookieBot specific logic based on: https://www.cookiebot.com/en/developer/ 
+            //             //if the CMP is CookieBot, we follow the CookieBot specific logic based on: https://www.cookiebot.com/en/developer/
             //             console.log("CookieBot CMP detected");
 
             //             await optOutCookieBot(page);
@@ -236,18 +242,20 @@ class GPPCollector extends BaseCollector {
 
             console.log("CMP data retrieved by GPP collector:", cmpData);
 
-            // //Scroll to the top of the page
-            // console.log("Scrolling to the top of the page");
-            // await page.evaluate(async() => {
-            //     window.scrollTo(0, 0);
-            //     await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds at the top
-            // });
+            try {
+                console.log("Scrolling to the top of the page");
+                await page.evaluate(() => {
+                    window.scrollTo(0, 0);
+                });
+            } catch {
+                console.log("Failed to scroll to top of the page.");
+            }
+            //Scroll to the top of the page
 
-            // //Wait for 5 seconds
+            //Wait for 5 seconds
             // console.log("Waiting for 5 seconds at the end.");
-            // await page.waitForTimeout(5000);
+            // // await page.waitForTimeout(5000);
             // console.log("Done waiting for 5 seconds at the end.");
-
         }
         this.pendingScan.resolve();
         this.scanResult = {
@@ -261,19 +269,9 @@ class GPPCollector extends BaseCollector {
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
         };
         // console.log('Scan result:', this.scanResult);
-       
-        
     }
 
     getData() {
-        // await options.page.waitForTimeout(5000);
-        // scroll to the top of the page
-        // await scrollToTop(options.page);
-        console.log("Scrolling to the top of the page");
-        // await options.page.evaluate(() => {
-        //     window.scrollTo(0, 0);
-        // });
-
         return this.scanResult;
     }
 }
