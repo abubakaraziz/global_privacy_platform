@@ -96,20 +96,24 @@ class GPPCollector extends BaseCollector {
             //scroll to the bottom of the page
 
             // console.log("Scrolling to the bottom of the page");
-            await page.evaluate(() => {
-                window.scrollTo(0, document.body.scrollHeight);
-            });
+            try {
+                await page.evaluate(() => {
+                    window.scrollTo(0, document.body.scrollHeight);
+                });
+            } catch{
+                console.log("Unable to scroll to the bottom of the page");
+            }
             // console.log("Done scrolling to the bottom of the page");
 
 
-            // Wait for 20 seconds and print time for reference
-            console.log("Waiting before starting GPP scan...", new Date().toLocaleTimeString("en-US", {hour12: false}));
+            // // Wait for 20 seconds and print time for reference
+            // console.log("Waiting before starting GPP scan...", new Date().toLocaleTimeString("en-US", {hour12: false}));
     
-            // await new Promise(resolve => setTimeout(resolve, 5000));
-            await page.waitForTimeout(20000);        //using this approach to be consistent with TRC
+            // // await new Promise(resolve => setTimeout(resolve, 5000));
+            // await page.waitForTimeout(20000);        //using this approach to be consistent with TRC
     
-            //print current time with seconds for reference
-            console.log("Done waiting, starting GPP scan...", new Date().toLocaleTimeString("en-US", {hour12: false}));
+            // //print current time with seconds for reference
+            // console.log("Done waiting, starting GPP scan...", new Date().toLocaleTimeString("en-US", {hour12: false}));
 
 
             // Callback to store tcData in scanResult
@@ -232,17 +236,17 @@ class GPPCollector extends BaseCollector {
 
             console.log("CMP data retrieved by GPP collector:", cmpData);
 
-            //Scroll to the top of the page
-            console.log("Scrolling to the top of the page");
-            await page.evaluate(async() => {
-                window.scrollTo(0, 0);
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds at the top
-            });
+            // //Scroll to the top of the page
+            // console.log("Scrolling to the top of the page");
+            // await page.evaluate(async() => {
+            //     window.scrollTo(0, 0);
+            //     await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 seconds at the top
+            // });
 
-            //Wait for 5 seconds
-            console.log("Waiting for 5 seconds at the end.");
-            await page.waitForTimeout(5000);
-            console.log("Done waiting for 5 seconds at the end.");
+            // //Wait for 5 seconds
+            // console.log("Waiting for 5 seconds at the end.");
+            // await page.waitForTimeout(5000);
+            // console.log("Done waiting for 5 seconds at the end.");
 
         }
         this.pendingScan.resolve();

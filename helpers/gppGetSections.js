@@ -40,8 +40,8 @@ const GPPgetSections = async(page, gppObject) => {
             }
         }
         return getSections; // Return the array of sections
-    } catch (error) {
-        console.error('Error checking for sections:', error);
+    } catch{
+        console.error('Error checking for sections');
         return null;
     }
 };

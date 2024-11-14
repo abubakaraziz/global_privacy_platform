@@ -40,8 +40,8 @@ const callGPPhasSections = async (page, gppObject) => {
             }
         }
         return hasSections; // Return the array of sections
-    } catch (error) {
-        console.error('Error checking for sections:', error);
+    } catch{
+        console.error('Error checking for sections');
         return null;
     }
 };

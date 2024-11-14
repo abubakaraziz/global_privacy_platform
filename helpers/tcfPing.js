@@ -27,8 +27,8 @@ const tcfPing = async page => {
             console.log('No TCF object retrieved.');
         }
         return tcfObject; // Return the retrieved object
-    } catch (error) {
-        console.error('Error calling TCF function:', error);
+    } catch{
+        console.error('Error calling TCF function');
         return null;
     }
 };
