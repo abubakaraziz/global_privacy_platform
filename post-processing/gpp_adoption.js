@@ -179,6 +179,7 @@ console.log(options);
  * @property {number} totalTime
  * @property {number} avgTime
  * @property {number} gppApiEntries
+ * @property {number} uspApiEntries
  */
 
 // Variables to hold aggregated results
@@ -189,12 +190,16 @@ let globalStats = {
     timeouts: 0,
     totalTime: 0,
     avgTime: 0,
-    gppApiEntries: 0
+    gppApiEntries: 0,
+    uspApiEntries: 0,
 };
 
 // Arrays to store URLs with corresponding non-empty API values
 /** @type {Array<{ url: string, gppObject: string[] }>} */
 let gppApiEntries = [];
+
+/** @type {Array<{ url: string, uspObject: string[] }>}*/
+let uspApiEntries = [];
 
 /**
  * Processes a single JSON file, updating global and CMP statistics.
@@ -223,6 +228,17 @@ function processFile(filePath) {
             });
             globalStats.gppApiEntries++;
         }
+
+        // Check if uspObjects exists and contains data
+        if (data && data.gpp && Array.isArray(data.gpp.uspString) && data.gpp.uspString.length > 0) {
+            const uspObject = data.gpp.uspString[0];
+            uspApiEntries.push({
+                url: initialUrl,
+                // @ts-ignore
+                uspObject
+            });
+            globalStats.uspApiEntries++;
+        }
     } catch (error) {
         console.error(`Error processing file ${filePath}: ${error.message}`);
         globalStats.failingFiles++;
@@ -243,7 +259,8 @@ const main = () => {
 
     const result = {
         global: globalStats,
-        gppApiEntries
+        gppApiEntries,
+        uspApiEntries
     };
 
     fs.writeFileSync(options.o, JSON.stringify(result, null, 2));

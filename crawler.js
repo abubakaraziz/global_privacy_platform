@@ -218,6 +218,18 @@ async function getSiteData(context, url, {
         }
     }
     
+    try {
+        await page.evaluate(() => {
+            // eslint-disable-next-line no-undef
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    } catch{
+        console.log("Unable to scroll to the bottom of the page");
+    }
+
+
+    console.log("Done scrolling to the bottom of the page");
+    
     console.log("Waiting for timeout before calling GPP postload");
     await page.waitForTimeout(15000);
 
@@ -232,6 +244,16 @@ async function getSiteData(context, url, {
         } catch (e) {
             log(chalk.yellow(`${collector.id()} postLoad failed`), chalk.gray(e.message), chalk.gray(e.stack));
         }
+    }
+
+    try {
+        console.log("Scrolling to the top of the page");
+        await page.evaluate(() => {
+            // eslint-disable-next-line no-undef
+            window.scrollTo(0, 0);
+        });
+    } catch {
+        console.log("Failed to scroll to top of the page.");
     }
 
     // give website a bit more time for things to settle
