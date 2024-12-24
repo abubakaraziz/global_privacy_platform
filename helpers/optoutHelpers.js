@@ -71,7 +71,7 @@ async function optOutQuantcast(page) {
     });
 }
 
-/**
+/** 
  * Cookiebot opt-out logic
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
