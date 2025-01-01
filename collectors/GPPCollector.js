@@ -122,15 +122,24 @@ class GPPCollector extends BaseCollector {
             //     new Date().toLocaleTimeString("en-US", {hour12: false})
             // );
 
-            // Callback to store tcData in scanResult
             // @ts-ignore
-            const updateScanResultWithEventData = tcData => {
-                this.scanResult.tcfEventListenerData.push(tcData);
-                // console.log('TCF event data added to scanResult:', tcData);
-            };
+            const tcfApiAvailable = await page.evaluate(() => typeof window.__tcfapi === 'function');
+            
+            if (tcfApiAvailable) {
+                console.log('TCF API is available on the window object');
 
-            // Add event listener defined above to listen for TCF events
-            await tcfEventListener(page, updateScanResultWithEventData);
+                // Callback to store tcData in scanResult
+                // @ts-ignore
+                const updateScanResultWithEventData = tcData => {
+                    this.scanResult.tcfEventListenerData.push(tcData);
+                    // console.log('TCF event data added to scanResult:', tcData);
+                };
+
+                // Add event listener defined above to listen for TCF events
+                await tcfEventListener(page, updateScanResultWithEventData);
+            } else {
+                console.warn('__tcfapi is not available on the window object');
+            }
 
             // //next step: try detecting CMPs and opting out of data sharing
             // try {

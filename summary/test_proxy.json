@@ -1,0 +1,294 @@
+{
+  "global": {
+    "validFiles": 55,
+    "failingFiles": 0,
+    "timeouts": 29,
+    "totalTime": null,
+    "avgTime": 0,
+    "gppApiEntries": 4,
+    "uspApiEntries": 7
+  },
+  "gppApiEntries": [
+    {
+      "url": "https://www.datemyage.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": null,
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "5:tcfcav1",
+          "7:usnat",
+          "8:usca",
+          "9:usva",
+          "10:usco",
+          "11:usut",
+          "12:usct",
+          "13:usfl",
+          "14:usmt",
+          "15:usor",
+          "16:ustx"
+        ],
+        "signalStatus": "ready",
+        "cmpId": 31,
+        "sectionList": [],
+        "applicableSections": [
+          -1
+        ],
+        "gppString": "DBAA",
+        "parsedSections": {}
+      }
+    },
+    {
+      "url": "https://www.fubo.tv/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loading",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "not ready",
+        "supportedAPIs": [],
+        "cmpId": 399,
+        "sectionList": [
+          6,
+          7
+        ],
+        "applicableSections": [],
+        "gppString": "DBABzw~[object Object][object Object][object Object][object Object]~AAAAAAAAAAA.QA",
+        "parsedSections": {
+          "uspv1": {
+            "Version": {
+              "value": 1,
+              "bitStringLength": 6
+            },
+            "Notice": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "OptOutSale": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "LspaCovered": {
+              "value": 2,
+              "bitStringLength": 2
+            }
+          },
+          "usnatv1": {
+            "Version": {
+              "value": 1,
+              "bitStringLength": 6
+            },
+            "SharingNotice": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "SaleOptOutNotice": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "SharingOptOutNotice": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "TargetedAdvertisingOptOutNotice": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "SensitiveDataProcessingOptOutNotice": {
+              "value": 0,
+              "bitStringLength": 2
+            },
+            "SensitiveDataLimitUseNotice": {
+              "value": 0,
+              "bitStringLength": 2
+            },
+            "SaleOptOut": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "SharingOptOut": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "TargetedAdvertisingOptOut": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "SensitiveDataProcessing": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "KnownChildSensitiveDataConsents": [
+              0,
+              0
+            ],
+            "PersonalDataConsents": {
+              "value": 0,
+              "bitStringLength": 2
+            },
+            "MspaCoveredTransaction": {
+              "value": 2,
+              "bitStringLength": 2
+            },
+            "MspaOptOutOptionMode": {
+              "value": 0,
+              "bitStringLength": 2
+            },
+            "MspaServiceProviderMode": {
+              "value": 0,
+              "bitStringLength": 2
+            },
+            "GpcSegmentType": 1,
+            "Gpc": false
+          }
+        }
+      }
+    },
+    {
+      "url": "https://www.humblebundle.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "visible",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "8:usca",
+          "9:usva",
+          "7:usnat",
+          "10:usco",
+          "12:usct",
+          "11:usut",
+          "2:tcfeuv2"
+        ],
+        "cmpId": 28,
+        "sectionList": [
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABLA~BVQVAAAABgA.QA",
+        "parsedSections": {
+          "usnat": [
+            {
+              "Version": 1,
+              "SharingNotice": 1,
+              "SaleOptOutNotice": 1,
+              "SharingOptOutNotice": 1,
+              "TargetedAdvertisingOptOutNotice": 1,
+              "SensitiveDataProcessingOptOutNotice": 0,
+              "SensitiveDataLimitUseNotice": 0,
+              "SaleOptOut": 1,
+              "SharingOptOut": 1,
+              "TargetedAdvertisingOptOut": 1,
+              "SensitiveDataProcessing": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "KnownChildSensitiveDataConsents": [
+                0,
+                0
+              ],
+              "PersonalDataConsents": 1,
+              "MspaCoveredTransaction": 2,
+              "MspaOptOutOptionMode": 0,
+              "MspaServiceProviderMode": 0,
+              "GpcSegmentType": 1,
+              "Gpc": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://www.space.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "disabled",
+        "signalStatus": "ready",
+        "supportedAPIs": [],
+        "cmpId": 6,
+        "sectionList": [],
+        "applicableSections": [
+          -1
+        ],
+        "gppString": "DBAA",
+        "parsedSections": {}
+      }
+    }
+  ],
+  "uspApiEntries": [
+    {
+      "url": "https://elements.envato.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    },
+    {
+      "url": "https://www.datemyage.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.fubo.tv/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1NNN"
+      }
+    },
+    {
+      "url": "https://www.gifi.fr/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.humblebundle.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YYY"
+      }
+    },
+    {
+      "url": "https://www.oloygeia.gr/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.space.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---",
+        "newUser": true,
+        "dateCreated": "2024-11-15T15:57:04.640Z"
+      }
+    }
+  ]
+}

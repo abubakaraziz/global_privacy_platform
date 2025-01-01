@@ -1,0 +1,298 @@
+{
+  "global": {
+    "validFiles": 170,
+    "failingFiles": 0,
+    "timeouts": 78,
+    "totalTime": null,
+    "avgTime": 0,
+    "gppApiEntries": 5,
+    "uspApiEntries": 11
+  },
+  "gppApiEntries": [
+    {
+      "url": "https://femina.hu/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "visible",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "6:uspv1",
+          "7:usnatv1",
+          "8:usca",
+          "9:usvav1",
+          "10:uscov1",
+          "11:usutv1",
+          "12:usctv1"
+        ],
+        "cmpId": 10,
+        "sectionList": [],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBAA",
+        "parsedSections": {}
+      }
+    },
+    {
+      "url": "https://metropol.hu/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "6:uspv1",
+          "7:usnatv1",
+          "8:usca",
+          "9:usvav1",
+          "10:uscov1",
+          "11:usutv1",
+          "12:usctv1"
+        ],
+        "cmpId": 10,
+        "sectionList": [
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABLA~BqgAAAAAAkA.QA",
+        "parsedSections": {
+          "usnatv1": {
+            "Version": 1,
+            "SharingNotice": 2,
+            "SaleOptOutNotice": 2,
+            "SharingOptOutNotice": 2,
+            "TargetedAdvertisingOptOutNotice": 2,
+            "SensitiveDataProcessingOptOutNotice": 0,
+            "SensitiveDataLimitUseNotice": 0,
+            "SaleOptOut": 0,
+            "SharingOptOut": 0,
+            "TargetedAdvertisingOptOut": 0,
+            "SensitiveDataProcessing": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "KnownChildSensitiveDataConsents": [
+              0,
+              0
+            ],
+            "PersonalDataConsents": 0,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 1,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
+          }
+        }
+      }
+    },
+    {
+      "url": "https://scitechdaily.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "ready",
+        "supportedAPIs": [],
+        "cmpId": 46,
+        "sectionList": [
+          6,
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABzw~1NNY~BqgAAAAAAgA",
+        "parsedSections": {
+          "uspv1": {
+            "Version": 1,
+            "Notice": "N",
+            "OptOutSale": "N",
+            "LspaCovered": "Y"
+          },
+          "usnatv1": {
+            "Version": 1,
+            "SharingNotice": 2,
+            "SaleOptOutNotice": 2,
+            "SharingOptOutNotice": 2,
+            "TargetedAdvertisingOptOutNotice": 2,
+            "SensitiveDataProcessingOptOutNotice": 0,
+            "SensitiveDataLimitUseNotice": 0,
+            "SaleOptOut": 0,
+            "SharingOptOut": 0,
+            "TargetedAdvertisingOptOut": 0,
+            "SensitiveDataProcessing": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "KnownChildSensitiveDataConsents": [
+              0,
+              0
+            ],
+            "PersonalDataConsents": 0,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 0,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
+          }
+        }
+      }
+    },
+    {
+      "url": "https://www.makeleio.gr/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "visible",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "6:uspv1",
+          "7:usnatv1",
+          "8:usca",
+          "9:usvav1",
+          "10:uscov1",
+          "11:usutv1",
+          "12:usctv1"
+        ],
+        "cmpId": 10,
+        "sectionList": [],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBAA",
+        "parsedSections": {}
+      }
+    },
+    {
+      "url": "https://www.wprost.pl/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "stub",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "not ready",
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "6:uspv1",
+          "7:usnatv1",
+          "8:usca",
+          "9:usvav1",
+          "10:uscov1",
+          "11:usutv1",
+          "12:usctv1"
+        ],
+        "cmpId": 10,
+        "sectionList": [],
+        "applicableSections": [
+          -1
+        ],
+        "gppString": "",
+        "parsedSections": {}
+      }
+    }
+  ],
+  "uspApiEntries": [
+    {
+      "url": "https://femina.hu/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://metropol.hu/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://scitechdaily.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1NNY"
+      }
+    },
+    {
+      "url": "https://www.havan.com.br/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    },
+    {
+      "url": "https://www.makeleio.gr/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.mytischtennis.de/",
+      "uspObject": {
+        "version": 1,
+        "uspString": ""
+      }
+    },
+    {
+      "url": "https://www.parfois.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    },
+    {
+      "url": "https://www.reverso.net/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.semrush.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1yn-"
+      }
+    },
+    {
+      "url": "https://www.wprost.pl/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.wroclaw.pl/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    }
+  ]
+}

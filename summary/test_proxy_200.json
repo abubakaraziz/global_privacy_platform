@@ -1,0 +1,429 @@
+{
+  "global": {
+    "validFiles": 103,
+    "failingFiles": 0,
+    "timeouts": 74,
+    "totalTime": null,
+    "avgTime": 0,
+    "gppApiEntries": 6,
+    "uspApiEntries": 11
+  },
+  "gppApiEntries": [
+    {
+      "url": "https://m.milannews.it/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "6:uspv1",
+          "7:usnatv1",
+          "8:usca",
+          "9:usvav1",
+          "10:uscov1",
+          "11:usutv1",
+          "12:usctv1"
+        ],
+        "cmpId": 10,
+        "sectionList": [
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABLA~BAAAAAAAAgA.QA",
+        "parsedSections": {
+          "usnatv1": {
+            "Version": 1,
+            "SharingNotice": 0,
+            "SaleOptOutNotice": 0,
+            "SharingOptOutNotice": 0,
+            "TargetedAdvertisingOptOutNotice": 0,
+            "SensitiveDataProcessingOptOutNotice": 0,
+            "SensitiveDataLimitUseNotice": 0,
+            "SaleOptOut": 0,
+            "SharingOptOut": 0,
+            "TargetedAdvertisingOptOut": 0,
+            "SensitiveDataProcessing": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "KnownChildSensitiveDataConsents": [
+              0,
+              0
+            ],
+            "PersonalDataConsents": 0,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 0,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
+          }
+        }
+      }
+    },
+    {
+      "url": "https://www.popularmechanics.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "disabled",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "8:usca",
+          "9:usva",
+          "7:usnat",
+          "10:usco",
+          "12:usct",
+          "11:usut",
+          "2:tcfeuv2"
+        ],
+        "cmpId": 28,
+        "sectionList": [
+          8
+        ],
+        "applicableSections": [
+          8
+        ],
+        "gppString": "DBABBg~BUoAAAKA.QA",
+        "parsedSections": {
+          "usca": {
+            "Version": 1,
+            "SaleOptOutNotice": 1,
+            "SharingOptOutNotice": 1,
+            "SensitiveDataLimitUseNotice": 0,
+            "SaleOptOut": 2,
+            "SharingOptOut": 2,
+            "SensitiveDataProcessing": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "KnownChildSensitiveDataConsents": [
+              0,
+              0
+            ],
+            "PersonalDataConsents": 2,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 0,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
+          }
+        }
+      }
+    },
+    {
+      "url": "https://www.rapidtables.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "usnat"
+        ],
+        "cmpId": 300,
+        "sectionList": [
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABL~BVQqAAAAAg",
+        "parsedSections": {
+          "usnat": [
+            {
+              "Version": 1,
+              "SharingNotice": 1,
+              "SaleOptOutNotice": 1,
+              "SharingOptOutNotice": 1,
+              "TargetedAdvertisingOptOutNotice": 1,
+              "SensitiveDataProcessingOptOutNotice": 0,
+              "SensitiveDataLimitUseNotice": 0,
+              "SaleOptOut": 2,
+              "SharingOptOut": 2,
+              "TargetedAdvertisingOptOut": 2,
+              "SensitiveDataProcessing": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "KnownChildSensitiveDataConsents": [
+                0,
+                0
+              ],
+              "PersonalDataConsents": 0,
+              "MspaCoveredTransaction": 2,
+              "MspaOptOutOptionMode": 0,
+              "MspaServiceProviderMode": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://www.updatemarts.com/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "usnat"
+        ],
+        "cmpId": 300,
+        "sectionList": [
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABL~BVQqAAAAAg",
+        "parsedSections": {
+          "usnat": [
+            {
+              "Version": 1,
+              "SharingNotice": 1,
+              "SaleOptOutNotice": 1,
+              "SharingOptOutNotice": 1,
+              "TargetedAdvertisingOptOutNotice": 1,
+              "SensitiveDataProcessingOptOutNotice": 0,
+              "SensitiveDataLimitUseNotice": 0,
+              "SaleOptOut": 2,
+              "SharingOptOut": 2,
+              "TargetedAdvertisingOptOut": 2,
+              "SensitiveDataProcessing": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "KnownChildSensitiveDataConsents": [
+                0,
+                0
+              ],
+              "PersonalDataConsents": 0,
+              "MspaCoveredTransaction": 2,
+              "MspaOptOutOptionMode": 0,
+              "MspaServiceProviderMode": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "url": "https://www.vi.nl/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": null,
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "5:tcfcav1",
+          "7:usnat",
+          "8:usca",
+          "9:usva",
+          "10:usco",
+          "11:usut",
+          "12:usct",
+          "13:usfl",
+          "14:usmt",
+          "15:usor",
+          "16:ustx"
+        ],
+        "signalStatus": "ready",
+        "cmpId": 31,
+        "sectionList": [],
+        "applicableSections": [
+          -1
+        ],
+        "gppString": "DBAA",
+        "parsedSections": {}
+      }
+    },
+    {
+      "url": "https://www.walesonline.co.uk/",
+      "gppObject": {
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "hidden",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "2:tcfeuv2",
+          "6:uspv1",
+          "7:usnatv1",
+          "8:usca",
+          "9:usvav1",
+          "10:uscov1",
+          "11:usutv1",
+          "12:usctv1"
+        ],
+        "cmpId": 10,
+        "sectionList": [
+          7
+        ],
+        "applicableSections": [
+          7
+        ],
+        "gppString": "DBABLA~BqgAAAAAAkA.QA",
+        "parsedSections": {
+          "usnatv1": {
+            "Version": 1,
+            "SharingNotice": 2,
+            "SaleOptOutNotice": 2,
+            "SharingOptOutNotice": 2,
+            "TargetedAdvertisingOptOutNotice": 2,
+            "SensitiveDataProcessingOptOutNotice": 0,
+            "SensitiveDataLimitUseNotice": 0,
+            "SaleOptOut": 0,
+            "SharingOptOut": 0,
+            "TargetedAdvertisingOptOut": 0,
+            "SensitiveDataProcessing": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "KnownChildSensitiveDataConsents": [
+              0,
+              0
+            ],
+            "PersonalDataConsents": 0,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 1,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
+          }
+        }
+      }
+    }
+  ],
+  "uspApiEntries": [
+    {
+      "url": "https://bwfworldtour.bwfbadminton.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    },
+    {
+      "url": "https://juegos.loteriasyapuestas.es/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    },
+    {
+      "url": "https://m.milannews.it/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://my.yahoo.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNN",
+        "isOathFirstParty": true,
+        "gpp": "DBABBg~BVoIgACY.QA",
+        "gppSid": "8",
+        "gdprApplies": false
+      }
+    },
+    {
+      "url": "https://www.iol.co.za/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.rapidtables.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNN"
+      }
+    },
+    {
+      "url": "https://www.redactie24.be/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.updatemarts.com/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNN"
+      }
+    },
+    {
+      "url": "https://www.vi.nl/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.walesonline.co.uk/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1---"
+      }
+    },
+    {
+      "url": "https://www.wroclaw.pl/",
+      "uspObject": {
+        "version": 1,
+        "uspString": "1YNY"
+      }
+    }
+  ]
+}
