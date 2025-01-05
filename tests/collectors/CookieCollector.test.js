@@ -16,6 +16,7 @@ assert.strictEqual(collector.normalizeDate(-1), undefined);
  */
 const cookies = [{
     name: 'uid',
+    value: '123',
     domain: 'example.com',
     path: '/test/',
     sameSite: 'Lax',
@@ -24,6 +25,7 @@ const cookies = [{
 },
 {
     name: 'session_id',
+    value: 'abc',
     domain: 'example.com',
     path: '/',
     sameSite: 'Strict',
@@ -58,6 +60,7 @@ collector.getData()
         assert.deepStrictEqual(data, [
             {
                 name: 'uid',
+                value: '123',
                 domain: 'example.com',
                 path: '/test/',
                 expires: 1577836800325,
@@ -66,6 +69,7 @@ collector.getData()
             },
             {
                 name: 'session_id',
+                value: 'abc',
                 domain: 'example.com',
                 path: '/',
                 expires: undefined,
