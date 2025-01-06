@@ -12,6 +12,20 @@ function addProtocolIfNeeded(url) {
 }
 
 /**
+ * Reads URLs from a file or directly from the config.
+ * @param {string|Array<string|{url:string, dataCollectors:Array<string>}>} urlConfig 
+ * @returns {Array<string|{url:string, dataCollectors:Array<string>}>}
+ */
+function getUrlsFromConfig(urlConfig) {
+    if (typeof urlConfig === 'string') {
+        // If it's a string, assume it's a filename and read the file
+        return fs.readFileSync(urlConfig).toString().split('\n').map(u => u.trim()).filter(u => u.length > 0);
+    }
+    // If it's already an array, return it as-is
+    return urlConfig;
+}
+
+/**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
  * 
  * @param {{config?: string, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
@@ -98,6 +112,10 @@ function figureOut(flags) {
         } else {
             crawlConfig.urls = cliUrls;
         }
+    } else if (crawlConfig.urls) {
+        crawlConfig.urls = getUrlsFromConfig(crawlConfig.urls);
+    } else {
+        throw new Error('No URLs provided in the flags or config!');
     }
     
 

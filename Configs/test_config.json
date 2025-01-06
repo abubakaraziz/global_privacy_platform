@@ -1,0 +1,23 @@
+{
+    "output": "./Crawls/test_config",
+    "logPath": "./log/test_config",
+    "crawlers": 4,
+    "maxLoadTimeMs": 30000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    
+    "dataCollectors": [
+        "requests",
+        "cookies",
+        "links",
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/10k.txt"
+}
