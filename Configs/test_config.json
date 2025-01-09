@@ -19,5 +19,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/10k.txt"
+    "urls": "Configs/URLS/5000_10k.txt"
 }
