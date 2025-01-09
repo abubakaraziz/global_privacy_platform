@@ -52,6 +52,12 @@ class LinkCollector extends BaseCollector {
         const linkUrlNoFragment = linkUrlStripped.split('#')[0];
         const pageUrlNoFragment = pageUrl.split('#')[0];
 
+        // Exclude mailto links
+        if (linkUrlStripped.startsWith('mailto:')) {
+            this._log(`Skipping mailto link: ${linkUrlStripped}`);
+            return false;
+        }
+
         // Ignore external links
         if (tld.getDomain(linkUrlStripped) !== pageDomain) {
             this._log(`Will skip the external link: ${linkUrlStripped}`);
