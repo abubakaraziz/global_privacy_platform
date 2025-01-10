@@ -1,6 +1,6 @@
 {
-    "output": "./Crawls/test_config",
-    "logPath": "./log/test_config",
+    "output": "./Crawls/link_test_config",
+    "logPath": "./log/link_test_config",
     "crawlers": 4,
     "maxLoadTimeMs": 30000,
     "extraExecutionTimeMs": 2500,
