@@ -17,5 +17,8 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/gpc_test.txt"
+    "urls": "Configs/URLS/gpc_test.txt",
+    "http_headers": {
+        "Sec-GPC": "1"
+    }
 }
