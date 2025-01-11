@@ -1,0 +1,21 @@
+{
+    "output": "./Crawls/gpc_test",
+    "logPath": "./log/gpc_test",
+    "crawlers": 4,
+    "maxLoadTimeMs": 30000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    
+    "dataCollectors": [
+        "apis",
+        "requests"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/gpc_test.txt"
+}
