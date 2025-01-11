@@ -162,10 +162,36 @@ async function getSiteData(context, url, {
     // Create a new page in a pristine context.
     const page = await context.newPage();
 
+    // Set up request interception to inject the GPC header
+    await page.setRequestInterception(true);
+
+    page.on('request', request => {
+        const headers = {
+            ...request.headers(),
+            'Sec-GPC': '1', // Add GPC signal to headers
+        };
+
+        // Checking the modified headers
+        console.log(headers);
+
+        // Continue the request with updated headers
+        request.continue({headers});
+    });
+
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
         page.evaluateOnNewDocument(runInEveryFrame);
     }
+
+    page.evaluateOnNewDocument(() => {
+        // eslint-disable-next-line prefer-reflect, no-undef
+        Object.defineProperty(navigator, 'globalPrivacyControl', {
+            value: true,
+            configurable: false,
+            enumerable: true,
+            writable: false,
+        });
+    });
 
     // We are creating CDP connection before page target is created, if we create it only after
     // new target is created we will miss some requests, API calls, etc.
