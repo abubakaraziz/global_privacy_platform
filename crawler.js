@@ -202,7 +202,21 @@ async function getSiteData(
         page.evaluateOnNewDocument(runInEveryFrame);
     }
 
-    page.evaluateOnNewDocument(overWriteGPP);       // Inject our own GPP implementation
+    /**
+     * @type {string[]}
+     */
+    let capturedLogs = [];
+
+    page.on("console", msg => {
+        let logMessage = msg.text();
+
+        //if the log message starts with "web_gpp_called: ", then we know it's the GPP data and we can push it to the captured_logs array
+        if (logMessage.startsWith("web_gpp_called: ")) {
+            capturedLogs.push(logMessage);
+        }
+    });
+
+    page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
 
     // We are creating CDP connection before page target is created, if we create it only after
     // new target is created we will miss some requests, API calls, etc.
@@ -320,6 +334,9 @@ async function getSiteData(
      * @type {Object<string, Object>}
      */
     const data = {};
+
+    //add the log data
+    data.capturedLogs = capturedLogs;
 
     for (let collector of collectors) {
         const getDataTimer = createTimer();
