@@ -58,7 +58,6 @@ program
  */
 async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectAPIs) {
     const startTime = new Date();
-    console.log("Injecting APIs in crawl-cli.js in run function: ", injectAPIs);
 
     reporters.forEach(reporter => {
         reporter.init({verbose, startTime, urls: inputUrls.length, logPath});
