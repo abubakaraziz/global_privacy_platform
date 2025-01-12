@@ -28,7 +28,7 @@ function getUrlsFromConfig(urlConfig) {
 /**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
  * 
- * @param {{config?: string, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
+ * @param {{config?: string, verbose?: boolean, injectAPIs?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
  * @returns {CrawlConfig}
  */
 function figureOut(flags) {
@@ -59,6 +59,12 @@ function figureOut(flags) {
     if (crawlConfig.disableAntiBot === undefined || flags.disableAntiBot !== undefined) {
         crawlConfig.disableAntiBot = Boolean(flags.disableAntiBot);
     }
+
+    //Inject APIs flag
+    if (crawlConfig.injectAPIs === undefined || flags.injectAPIs !== undefined) {
+        crawlConfig.injectAPIs = Boolean(flags.injectAPIs);
+    }
+
 
     // string/number settings
     if (flags.output) {
@@ -155,4 +161,5 @@ module.exports = {
  * @property {boolean} disableAntiBot
  * @property {number} maxLoadTimeMs
  * @property {number} extraExecutionTimeMs
+ * @property {boolean} injectAPIs       //new field
  */

@@ -70,7 +70,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {puppeteer.BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>, injectAPIs: boolean}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -87,6 +87,7 @@ async function getSiteData(
         maxLoadTimeMs,
         extraExecutionTimeMs,
         collectorFlags,
+        injectAPIs,
     }
 ) {
     const testStarted = Date.now();
@@ -207,16 +208,18 @@ async function getSiteData(
      */
     let capturedLogs = [];
 
-    page.on("console", msg => {
-        let logMessage = msg.text();
+    if (injectAPIs) {
+        page.on("console", msg => {
+            let logMessage = msg.text();
 
-        //if the log message starts with "web_gpp_called: ", then we know it's the GPP data and we can push it to the captured_logs array
-        if (logMessage.startsWith("web_gpp_called: ")) {
-            capturedLogs.push(logMessage);
-        }
-    });
+            //if the log message starts with "web_gpp_called: ", then we know it's the GPP data and we can push it to the captured_logs array
+            if (logMessage.startsWith("web_gpp_called: ")) {
+                capturedLogs.push(logMessage);
+            }
+        });
 
-    page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
+        page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
+    }
 
     // We are creating CDP connection before page target is created, if we create it only after
     // new target is created we will miss some requests, API calls, etc.
@@ -396,7 +399,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: puppeteer.BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: puppeteer.BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
@@ -430,6 +433,7 @@ module.exports = async (url, options) => {
                 maxLoadTimeMs,
                 extraExecutionTimeMs,
                 collectorFlags: options.collectorFlags,
+                injectAPIs: options.injectAPIs,
             }),
             maxTotalTimeMs
         );
