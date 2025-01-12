@@ -1,5 +1,5 @@
 {
-    "output": "./Crawls/test_config",
+    "output": "./data_gpp",
     "logPath": "./log/test_config",
     "crawlers": 4,
     "maxLoadTimeMs": 30000,
@@ -9,7 +9,7 @@
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": false,
-    "injectAPIs": false,
+    "injectAPIs": true,
     
     "dataCollectors": [
         "requests",
@@ -20,5 +20,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/5000_10k.txt"
+    "urls": "testing/urls.txt"
 }

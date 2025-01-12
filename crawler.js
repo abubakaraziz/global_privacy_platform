@@ -209,6 +209,7 @@ async function getSiteData(
     let capturedLogs = [];
 
     if (injectAPIs) {
+        console.log("Injecting custom APIs");
         page.on("console", msg => {
             let logMessage = msg.text();
 

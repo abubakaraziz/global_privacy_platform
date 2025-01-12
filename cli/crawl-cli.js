@@ -54,9 +54,11 @@ program
  * @param {number} maxLoadTimeMs
  * @param {number} extraExecutionTimeMs
  * @param {Object.<string, boolean>} collectorFlags
+ * @param {boolean} injectAPIs
  */
-async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags) {
+async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectAPIs) {
     const startTime = new Date();
+    console.log("Injecting APIs in crawl-cli.js in run function: ", injectAPIs);
 
     reporters.forEach(reporter => {
         reporter.init({verbose, startTime, urls: inputUrls.length, logPath});
@@ -174,6 +176,7 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
             maxLoadTimeMs,
             extraExecutionTimeMs,
             collectorFlags,
+            injectAPIs,
         });
         log(chalk.green('\n✅ Finished successfully.'));
     } catch(e) {
@@ -198,7 +201,7 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
         successes,
         failures,
         urls: inputUrls.length,
-        skipped: inputUrls.length - urls.length
+        skipped: inputUrls.length - urls.length,    //potentially add injectAPIs here too
     });
 }
 
@@ -257,5 +260,5 @@ if (!config.urls || !config.output) {
         return item;
     });
 
-    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.maxLoadTimeMs, config.extraExecutionTimeMs, collectorFlags);
+    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.maxLoadTimeMs, config.extraExecutionTimeMs, collectorFlags, config.injectAPIs);
 }
