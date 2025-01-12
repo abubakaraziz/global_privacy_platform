@@ -66,7 +66,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {puppeteer.BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>, injectHeaders: boolean}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -80,6 +80,7 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     collectorFlags,
+    injectHeaders
 }) {
     const testStarted = Date.now();
 
@@ -162,21 +163,41 @@ async function getSiteData(context, url, {
     // Create a new page in a pristine context.
     const page = await context.newPage();
 
-    // Set up request interception to inject the GPC header
-    await page.setRequestInterception(true);
+    // Using the injectHeaders flag to determine if we should inject the GPC header
+    if (injectHeaders) {
+        console.log('Injecting GPC header');
+        // Set up request interception to inject the GPC header
+        await page.setRequestInterception(true);
 
-    page.on('request', request => {
-        const headers = {
-            ...request.headers(),
-            'Sec-GPC': '1', // Add GPC signal to headers
-        };
+        page.on('request', request => {
+            const headers = {
+                ...request.headers(),
+                'Sec-GPC': '1', // Add GPC signal to headers
+            };
 
-        // Checking the modified headers
-        console.log(headers);
+            // Checking the modified headers
+            console.log(headers);
 
-        // Continue the request with updated headers
-        request.continue({headers});
-    });
+            // Continue the request with updated headers
+            request.continue({headers});
+        });
+    }
+
+    // // Set up request interception to inject the GPC header
+    // await page.setRequestInterception(true);
+
+    // page.on('request', request => {
+    //     const headers = {
+    //         ...request.headers(),
+    //         'Sec-GPC': '1', // Add GPC signal to headers
+    //     };
+
+    //     // Checking the modified headers
+    //     console.log(headers);
+
+    //     // Continue the request with updated headers
+    //     request.continue({headers});
+    // });
 
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
@@ -315,7 +336,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: puppeteer.BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: puppeteer.BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>, injectHeaders?: boolean}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
@@ -340,7 +361,8 @@ module.exports = async (url, options) => {
             runInEveryFrame: options.runInEveryFrame,
             maxLoadTimeMs,
             extraExecutionTimeMs,
-            collectorFlags: options.collectorFlags
+            collectorFlags: options.collectorFlags,
+            injectHeaders: options.injectHeaders
         }), maxTotalTimeMs);
     } catch(e) {
         log(chalk.red('Crawl failed'), e.message, chalk.gray(e.stack));

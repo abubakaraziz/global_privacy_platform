@@ -9,7 +9,7 @@
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": true,
-    
+    "injectHeaders": true,
     "dataCollectors": [
         "apis",
         "requests"
