@@ -66,7 +66,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {puppeteer.BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>, injectHeaders: boolean}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>, injectHeaders: boolean, httpHeaders: Object.<string,string>}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -80,7 +80,8 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     collectorFlags,
-    injectHeaders
+    injectHeaders,
+    httpHeaders
 }) {
     const testStarted = Date.now();
 
@@ -166,38 +167,9 @@ async function getSiteData(context, url, {
     // Using the injectHeaders flag to determine if we should inject the GPC header
     if (injectHeaders) {
         console.log('Injecting GPC header');
-        // Set up request interception to inject the GPC header
-        await page.setRequestInterception(true);
 
-        page.on('request', request => {
-            const headers = {
-                ...request.headers(),
-                'Sec-GPC': '1', // Add GPC signal to headers
-            };
-
-            // Checking the modified headers
-            console.log(headers);
-
-            // Continue the request with updated headers
-            request.continue({headers});
-        });
+        await page.setExtraHTTPHeaders(httpHeaders);
     }
-
-    // // Set up request interception to inject the GPC header
-    // await page.setRequestInterception(true);
-
-    // page.on('request', request => {
-    //     const headers = {
-    //         ...request.headers(),
-    //         'Sec-GPC': '1', // Add GPC signal to headers
-    //     };
-
-    //     // Checking the modified headers
-    //     console.log(headers);
-
-    //     // Continue the request with updated headers
-    //     request.continue({headers});
-    // });
 
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
@@ -336,7 +308,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: puppeteer.BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>, injectHeaders?: boolean}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: puppeteer.BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>, injectHeaders?: boolean, httpHeaders?: Object.<string,string>}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
@@ -362,7 +334,8 @@ module.exports = async (url, options) => {
             maxLoadTimeMs,
             extraExecutionTimeMs,
             collectorFlags: options.collectorFlags,
-            injectHeaders: options.injectHeaders
+            injectHeaders: options.injectHeaders,
+            httpHeaders: options.httpHeaders
         }), maxTotalTimeMs);
     } catch(e) {
         log(chalk.red('Crawl failed'), e.message, chalk.gray(e.stack));

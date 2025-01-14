@@ -18,7 +18,7 @@
         "cli"
     ],
     "urls": "Configs/URLS/gpc_test.txt",
-    "http_headers": {
+    "httpHeaders": {
         "Sec-GPC": "1"
     }
 }

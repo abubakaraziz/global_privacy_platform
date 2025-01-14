@@ -55,8 +55,9 @@ program
  * @param {number} extraExecutionTimeMs
  * @param {Object.<string, boolean>} collectorFlags
  * @param {boolean} injectHeaders
+ * @param {Object.<string, string>} httpHeaders
  */
-async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectHeaders) {
+async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectHeaders, httpHeaders) {
     const startTime = new Date();
 
     reporters.forEach(reporter => {
@@ -175,7 +176,8 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
             maxLoadTimeMs,
             extraExecutionTimeMs,
             collectorFlags,
-            injectHeaders
+            injectHeaders,
+            httpHeaders
         });
         log(chalk.green('\n✅ Finished successfully.'));
     } catch(e) {
@@ -206,6 +208,7 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
 
 // @ts-ignore
 const config = crawlConfig.figureOut(program);
+console.log(config);
 const collectorFlags = {
     autoconsentAction: program.autoconsentAction,
 };
@@ -259,5 +262,5 @@ if (!config.urls || !config.output) {
         return item;
     });
 
-    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.maxLoadTimeMs, config.extraExecutionTimeMs, collectorFlags, config.injectHeaders);
+    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.maxLoadTimeMs, config.extraExecutionTimeMs, collectorFlags, config.injectHeaders, config.httpHeaders);
 }

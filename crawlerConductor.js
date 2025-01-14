@@ -28,8 +28,9 @@ const MAX_NUMBER_OF_RETRIES = 2;
  * @param {number} extraExecutionTimeMs
  * @param {Object.<string, string>} collectorFlags
  * @param  {boolean} injectHeaders
+ * @param {Object.<string, string>} httpHeaders
  */
-async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectHeaders) {
+async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectHeaders, httpHeaders) {
     const url = new URL(urlString);
     /**
      * @type {function(...any):void} 
@@ -48,14 +49,15 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
         maxLoadTimeMs,
         extraExecutionTimeMs,
         collectorFlags,
-        injectHeaders
+        injectHeaders,
+        httpHeaders
     });
 
     dataCallback(url, data);
 }
 
 /**
- * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, boolean>, injectHeaders?: boolean}} options
+ * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, boolean>, injectHeaders?: boolean, httpHeaders?: Object.<string,string>}} options
  */
 module.exports = async options => {
     const deferred = createDeferred();
@@ -91,7 +93,7 @@ module.exports = async options => {
         log(chalk.cyan(`Processing entry #${Number(idx) + 1} (${urlString}).`));
         const timer = createTimer();
 
-        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.collectorFlags, options.injectHeaders);
+        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.collectorFlags, options.injectHeaders, options.httpHeaders);
 
         async.retry(MAX_NUMBER_OF_RETRIES, task, err => {
             if (err) {
