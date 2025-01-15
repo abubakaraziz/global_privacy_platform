@@ -208,7 +208,6 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
 
 // @ts-ignore
 const config = crawlConfig.figureOut(program);
-console.log(config);
 const collectorFlags = {
     autoconsentAction: program.autoconsentAction,
 };

@@ -164,27 +164,65 @@ async function getSiteData(context, url, {
     // Create a new page in a pristine context.
     const page = await context.newPage();
 
+    /**
+     * @type {string[]}
+     */
+    let capturedLogsGPC = [];
+
     // Using the injectHeaders flag to determine if we should inject the GPC header
     if (injectHeaders) {
         console.log('Injecting GPC header');
 
-        await page.setExtraHTTPHeaders(httpHeaders);
+        page.on("console", msg => {
+            let logMessage = msg.text();
+
+            //if the log message starts with "web_gpp_called: ", then we know it's the GPP data and we can push it to the captured_logs array
+            if (logMessage.startsWith("web_gpc_called: ")) {
+                capturedLogsGPC.push(logMessage);
+            }
+        });
+
+        // Checking if the length of the headers if >=1 before injecting the headers
+        if (Object.keys(httpHeaders).length >= 1) {
+            console.log('Injecting headers');
+
+            // Injecting the headers
+            await page.setExtraHTTPHeaders(httpHeaders);
+        }
+
+        // Injecting the GPC dom property
+        await page.evaluateOnNewDocument(() => {
+            // Custom GPC property injection with stack logging
+            // eslint-disable-next-line prefer-reflect, no-undef
+            Object.defineProperty(navigator, 'globalPrivacyControl', {
+                get() {
+                    // Capture and log the call stack whenever this property is accessed
+                    const stack = new Error().stack;
+                    console.log('web_gpc_called:', stack);
+    
+                    // Return the GPC value
+                    return true;
+                },
+                configurable: false,
+                enumerable: true,
+            });
+        });
+
+        // await page.evaluateOnNewDocument(() => {
+        //     // eslint-disable-next-line prefer-reflect, no-undef
+        //     Object.defineProperty(navigator, 'globalPrivacyControl', {
+        //         value: true,
+        //         configurable: false,
+        //         enumerable: true,
+        //         writable: false,
+        //     });
+        // });
     }
 
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
         page.evaluateOnNewDocument(runInEveryFrame);
     }
-
-    page.evaluateOnNewDocument(() => {
-        // eslint-disable-next-line prefer-reflect, no-undef
-        Object.defineProperty(navigator, 'globalPrivacyControl', {
-            value: true,
-            configurable: false,
-            enumerable: true,
-            writable: false,
-        });
-    });
 
     // We are creating CDP connection before page target is created, if we create it only after
     // new target is created we will miss some requests, API calls, etc.
@@ -255,6 +293,9 @@ async function getSiteData(context, url, {
      * @type {Object<string, Object>}
      */
     const data = {};
+
+    // Add the log data
+    data.capturedLogsGPC = capturedLogsGPC;
 
     for (let collector of collectors) {
         const getDataTimer = createTimer();

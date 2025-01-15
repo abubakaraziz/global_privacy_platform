@@ -1,7 +1,7 @@
 {
     "output": "./Crawls/gpc_test",
     "logPath": "./log/gpc_test",
-    "crawlers": 8,
+    "crawlers": 4,
     "maxLoadTimeMs": 30000,
     "extraExecutionTimeMs": 2500,
     "verbose": true,
@@ -9,6 +9,7 @@
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": true,
+    "proxyConfig": "socks5://localhost:11000",
     "injectHeaders": true,
     "dataCollectors": [
         "apis",
