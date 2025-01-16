@@ -4,6 +4,7 @@ const chalk = require('chalk').default;
 const {createTimer} = require('./helpers/timer');
 const wait = require('./helpers/wait');
 const tldts = require('tldts');
+const GPCDomSignal = require('./helpers/injectGPC');
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -184,39 +185,13 @@ async function getSiteData(context, url, {
 
         // Checking if the length of the headers if >=1 before injecting the headers
         if (Object.keys(httpHeaders).length >= 1) {
-            console.log('Injecting headers');
 
             // Injecting the headers
             await page.setExtraHTTPHeaders(httpHeaders);
         }
 
         // Injecting the GPC dom property
-        await page.evaluateOnNewDocument(() => {
-            // Custom GPC property injection with stack logging
-            // eslint-disable-next-line prefer-reflect, no-undef
-            Object.defineProperty(navigator, 'globalPrivacyControl', {
-                get() {
-                    // Capture and log the call stack whenever this property is accessed
-                    const stack = new Error().stack;
-                    console.log('web_gpc_called:', stack);
-    
-                    // Return the GPC value
-                    return true;
-                },
-                configurable: false,
-                enumerable: true,
-            });
-        });
-
-        // await page.evaluateOnNewDocument(() => {
-        //     // eslint-disable-next-line prefer-reflect, no-undef
-        //     Object.defineProperty(navigator, 'globalPrivacyControl', {
-        //         value: true,
-        //         configurable: false,
-        //         enumerable: true,
-        //         writable: false,
-        //     });
-        // });
+        await page.evaluateOnNewDocument(GPCDomSignal);
     }
 
     // optional function that should be run on every page (and subframe) in the browser context
