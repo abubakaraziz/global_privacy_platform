@@ -10,6 +10,7 @@ const callGPPgetSections = require("../helpers/gppGetSections");
 const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
+const gppEventListener = require("../helpers/gppEventListener");
 const CMPCollector = require("./CMPCollector");
 // const {
 //     optOutDidomi,
@@ -28,6 +29,7 @@ const CMPCollector = require("./CMPCollector");
  * @property {string[]} uspString
  * @property {string[]} tcfString
  * @property {string[]} tcfEventListenerData
+ * @property {string[]} gppEventListenerData
  */
 
 /**
@@ -59,6 +61,7 @@ class GPPCollector extends BaseCollector {
             uspString: [],
             tcfString: [],
             tcfEventListenerData: [],
+            gppEventListenerData: [],
         };
 
         //intialize the CMP collector as well
@@ -139,6 +142,25 @@ class GPPCollector extends BaseCollector {
                 await tcfEventListener(page, updateScanResultWithEventData);
             } else {
                 console.warn('__tcfapi is not available on the window object');
+            }
+
+            // @ts-ignore
+            const gppApiAvailable = await page.evaluate(() => typeof window.__gpp === 'function');
+
+            if (gppApiAvailable) {
+                console.log('GPP API is available on the window object');
+
+                // Callback to store gppData in scanResult
+                // @ts-ignore
+                const updateScanResultWithEventData = gppData => {
+                    this.scanResult.gppEventListenerData.push(gppData);
+                    console.log('GPP event data added to scanResult:', gppData);
+                };
+
+                // Add event listener defined above to listen for GPP events
+                await gppEventListener(page, updateScanResultWithEventData);
+            } else{
+                console.warn('__gpp is not available on the window object');
             }
 
             // //next step: try detecting CMPs and opting out of data sharing
@@ -250,21 +272,6 @@ class GPPCollector extends BaseCollector {
             }
 
             console.log("CMP data retrieved by GPP collector:", cmpData);
-
-            // try {
-            //     console.log("Scrolling to the top of the page");
-            //     await page.evaluate(() => {
-            //         window.scrollTo(0, 0);
-            //     });
-            // } catch {
-            //     console.log("Failed to scroll to top of the page.");
-            // }
-            //Scroll to the top of the page
-
-            //Wait for 5 seconds
-            // console.log("Waiting for 5 seconds at the end.");
-            // // await page.waitForTimeout(5000);
-            // console.log("Done waiting for 5 seconds at the end.");
         }
         this.pendingScan.resolve();
         this.scanResult = {
@@ -276,6 +283,7 @@ class GPPCollector extends BaseCollector {
             uspString: this.scanResult.uspString,
             tcfString: this.scanResult.tcfString,
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
+            gppEventListenerData: this.scanResult.gppEventListenerData,
         };
         // console.log('Scan result:', this.scanResult);
     }
