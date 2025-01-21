@@ -16,15 +16,17 @@ const overWriteGPP = `
                 "supportedAPIs": [
                     "6:uspv1",
                     "7:usnat",
-                    "8:usca"
+                    "8:usca",
+                    "9:usva"
                 ],
                 "sectionList": [
                     6,
                     7,
-                    8
+                    8,
+                    9
                 ],
-                "applicableSections": [6, 7, 8], 
-                "gppString": "DBABzYA~1YYN~BVVVVVVVVmA.YA~BVVFVVWY.YA",
+                "applicableSections": [6, 7, 8, 9], 
+                "gppString": "DBABzMA~1YYN~BVVVVVVVVmA.YA~BVVVVVWY.YA~BVVVVWY",
                 "parsedSections": {
                     "uspv1": "1YYN",
                     "usnat": {
@@ -66,7 +68,22 @@ const overWriteGPP = `
                         "MspaServiceProviderMode": 2,
                         "GpcSegmentType": 1,
                         "Gpc": true
-                    } 
+                    },
+                    "usva": {
+                        "Version": 1,
+                        "SharingNotice": 1,
+                        "SaleOptOutNotice": 1,
+                        "TargetedAdvertisingOptOutNotice": 1,
+                        "SaleOptOut": 1,
+                        "TargetedAdvertisingOptOut": 1,
+                        "SensitiveDataProcessing": [
+                            1, 1, 1, 1, 1, 1, 1, 1
+                        ],
+                        "KnownChildSensitiveDataConsents": 1,
+                        "MspaCoveredTransaction": 2,
+                        "MspaOptOutOptionMode": 1,
+                        "MspaServiceProviderMode": 2
+                    }
                 }
             };
 
