@@ -96,35 +96,6 @@ class GPPCollector extends BaseCollector {
         if (pages.length > 0) {
             const page = pages[0];
 
-            //scroll to the bottom of the page
-
-            // console.log("Scrolling to the bottom of the page");
-            // try {
-            //     await page.evaluate(() => {
-            //         window.scrollTo(0, document.body.scrollHeight);
-            //     });
-            // } catch{
-            //     console.log("Unable to scroll to the bottom of the page");
-            // }
-
-
-            // console.log("Done scrolling to the bottom of the page");
-
-            // Wait for 20 seconds and print time for reference
-            // console.log(
-            //     "Waiting before starting GPP scan...",
-            //     new Date().toLocaleTimeString("en-US", {hour12: false})
-            // );
-
-            // await new Promise(resolve => setTimeout(resolve, 5000));
-            // await page.waitForTimeout(20000);        //using this approach to be consistent with TRC
-
-            //print current time with seconds for reference
-            // console.log(
-            //     "Done waiting, starting GPP scan...",
-            //     new Date().toLocaleTimeString("en-US", {hour12: false})
-            // );
-
             // @ts-ignore
             const tcfApiAvailable = await page.evaluate(() => typeof window.__tcfapi === 'function');
             
