@@ -74,7 +74,46 @@ class GPPCollector extends BaseCollector {
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async addTarget(targetInfo) {
-        await this.cmpCollector.addTarget(targetInfo);
+
+        if (targetInfo.type !== 'page') {
+            console.warn(`Skipping non-page target: ${targetInfo.url}`);
+            return;
+        }
+    
+        const pages = await this.context.pages(); // Wait for pages to be available
+        if (pages.length === 0) {
+            console.error('No pages found in context yet');
+            return;
+        }
+        const page = pages[0];
+
+        //@ts-ignore
+        const updateTCFScanResult = tcData => {
+            this.scanResult.tcfEventListenerData.push(tcData);
+            // console.log('TCF event data added to scanResult:', tcData);
+        };
+
+        //@ts-ignore    
+        const updateGPPScanResult = gppData => {
+            this.scanResult.gppEventListenerData.push(gppData);
+            console.log("GPP event data added to scanResult:", gppData);
+        };
+
+
+        //@ts-ignore
+        await page.exposeFunction('handleTCFEventData', tcData => {
+            console.log('TCF Event Listener triggered:', tcData);
+            updateTCFScanResult(tcData);  // Call the onEventData callback with the event data
+        });
+
+
+        // Expose the callback function to the page context
+        // @ts-ignore
+        await page.exposeFunction('handleGPPEventData', gppData => {
+            updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
+        });
+    
+        console.log(`Script injected for target: ${targetInfo.url}`);
     }
 
     async postLoad() {
@@ -97,87 +136,30 @@ class GPPCollector extends BaseCollector {
             const page = pages[0];
 
             // @ts-ignore
-            const tcfApiAvailable = await page.evaluate(() => typeof window.__tcfapi === 'function');
-            
+            const tcfApiAvailable = await page.evaluate(() => typeof window.__tcfapi === "function");
+
             if (tcfApiAvailable) {
-                console.log('TCF API is available on the window object');
+                console.log("TCF API is available on the window object");
 
                 // Callback to store tcData in scanResult
-                // @ts-ignore
-                const updateScanResultWithEventData = tcData => {
-                    this.scanResult.tcfEventListenerData.push(tcData);
-                    // console.log('TCF event data added to scanResult:', tcData);
-                };
 
                 // Add event listener defined above to listen for TCF events
-                await tcfEventListener(page, updateScanResultWithEventData);
+                await tcfEventListener(page);
             } else {
-                console.warn('__tcfapi is not available on the window object');
+                console.warn("__tcfapi is not available on the window object");
             }
 
             // @ts-ignore
-            const gppApiAvailable = await page.evaluate(() => typeof window.__gpp === 'function');
+            const gppApiAvailable = await page.evaluate(() => typeof window.__gpp === "function");
 
             if (gppApiAvailable) {
-                console.log('GPP API is available on the window object');
-
-                // Callback to store gppData in scanResult
-                // @ts-ignore
-                const updateScanResultWithEventData = gppData => {
-                    this.scanResult.gppEventListenerData.push(gppData);
-                    console.log('GPP event data added to scanResult:', gppData);
-                };
+                console.log("GPP API is available on the window object");
 
                 // Add event listener defined above to listen for GPP events
-                await gppEventListener(page, updateScanResultWithEventData);
-            } else{
-                console.warn('__gpp is not available on the window object');
+                await gppEventListener(page);
+            } else {
+                console.warn("__gpp is not available on the window object");
             }
-
-            // //next step: try detecting CMPs and opting out of data sharing
-            // try {
-            //     //call the CMP collector postLoad
-            //     await this.cmpCollector.postLoad();
-
-            //     //get the data from the CMP collector
-            //     cmpData = await this.cmpCollector.getData();
-
-            //     console.log("CMP data retrieved by GPP collector:", cmpData);
-
-            //     if (cmpData.length > 0) {
-            //         //now that we have the CMP data, we can check if it belongs to one of our target CMPs
-            //         if (cmpData[0].name === "com_didomi.io") {
-            //             //if the CMP is Didomi, we follow the Didomi specific logic
-            //             console.log("Didomi CMP detected");
-
-            //             await optOutDidomi(page);
-            //         } else if (cmpData[0].name === "Onetrust") {
-            //             //if the CMP is OneTrust, we follow the OneTrust specific logic based on: https://developer.onetrust.com/onetrust/docs/javascript-api
-            //             console.log("OneTrust CMP detected");
-
-            //             await optOutOneTrust(page);
-            //         } else if (cmpData[0].name === "quantcast") {
-            //             //if the CMP is Quantcast, we follow the Quantcast specific logic based on:
-            //             console.log("Quantcast CMP detected");
-
-            //             await optOutQuantcast(page);
-            //         } else if (cmpData[0].name === "Cybotcookiebot") {
-            //             //if the CMP is CookieBot, we follow the CookieBot specific logic based on: https://www.cookiebot.com/en/developer/
-            //             console.log("CookieBot CMP detected");
-
-            //             await optOutCookieBot(page);
-            //         }
-            //     }
-            // } catch (error) {
-            //     console.error(
-            //         "Error while processing CMP data or opting out:",
-            //         error
-            //     );
-            // }
-
-            // Scroll to the bottom of the page to load all the content
-            // await page.waitForTimeout(2000);
-            // await scrollToBottom(page);
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
@@ -241,10 +223,20 @@ class GPPCollector extends BaseCollector {
             } else {
                 console.log("No TCF string retrieved.");
             }
-
             console.log("CMP data retrieved by GPP collector:", cmpData);
+            // //@ts-ignore
+            // const fetchCollectedData = async () => {
+            //     //@ts-ignore
+            //     const browserCollectedData = await page.evaluate(() => window.tcfEventData);
+            //     console.log("Browser collected data:", browserCollectedData);
+            //     // @ts-ignore
+            //     this.scanResult.tcfEventListenerData.push(browserCollectedData);
+            // };
+
+            // await fetchCollectedData();
         }
         this.pendingScan.resolve();
+
         this.scanResult = {
             cmpData,
             gppObjects,
@@ -263,5 +255,4 @@ class GPPCollector extends BaseCollector {
         return this.scanResult;
     }
 }
-
 module.exports = GPPCollector;
