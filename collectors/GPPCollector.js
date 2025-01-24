@@ -11,6 +11,7 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
+const oneTrustActiveGroups = require("../helpers/CMPConsentFunctions");
 const CMPCollector = require("./CMPCollector");
 // const {
 //     optOutDidomi,
@@ -30,6 +31,7 @@ const CMPCollector = require("./CMPCollector");
  * @property {string[]} tcfString
  * @property {string[]} tcfEventListenerData
  * @property {string[]} gppEventListenerData
+ * @property {string[]} OneTrustActiveGroups
  */
 
 /**
@@ -62,6 +64,7 @@ class GPPCollector extends BaseCollector {
             tcfString: [],
             tcfEventListenerData: [],
             gppEventListenerData: [],
+            OneTrustActiveGroups: []
         };
 
         //intialize the CMP collector as well
@@ -161,6 +164,18 @@ class GPPCollector extends BaseCollector {
                 console.warn("__gpp is not available on the window object");
             }
 
+            // Code for checking if OneTrust CMP is being used
+            // @ts-ignore
+            console.log("Checking for OneTrust CMP...");
+            const oneTrustGroups = await oneTrustActiveGroups(page);
+            if (oneTrustGroups) {
+                this.scanResult.OneTrustActiveGroups.push(oneTrustGroups);
+                console.log("OneTrust Active Groups retrieved:", oneTrustGroups);
+            } else {
+                console.log("No OneTrust Active Groups retrieved.");
+            }
+
+
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
 
@@ -223,17 +238,6 @@ class GPPCollector extends BaseCollector {
             } else {
                 console.log("No TCF string retrieved.");
             }
-            console.log("CMP data retrieved by GPP collector:", cmpData);
-            // //@ts-ignore
-            // const fetchCollectedData = async () => {
-            //     //@ts-ignore
-            //     const browserCollectedData = await page.evaluate(() => window.tcfEventData);
-            //     console.log("Browser collected data:", browserCollectedData);
-            //     // @ts-ignore
-            //     this.scanResult.tcfEventListenerData.push(browserCollectedData);
-            // };
-
-            // await fetchCollectedData();
         }
         this.pendingScan.resolve();
 
@@ -247,6 +251,7 @@ class GPPCollector extends BaseCollector {
             tcfString: this.scanResult.tcfString,
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
             gppEventListenerData: this.scanResult.gppEventListenerData,
+            OneTrustActiveGroups: this.scanResult.OneTrustActiveGroups
         };
         // console.log('Scan result:', this.scanResult);
     }
