@@ -35,16 +35,10 @@
 
 /**
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
- * @param {function} onEventData - Callback function to handle event data when the listener is triggered
  */
 /* eslint-disable no-undef */
-const tcfEventListener = async (page, onEventData) => {
+const tcfEventListener = async page => {
     try {
-        // Expose the callback function to the page context
-        // @ts-ignore
-        await page.exposeFunction('handleTCFEventData', tcData => {
-            onEventData(tcData);  // Call the onEventData callback with the event data
-        });
 
         // Add event listener to the page using __tcfapi
         await page.evaluate(() => {

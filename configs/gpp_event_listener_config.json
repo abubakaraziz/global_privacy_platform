@@ -1,0 +1,20 @@
+{
+    "output": "./Crawls/gpp_event_listener_config",
+    "logPath": "./log/gpp_event_listener_config",
+    "crawlers": 8,
+    "maxLoadTimeMs": 30000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    "proxyConfig": "socks5://localhost:11000",
+        "dataCollectors": [
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/gpp_event_listener.txt"
+}

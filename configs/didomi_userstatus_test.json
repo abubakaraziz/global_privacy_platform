@@ -1,0 +1,22 @@
+{
+    "output": "./Crawls/didomi_userstatus_test",
+    "logPath": "./log/didomi_userstatus_test",
+    "crawlers": 8,
+    "maxLoadTimeMs": 60000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    "dataCollectors": [
+        "requests",
+        "cookies",
+        "links",
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/didomi_urls.txt"
+}
