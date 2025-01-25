@@ -48,7 +48,7 @@ class BaseCollector {
  * @property {import('puppeteer').BrowserContext} context
  * @property {URL} url
  * @property {function(...any):void} log
- * @property {Object.<string, string>} collectorFlags
+ * @property {Object.<string, any>} collectorFlags
  */
 
 module.exports = BaseCollector;

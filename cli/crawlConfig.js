@@ -162,4 +162,5 @@ module.exports = {
  * @property {number} maxLoadTimeMs
  * @property {number} extraExecutionTimeMs
  * @property {boolean} injectAPIs       //new field
+ * @property {string[]} consoleFilters  //new field
  */

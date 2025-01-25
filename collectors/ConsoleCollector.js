@@ -1,8 +1,10 @@
 const BaseCollector = require("./BaseCollector");
 
+/**
+ * @typedef { import('./BaseCollector').CollectorInitOptions } CollectorInitOptions
+ */
 
 class ConsoleCollector extends BaseCollector {
-    
     /**
      * @returns {string} - The ID of the collector.
      */
@@ -11,17 +13,18 @@ class ConsoleCollector extends BaseCollector {
     }
 
     /**
-     * @param {Object} options 
-     * @param {function} options.log
-     * @param {import('puppeteer').BrowserContext} options.context
+     * @param {CollectorInitOptions} options
      */
     init(options) {
         this._log = options.log;
         this.context = options.context;
+        this.filters = /** @type {string[]} */ (
+            options.collectorFlags.consoleFilters
+        );
 
         /**@type {string[]}  */
         this.capturedLogs = [];
-       
+
         // this.attachedPages = new Set();
     }
 
@@ -33,14 +36,14 @@ class ConsoleCollector extends BaseCollector {
      * @returns {Promise<void>} - A promise that resolves when the listener is attached.
      */
     async addTarget(targetInfo) {
-        if (targetInfo.type !== 'page') {
+        if (targetInfo.type !== "page") {
             return;
         }
 
         const pages = await this.context.pages();
 
         if (pages.length === 0) {
-            console.error('No pages found in context yet');
+            console.error("No pages found in context yet");
             return;
         }
         const page = pages[0];
@@ -54,7 +57,18 @@ class ConsoleCollector extends BaseCollector {
         //Capture all console messages
         page.on("console", msg => {
             const logMessage = msg.text();
-            this.capturedLogs.push(logMessage);
+
+            //if filters are passed only include the logs that start with one of the filters
+            if (this.filters?.length > 0) {
+                for (const filter of this.filters) {
+                    if (logMessage.startsWith(filter)) {
+                        this.capturedLogs.push(logMessage);
+                        break;
+                    }
+                }
+            } else {
+                this.capturedLogs.push(logMessage);
+            }
         });
 
         console.log(`Console listener attached to page: ${targetInfo.url}`);
@@ -64,6 +78,7 @@ class ConsoleCollector extends BaseCollector {
      * @returns {string[]} - An array of captured console log messages.
      */
     getData() {
+        console.log("console filter", this.filters);
         return this.capturedLogs;
     }
 }

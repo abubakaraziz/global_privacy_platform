@@ -53,7 +53,7 @@ program
  * @param {string} chromiumVersion
  * @param {number} maxLoadTimeMs
  * @param {number} extraExecutionTimeMs
- * @param {Object.<string, boolean>} collectorFlags
+ * @param {Object.<string, boolean | string[]>} collectorFlags
  * @param {boolean} injectAPIs
  */
 async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, maxLoadTimeMs, extraExecutionTimeMs, collectorFlags, injectAPIs) {
@@ -208,6 +208,7 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
 const config = crawlConfig.figureOut(program);
 const collectorFlags = {
     autoconsentAction: program.autoconsentAction,
+    consoleFilters: config.consoleFilters,
 };
 /**
  * @type {BaseCollector[]}

@@ -203,21 +203,8 @@ async function getSiteData(
         page.evaluateOnNewDocument(runInEveryFrame);
     }
 
-    /**
-     * @type {string[]}
-     */
-    let capturedLogs = [];
-
     if (injectAPIs) {
         console.log("Injecting custom APIs");
-        page.on("console", msg => {
-            let logMessage = msg.text();
-
-            //if the log message starts with "[Intercept]", then we know it's the GPP data and we can push it to the captured_logs array
-            if (logMessage.startsWith("[Intercept]")) {
-                capturedLogs.push(logMessage);
-            }
-        });
 
         await page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
     }
@@ -338,9 +325,6 @@ async function getSiteData(
      * @type {Object<string, Object>}
      */
     const data = {};
-
-    //add the log data
-    data.capturedLogs = capturedLogs;
 
     for (let collector of collectors) {
         const getDataTimer = createTimer();
