@@ -12,7 +12,6 @@ const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
 const {oneTrustActiveGroups} = require("../helpers/CMPConsentFunctions");
-const CMPCollector = require("./CMPCollector");
 // const {
 //     optOutDidomi,
 //     optOutOneTrust,
@@ -66,10 +65,6 @@ class GPPCollector extends BaseCollector {
             gppEventListenerData: [],
             OneTrustActiveGroups: []
         };
-
-        //intialize the CMP collector as well
-        this.cmpCollector = new CMPCollector();
-        this.cmpCollector.init(options);
     }
 
     /**
