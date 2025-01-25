@@ -213,15 +213,13 @@ async function getSiteData(
         page.on("console", msg => {
             let logMessage = msg.text();
 
-            //if the log message starts with "web_gpp_called: ", then we know it's the GPP data and we can push it to the captured_logs array
+            //if the log message starts with "[Intercept]", then we know it's the GPP data and we can push it to the captured_logs array
             if (logMessage.startsWith("[Intercept]")) {
                 capturedLogs.push(logMessage);
             }
         });
 
-        // await page.evaluateOnNewDocument(proxyFunction);
         await page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
-
     }
 
     // We are creating CDP connection before page target is created, if we create it only after
@@ -268,7 +266,6 @@ async function getSiteData(
     let timeout = false;
 
     try {
-        console.log("maxLoadTime in crawler.js", maxLoadTimeMs);
         await page.goto(url.toString(), {
             timeout: maxLoadTimeMs,
             waitUntil: "networkidle0",

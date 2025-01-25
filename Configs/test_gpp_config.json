@@ -1,5 +1,5 @@
 {
-    "output": "./data_gpp",
+    "output": "./data_gpp_throw",
     "logPath": "./log/test_config",
     "crawlers": 4,
     "maxLoadTimeMs": 30000,
@@ -10,11 +10,9 @@
     "emulateMobile": false,
     "disableAntiBot": false,
     "injectAPIs": true,
+    "proxyConfig": "socks5://localhost:11000",
     
     "dataCollectors": [
-        "requests",
-        "cookies",
-        "links",
         "gpp"
     ],
     "reporters": [

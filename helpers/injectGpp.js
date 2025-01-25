@@ -1,11 +1,9 @@
 const overWriteGPP = `
 (function() {
-  // Wrap your entire GPP logic in a function:
+  
   function customGPP(command, callback, parameter) {
-
-      //Maintain a counter for the listenerId to keep them unique
       let registeredListeners = {}; // Stores registered listeners with their listenerId
-      let nextListenerId = 1; // Incremental ID for new listeners
+      let nextListenerId = 1;       //Maintain a counter for the listenerId to keep them unique
 
       //Define the GPP data object
       let gppData = {
@@ -88,10 +86,6 @@ const overWriteGPP = `
           }
       };
 
-      //Log the call for debugging purposes
-      let stack = new Error().stack;
-      console.log("web_gpp_called: ", command, ", Arguments: ", arguments, ", full stack: ", stack);
-
       //Execute the Callback function according to the relevant command
       if (command === "ping") {
           callback(gppData, true);  // Pass the PingReturn object w/ success
@@ -136,19 +130,19 @@ const overWriteGPP = `
               callback(false, true);
           }
       } else {
-          // Invalid command
+          //Invalid command
           callback(null, false);
       }
 
       return 100; 
   }
 
-  // Now define a single property that intercepts reads/writes:
+  //Define a property that intercepts reads/writes:
   Object.defineProperty(window, "__gpp", {
     configurable: false,
 
     get() {
-      //Every time code accesses window.__gpp, we log
+      //Every time code accesses window.__gpp, we log the stack trace and return our custom implementation
       console.log("[Intercept] Reading window.__gpp", new Error().stack);
       return customGPP;
     },
