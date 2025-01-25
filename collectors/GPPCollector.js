@@ -11,7 +11,8 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const oneTrustActiveGroups = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus} = require("../helpers/CMPConsentFunctions");
+// const didomiUserStatus = require("../helpers/CMPConsentFunctions");
 const CMPCollector = require("./CMPCollector");
 // const {
 //     optOutDidomi,
@@ -32,6 +33,7 @@ const CMPCollector = require("./CMPCollector");
  * @property {string[]} tcfEventListenerData
  * @property {string[]} gppEventListenerData
  * @property {string[]} OneTrustActiveGroups
+ * @property {any} DidomiCurrentUserStatus
  */
 
 /**
@@ -64,7 +66,8 @@ class GPPCollector extends BaseCollector {
             tcfString: [],
             tcfEventListenerData: [],
             gppEventListenerData: [],
-            OneTrustActiveGroups: []
+            OneTrustActiveGroups: [],
+            DidomiCurrentUserStatus: [],
         };
 
         //intialize the CMP collector as well
@@ -175,6 +178,17 @@ class GPPCollector extends BaseCollector {
                 console.log("No OneTrust Active Groups retrieved.");
             }
 
+            // Checking for the Didomi CMP and retriving the consent onject
+            // @ts-ignore
+            console.log("Checking for Didomi CMP...");
+            const didomiStatus = await didomiUserStatus(page);
+            if (didomiStatus) {
+                this.scanResult.DidomiCurrentUserStatus.push(didomiStatus);
+                console.log("Didomi Current User Status retrieved:", didomiStatus);
+            } else {
+                console.log("No Didomi Current User Status retrieved.");
+            }
+
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
@@ -251,7 +265,8 @@ class GPPCollector extends BaseCollector {
             tcfString: this.scanResult.tcfString,
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
             gppEventListenerData: this.scanResult.gppEventListenerData,
-            OneTrustActiveGroups: this.scanResult.OneTrustActiveGroups
+            OneTrustActiveGroups: this.scanResult.OneTrustActiveGroups,
+            DidomiCurrentUserStatus: this.scanResult.DidomiCurrentUserStatus,
         };
         // console.log('Scan result:', this.scanResult);
     }
