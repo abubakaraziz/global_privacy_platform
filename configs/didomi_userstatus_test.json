@@ -1,7 +1,7 @@
 {
-    "output": "./Crawls/onetrust_groups_test",
-    "logPath": "./log/onetrust_groups_test",
-    "crawlers": 4,
+    "output": "./Crawls/didomi_userstatus_test",
+    "logPath": "./log/didomi_userstatus_test",
+    "crawlers": 8,
     "maxLoadTimeMs": 60000,
     "extraExecutionTimeMs": 2500,
     "verbose": true,
@@ -18,5 +18,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/onetrust_urls.txt"
+    "urls": "Configs/URLS/didomi_urls.txt"
 }

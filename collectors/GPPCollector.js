@@ -11,7 +11,7 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const oneTrustActiveGroups = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups} = require("../helpers/CMPConsentFunctions");
 const CMPCollector = require("./CMPCollector");
 // const {
 //     optOutDidomi,

@@ -7,14 +7,11 @@ const oneTrustActiveGroups = async page => {
         const oneTrustActiveGroupsObject = await page.evaluate(() => new Promise(resolve => {
                 // Check if OneTrustActiveGroups exists on the window object
                 // @ts-ignore
-            if (typeof window.OnetrustActiveGroups !== 'string') {
-                console.log('OneTrustActiveGroups object not found or not a string');
-                resolve(null); // Resolve with null if OneTrustActiveGroups doesn't exist
-                return;
-            }
-                // Call the OneTrustActiveGroups object if it exists
+            if (typeof window.OnetrustActiveGroups === 'string') {
                 // @ts-ignore
-            resolve(window.OnetrustActiveGroups);
+                resolve(window.OnetrustActiveGroups);
+            }
+            resolve(null);
         }));
         if (oneTrustActiveGroupsObject) {
             console.log('OneTrustActiveGroups object retrieved:', oneTrustActiveGroupsObject);
@@ -28,4 +25,42 @@ const oneTrustActiveGroups = async page => {
     }
 };
 
-module.exports = oneTrustActiveGroups;
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const didomiUserStatus = async page => {
+    try {
+        const didomiUserStatusObject = await page.evaluate(() => new Promise(resolve => {
+                // Check if DidomiUserStatus exists on the window object
+                // @ts-ignore
+            if (window.Didomi) {
+                console.log('Didomi CMP found');
+                // @ts-ignore
+                // Checking the the user status function exists
+                // @ts-ignore
+                if (typeof window.Didomi.getCurrentUserStatus === 'function') {
+                    // @ts-ignore
+                    resolve(window.Didomi.getCurrentUserStatus());
+                } else {
+                    console.log('Didomi.getCurrentUserStatus function not found');
+                    resolve(null);
+                }
+            } else {
+                console.log('Didomi CMP not found');
+                resolve(null);
+            }
+        }));
+        if (didomiUserStatusObject) {
+            console.log('Didomi object retrieved:', didomiUserStatusObject);
+        } else {
+            console.log('No Didomi object retrieved.');
+        }
+        return didomiUserStatusObject; // Return the retrieved object
+    } catch{
+        console.error('Error getting Didomi object');
+        return null;
+    }
+};
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus};
