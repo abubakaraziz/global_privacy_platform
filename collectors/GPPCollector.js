@@ -79,7 +79,6 @@ class GPPCollector extends BaseCollector {
     async addTarget(targetInfo) {
 
         if (targetInfo.type !== 'page') {
-            console.warn(`Skipping non-page target: ${targetInfo.url}`);
             return;
         }
     
