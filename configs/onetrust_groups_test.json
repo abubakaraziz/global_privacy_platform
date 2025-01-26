@@ -1,7 +1,7 @@
 {
     "output": "./Crawls/onetrust_groups_test",
     "logPath": "./log/onetrust_groups_test",
-    "crawlers": 4,
+    "crawlers": 8,
     "maxLoadTimeMs": 60000,
     "extraExecutionTimeMs": 2500,
     "verbose": true,
