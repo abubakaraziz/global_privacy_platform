@@ -5,22 +5,25 @@
 const oneTrustActiveGroups = async page => {
     try {
         const oneTrustActiveGroupsObject = await page.evaluate(() => new Promise(resolve => {
-                // Check if OneTrustActiveGroups exists on the window object
-                // @ts-ignore
-            if (typeof window.OnetrustActiveGroups === 'string') {
-                // @ts-ignore
+                    // Check if OneTrustActiveGroups exists on the window object
+                    // @ts-ignore
+            if (typeof window.OnetrustActiveGroups === "string") {
+                        // @ts-ignore
                 resolve(window.OnetrustActiveGroups);
             }
             resolve(null);
         }));
         if (oneTrustActiveGroupsObject) {
-            console.log('OneTrustActiveGroups object retrieved:', oneTrustActiveGroupsObject);
+            console.log(
+                "OneTrustActiveGroups object retrieved:",
+                oneTrustActiveGroupsObject
+            );
         } else {
-            console.log('No OneTrustActiveGroups object retrieved.');
+            console.log("No OneTrustActiveGroups object retrieved.");
         }
         return oneTrustActiveGroupsObject; // Return the retrieved object
-    } catch{
-        console.error('Error getting OneTrustActiveGroups object');
+    } catch {
+        console.error("Error getting OneTrustActiveGroups object");
         return null;
     }
 };
@@ -57,10 +60,51 @@ const didomiUserStatus = async page => {
             console.log('No Didomi object retrieved.');
         }
         return didomiUserStatusObject; // Return the retrieved object
-    } catch{
-        console.error('Error getting Didomi object');
+    } catch {
+        console.error("Error getting Didomi object");
         return null;
     }
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus};
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const cookieBotConsent = async page => {
+    try {
+        const cookieBotConsentObject = await page.evaluate(() => new Promise(resolve => {
+                    // Check if CookieBot exists on the window object
+                    // @ts-ignore
+            if (window.Cookiebot) {
+                console.log("CookieBot CMP found");
+                        // @ts-ignore
+
+                        // Checking if the consent object exists and retrieving it
+                        // @ts-ignore
+                if (typeof window.Cookiebot.consent === "object") {
+                            // @ts-ignore
+                    resolve(window.Cookiebot.consent);
+                } else {
+                    console.log("Cookiebot.consent object not found");
+                    resolve(null);
+                }
+            } else {
+                console.log("CookieBot CMP not found");
+                resolve(null);
+            }
+        }));
+
+        if (cookieBotConsentObject) {
+            console.log("CookieBot object retrieved:", cookieBotConsentObject);
+        } else {
+            console.log("No CookieBot object retrieved.");
+        }
+
+        return cookieBotConsentObject; // Return the retrieved object
+    } catch {
+        console.error("Error getting CookieBot object");
+        return null;
+    }
+};
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent};

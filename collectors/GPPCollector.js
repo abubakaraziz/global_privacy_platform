@@ -11,7 +11,7 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const {oneTrustActiveGroups, didomiUserStatus} = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent} = require("../helpers/CMPConsentFunctions");
 // const didomiUserStatus = require("../helpers/CMPConsentFunctions");
 const CMPCollector = require("./CMPCollector");
 // const {
@@ -32,8 +32,8 @@ const CMPCollector = require("./CMPCollector");
  * @property {string[]} tcfString
  * @property {string[]} tcfEventListenerData
  * @property {string[]} gppEventListenerData
- * @property {string[]} OneTrustActiveGroups
- * @property {any} DidomiCurrentUserStatus
+ * @property {any} cmpsPresent
+ * @property {any} cmpConsentObject
  */
 
 /**
@@ -66,8 +66,8 @@ class GPPCollector extends BaseCollector {
             tcfString: [],
             tcfEventListenerData: [],
             gppEventListenerData: [],
-            OneTrustActiveGroups: [],
-            DidomiCurrentUserStatus: [],
+            cmpsPresent: [],
+            cmpConsentObject: [],
         };
 
         //intialize the CMP collector as well
@@ -82,13 +82,13 @@ class GPPCollector extends BaseCollector {
     async addTarget(targetInfo) {
 
         if (targetInfo.type !== 'page') {
-            console.warn(`Skipping non-page target: ${targetInfo.url}`);
+            console.log(`Skipping non-page target: ${targetInfo.url}`);
             return;
         }
     
         const pages = await this.context.pages(); // Wait for pages to be available
         if (pages.length === 0) {
-            console.error('No pages found in context yet');
+            console.log('No pages found in context yet');
             return;
         }
         const page = pages[0];
@@ -119,7 +119,7 @@ class GPPCollector extends BaseCollector {
             updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
         });
     
-        console.log(`Script injected for target: ${targetInfo.url}`);
+        // console.log(`Script injected for target: ${targetInfo.url}`);
     }
 
     async postLoad() {
@@ -172,7 +172,9 @@ class GPPCollector extends BaseCollector {
             console.log("Checking for OneTrust CMP...");
             const oneTrustGroups = await oneTrustActiveGroups(page);
             if (oneTrustGroups) {
-                this.scanResult.OneTrustActiveGroups.push(oneTrustGroups);
+                //add the cmp name to consent object
+                this.scanResult.cmpsPresent.push("OneTrust");
+                this.scanResult.cmpConsentObject.push(oneTrustGroups);
                 console.log("OneTrust Active Groups retrieved:", oneTrustGroups);
             } else {
                 console.log("No OneTrust Active Groups retrieved.");
@@ -183,12 +185,28 @@ class GPPCollector extends BaseCollector {
             console.log("Checking for Didomi CMP...");
             const didomiStatus = await didomiUserStatus(page);
             if (didomiStatus) {
-                this.scanResult.DidomiCurrentUserStatus.push(didomiStatus);
+                this.scanResult.cmpsPresent.push("Didomi");
+                this.scanResult.cmpConsentObject.push(didomiStatus);
                 console.log("Didomi Current User Status retrieved:", didomiStatus);
             } else {
                 console.log("No Didomi Current User Status retrieved.");
             }
 
+            // Checking for the CookieBot CMP and retriving the consent onject
+            // @ts-ignore
+            console.log("Checking for CookieBot CMP...");
+            const cookieBotConsentObject = await cookieBotConsent(page);
+            if (cookieBotConsentObject) {
+                this.scanResult.cmpsPresent.push("CookieBot");
+                this.scanResult.cmpConsentObject.push(cookieBotConsentObject);
+                console.log("CookieBot Consent Object retrieved:", cookieBotConsentObject);
+            } else {
+                console.log("No CookieBot Consent Object retrieved.");
+            }
+
+            // Checking for the Osano CMP and retriving the consent onject
+            // @ts-ignore
+            console.log("Checking for Osano CMP...");
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
@@ -265,8 +283,8 @@ class GPPCollector extends BaseCollector {
             tcfString: this.scanResult.tcfString,
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
             gppEventListenerData: this.scanResult.gppEventListenerData,
-            OneTrustActiveGroups: this.scanResult.OneTrustActiveGroups,
-            DidomiCurrentUserStatus: this.scanResult.DidomiCurrentUserStatus,
+            cmpsPresent: this.scanResult.cmpsPresent,
+            cmpConsentObject: this.scanResult.cmpConsentObject,
         };
         // console.log('Scan result:', this.scanResult);
     }
