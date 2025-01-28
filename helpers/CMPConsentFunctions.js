@@ -107,4 +107,45 @@ const cookieBotConsent = async page => {
     }
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent};
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const osanoConsent = async page => {
+    try {
+        const osanoConsentObject = await page.evaluate(() => new Promise(resolve => {
+                    // Check if Osano exists on the window object
+                    // @ts-ignore
+            if (window.Osano) {
+                console.log("Osano CMP found");
+                        // @ts-ignore
+
+                        // Checking if the consent object exists and retrieving it
+                        // @ts-ignore
+                if (typeof window.Osano.cm.getConsent === 'function') {
+                            // @ts-ignore
+                    resolve(window.Osano.cm.getConsent());
+                } else {
+                    console.log("Osano.consent object not found");
+                    resolve(null);
+                }
+            } else {
+                console.log("Osano CMP not found");
+                resolve(null);
+            }
+        }));
+
+        if (osanoConsentObject) {
+            console.log("Osano object retrieved:", osanoConsentObject);
+        } else {
+            console.log("No Osano object retrieved.");
+        }
+
+        return osanoConsentObject; // Return the retrieved object
+    } catch {
+        console.error("Error getting Osano object");
+        return null;
+    }
+};
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent};

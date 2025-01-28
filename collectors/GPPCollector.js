@@ -11,15 +11,9 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent} = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent} = require("../helpers/CMPConsentFunctions");
 // const didomiUserStatus = require("../helpers/CMPConsentFunctions");
 const CMPCollector = require("./CMPCollector");
-// const {
-//     optOutDidomi,
-//     optOutOneTrust,
-//     optOutQuantcast,
-//     optOutCookieBot,
-// } = require("../helpers/optoutHelpers");
 
 /**
  * @typedef {Object} ScanResult
@@ -207,6 +201,14 @@ class GPPCollector extends BaseCollector {
             // Checking for the Osano CMP and retriving the consent onject
             // @ts-ignore
             console.log("Checking for Osano CMP...");
+            const osanoConsentObject = await osanoConsent(page);
+            if (osanoConsentObject) {
+                this.scanResult.cmpsPresent.push("Osano");
+                this.scanResult.cmpConsentObject.push(osanoConsentObject);
+                console.log("Osano Consent Object retrieved:", osanoConsentObject);
+            } else {
+                console.log("No Osano Consent Object retrieved.");
+            }
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);

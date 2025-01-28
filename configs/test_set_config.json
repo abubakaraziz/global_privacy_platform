@@ -1,0 +1,23 @@
+{
+    "output": "./Crawls/test_set_config",
+    "logPath": "./log/test_set_config",
+    "crawlers": 4,
+    "maxLoadTimeMs": 60000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    
+    "dataCollectors": [
+       "requests",
+        "cookies",
+        "links",
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/testing_set_urls.txt"
+}
