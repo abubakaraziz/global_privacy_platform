@@ -25,6 +25,13 @@ const VISUAL_DEBUG = false;
 // const VISUAL_DEBUG = true;
 
 /**
+ * @param {number} waitTime
+ */
+function sleep(waitTime) {
+    return new Promise(resolve => setTimeout(resolve, waitTime));
+}
+
+/**
  * @param {function(...any):void} log
  * @param {string} proxyHost
  * @param {string} executablePath path to chromium executable to use
@@ -231,7 +238,7 @@ async function getSiteData(context, url, {
     console.log("Done scrolling to the bottom of the page");
     
     console.log("Waiting for timeout before calling GPP postload");
-    await page.waitForTimeout(15000);
+    await sleep(20000);
 
     for (let collector of collectors) {
         const postLoadTimer = createTimer();
@@ -257,7 +264,7 @@ async function getSiteData(context, url, {
     }
 
     // give website a bit more time for things to settle
-    await page.waitForTimeout(extraExecutionTimeMs);
+    await sleep(extraExecutionTimeMs);
 
     const finalUrl = page.url();
     /**

@@ -1,9 +1,9 @@
 {
     "output": "./Crawls/test_set_config",
     "logPath": "./log/test_set_config",
-    "crawlers": 4,
-    "maxLoadTimeMs": 60000,
-    "extraExecutionTimeMs": 2500,
+    "crawlers": 8,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
     "verbose": true,
     "forceOverwrite": true,
     "filterOutFirstParty": false,
