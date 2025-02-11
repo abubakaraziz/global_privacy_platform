@@ -6,12 +6,12 @@ const wait = require('./helpers/wait');
 const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
 
-const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36';
+const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.110 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
 
 const DEFAULT_VIEWPORT = {
-    width: 1440,//px
-    height: 812//px
+    width: 1910,//px
+    height: 1020//px
 };
 const MOBILE_VIEWPORT = {
     width: 412,
@@ -52,8 +52,14 @@ function openBrowser(log, proxyHost, executablePath) {
         args: [
             // enable FLoC
             '--enable-blink-features=InterestCohortAPI',
-            '--enable-features="FederatedLearningOfCohorts:update_interval/10s/minimum_history_domain_size_required/1,FlocIdSortingLshBasedComputation,InterestCohortFeaturePolicy"',
-            '--js-flags="--async-stack-traces --stack-trace-limit 32"'
+            //'--enable-features="FederatedLearningOfCohorts:update_interval/10s/minimum_history_domain_size_required/1,FlocIdSortingLshBasedComputation,InterestCohortFeaturePolicy"',
+            '--js-flags="--async-stack-traces --stack-trace-limit 32"',
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--ignore-certificate-errors',
+            '--start-maximized',
+            '--disable-infobars',
+            '--no-first-run'
         ]
     };
     if (VISUAL_DEBUG) {
@@ -74,6 +80,7 @@ function openBrowser(log, proxyHost, executablePath) {
     if (executablePath) {
         // @ts-ignore there is no single object that encapsulates properties of both BrowserLaunchArgumentOptions and LaunchOptions that are allowed here
         args.executablePath = executablePath;
+        console.log(executablePath);
     }
 
     return puppeteer.launch(args);
@@ -338,8 +345,8 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 module.exports = async (url, options) => {
     const log = options.log || (() => {});
     const browser = options.browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
-    // Create a new incognito browser context.
-    const context = options.browserContext || await browser.createIncognitoBrowserContext();
+    // Create a new browser context.
+    const context = options.browserContext || await browser.defaultBrowserContext();
 
     let data = null;
 
