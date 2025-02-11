@@ -1,6 +1,6 @@
 {
-    "output": "cookiebot_test",
-    "logPath": "./log/didomi_userstatus_test",
+    "output": "Crawls/cookiebot_test",
+    "logPath": "./log/cookiebot_test",
     "crawlers": 8,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,

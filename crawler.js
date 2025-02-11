@@ -4,6 +4,7 @@ const chalk = require('chalk').default;
 const {createTimer} = require('./helpers/timer');
 const wait = require('./helpers/wait');
 const tldts = require('tldts');
+const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -29,6 +30,13 @@ const VISUAL_DEBUG = false;
  */
 function sleep(waitTime) {
     return new Promise(resolve => setTimeout(resolve, waitTime));
+}
+
+/**
+     * @param {number} maxValue
+     */
+function getRandomUpTo(maxValue) {
+    return Math.floor(Math.random() * maxValue);
 }
 
 /**
@@ -226,14 +234,14 @@ async function getSiteData(context, url, {
     }
     
     try {
-        await page.evaluate(() => {
-            // eslint-disable-next-line no-undef
-            window.scrollTo(0, document.body.scrollHeight);
+        // Using the puppetter-autoscroll-down package to scroll to the bottom of the page
+        await scrollPageToBottom(page, {
+            size: 700 + getRandomUpTo(200),
+            delay: 500 + getRandomUpTo(100),
         });
     } catch{
         console.log("Unable to scroll to the bottom of the page");
     }
-
 
     console.log("Done scrolling to the bottom of the page");
     
@@ -244,8 +252,6 @@ async function getSiteData(context, url, {
         const postLoadTimer = createTimer();
         try {
             // eslint-disable-next-line no-await-in-loop
-            // await new Promise(res => setTimeout(res, 15000));
-            // eslint-disable-next-line no-await-in-loop
             await collector.postLoad();
             log(`${collector.id()} postLoad took ${postLoadTimer.getElapsedTime()}s`);
         } catch (e) {
@@ -255,9 +261,9 @@ async function getSiteData(context, url, {
 
     try {
         console.log("Scrolling to the top of the page");
-        await page.evaluate(() => {
-            // eslint-disable-next-line no-undef
-            window.scrollTo(0, 0);
+        await scrollPageToTop(page, {
+            size: 700 + getRandomUpTo(200),
+            delay: 150 + getRandomUpTo(100),
         });
     } catch {
         console.log("Failed to scroll to top of the page.");
