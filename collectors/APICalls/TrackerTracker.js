@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const MAX_ASYNC_CALL_STACK_DEPTH = 32;// max depth of async calls tracked
-const allBreakpoints = require('./breakpoints.js');
+const allBreakpoints = require('./cookie_breakpoints.js');
 const URL = require('url').URL;
 const HTTP_URL_REGEX = /^https?:\/\//i;
 
