@@ -19,8 +19,6 @@ const INNER_LINKS_QUERY = `
 })();
 `;
 
-
-// const EXCLUDED_EXTS = [".jpg", ".jpeg", ".pdf", ".png"];
 const EXCLUDED_EXTS = [
     ".zip", ".7z", ".tar", ".gz", ".rpm", ".deb", ".iso", ".apk", ".jar", ".msi", ".dll", ".doc", ".docx", ".odt", ".pdf",
     ".rtf", ".tex", ".xls", ".xlsx", ".ppt", ".pptx", ".sql", ".mp3", ".ogg", ".wav", ".wma", ".bmp", ".gif", ".jpg", ".jpeg",
