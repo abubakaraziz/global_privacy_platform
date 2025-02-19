@@ -13,7 +13,8 @@
         "requests",
         "cookies",
         "links",
-        "gpp"
+        "gpp",
+        "apis"
     ],
     "reporters": [
         "cli"

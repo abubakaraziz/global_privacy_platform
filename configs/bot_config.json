@@ -1,7 +1,7 @@
 {
-    "output": "./Crawls/onetrust_groups_test",
-    "logPath": "./log/onetrust_groups_test",
-    "crawlers": 8,
+    "output": "./Crawls/bot_config",
+    "logPath": "./log/bot_config",
+    "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
     "verbose": true,
@@ -10,7 +10,7 @@
     "emulateMobile": false,
     "disableAntiBot": true,
     "dataCollectors": [
-        "requests",
+       "requests",
         "cookies",
         "links",
         "gpp",
@@ -19,5 +19,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/onetrust_urls.txt"
+    "urls": "Configs/URLS/bot_testing.txt"
 }

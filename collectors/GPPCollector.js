@@ -69,7 +69,7 @@ class GPPCollector extends BaseCollector {
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async addTarget(targetInfo) {
-
+        
         if (targetInfo.type !== 'page') {
             // console.log(`Skipping non-page target: ${targetInfo.url}`);
             return;

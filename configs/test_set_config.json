@@ -1,7 +1,7 @@
 {
     "output": "./Crawls/test_set_config",
     "logPath": "./log/test_set_config",
-    "crawlers": 8,
+    "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
     "verbose": true,
@@ -14,7 +14,8 @@
        "requests",
         "cookies",
         "links",
-        "gpp"
+        "gpp",
+        "apis"
     ],
     "reporters": [
         "cli"
