@@ -13,7 +13,6 @@ const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
 const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent} = require("../helpers/CMPConsentFunctions");
 // const didomiUserStatus = require("../helpers/CMPConsentFunctions");
-const CMPCollector = require("./CMPCollector");
 
 /**
  * @typedef {Object} ScanResult
@@ -63,10 +62,6 @@ class GPPCollector extends BaseCollector {
             cmpsPresent: [],
             cmpConsentObject: [],
         };
-
-        //intialize the CMP collector as well
-        this.cmpCollector = new CMPCollector();
-        this.cmpCollector.init(options);
     }
 
     /**
@@ -76,16 +71,17 @@ class GPPCollector extends BaseCollector {
     async addTarget(targetInfo) {
 
         if (targetInfo.type !== 'page') {
-            console.log(`Skipping non-page target: ${targetInfo.url}`);
+            // console.log(`Skipping non-page target: ${targetInfo.url}`);
             return;
         }
     
         const pages = await this.context.pages(); // Wait for pages to be available
         if (pages.length === 0) {
-            console.log('No pages found in context yet');
+            // console.log('No pages found in context yet');
             return;
         }
-        const page = pages[0];
+
+        const page = pages[1];
 
         //@ts-ignore
         const updateTCFScanResult = tcData => {
@@ -96,7 +92,7 @@ class GPPCollector extends BaseCollector {
         //@ts-ignore    
         const updateGPPScanResult = gppData => {
             this.scanResult.gppEventListenerData.push(gppData);
-            console.log("GPP event data added to scanResult:", gppData);
+            // console.log("GPP event data added to scanResult:", gppData);
         };
 
 
@@ -110,10 +106,11 @@ class GPPCollector extends BaseCollector {
         // Expose the callback function to the page context
         // @ts-ignore
         await page.exposeFunction('handleGPPEventData', gppData => {
+            console.log('GPP Event Listener triggered:', gppData);
             updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
         });
     
-        // console.log(`Script injected for target: ${targetInfo.url}`);
+        console.log(`Script injected for target: ${targetInfo.url}`);
     }
 
     async postLoad() {
@@ -133,7 +130,9 @@ class GPPCollector extends BaseCollector {
         const pages = await this.context.pages();
 
         if (pages.length > 0) {
-            const page = pages[0];
+            const page = pages[1];
+
+            await page.evaluate(() => {console.log("GPP Collector is running...");});
 
             // @ts-ignore
             const tcfApiAvailable = await page.evaluate(() => typeof window.__tcfapi === "function");
