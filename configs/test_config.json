@@ -1,20 +1,25 @@
-{
-    "output": "./Crawls/test_config",
-    "logPath": "./log/test_config",
-    "crawlers": 4,
-    "maxLoadTimeMs": 30000,
-    "extraExecutionTimeMs": 2500,
+{	
+	"output": "../opt_out_gpp/data/tests/default/",
+	"logPath": "../opt-out-gpp/logs/tests/default/",
+    "crawlers": 6,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
     "verbose": true,
-    "forceOverwrite": true,
+    "forceOverwrite": false,
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": true,
-    
     "dataCollectors": [
-        "links"
-    ],
+		"apis",
+		"requests",
+		"links",
+        "cookies",
+		"gpp"
+    ],  
+	"executablePath": "./chrome/chrome-linux64-chromefortesting-132.0.6834.110/chrome",
     "reporters": [
         "cli"
-    ],
-    "urls": "Configs/URLS/link_collector_test_random.txt"
+    ],  
+    "urls": "configs/URLS/test_2_websites.txt"
 }
+
