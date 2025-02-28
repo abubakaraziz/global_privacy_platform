@@ -148,4 +148,39 @@ const osanoConsent = async page => {
     }
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent};
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const usercentricsConsent = async page => {
+    try {
+        const usercentricsConsentObject = await page.evaluate(async () => {
+            // @ts-ignore
+            if (window.UC_UI) {
+                console.log("Usercentrics CMP found");
+                // @ts-ignore
+                const servicesInfo = await window.UC_UI.getServicesFullInfo();
+                // @ts-ignore
+                const allAccepted = window.UC_UI.areAllConsentsAccepted();
+                const object = {allAccepted, servicesInfo};
+                // console.log("Usercentrics object retrieved:", object);
+                return object;
+            }
+            console.log("Usercentrics CMP not found");
+            return null;
+        });
+      
+        if (usercentricsConsentObject) {
+            console.log("Usercentrics object retrieved.");
+        } else {
+            console.log("No Usercentrics object retrieved.");
+        }
+      
+        return usercentricsConsentObject;
+    } catch {
+        console.error("Error getting Usercentrics object");
+        return null;
+    }
+};
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent};
