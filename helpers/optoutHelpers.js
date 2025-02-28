@@ -7,12 +7,11 @@
 
 /* eslint-disable no-undef */
 async function optOutDidomi(page) {
-    console.log("Didomi CMP detected");
+    console.log("Checking for Didomi CMP");
     await page.evaluate(() => {
-        console.log("checking for didomi notice");
         // @ts-ignore
         if (window.Didomi && window.Didomi.notice.isVisible()) {
-            console.log("didomi banner visible, opting out");
+            console.log("Didomi banner visible, opting out");
             // @ts-ignore
             window.Didomi.setUserDisagreeToAll();
         } else {
@@ -26,11 +25,11 @@ async function optOutDidomi(page) {
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 async function optOutOneTrust(page) {
-    console.log("OneTrust CMP detected");
+    console.log("Checking for OneTrust CMP");
     await page.evaluate(() => {
-        console.log("Opting out of OneTrust");
         // @ts-ignore
         if (window.OneTrust) {
+            console.log("OneTrust CMP detected, opting out");
             // @ts-ignore
             // eslint-disable-next-line new-cap
             window.OneTrust.RejectAll();
@@ -44,29 +43,54 @@ async function optOutOneTrust(page) {
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 async function optOutQuantcast(page) {
-   
-    await page.evaluate(() => {
-        console.log("Opting out of Quantcast");
+    
+    //wait for a bit
+    await page.waitForTimeout(2000);
+    await page.evaluate(async () => {
+        console.log("Checking for Quantcast CMP");
+        
         const consentDialog = document.querySelector(".qc-cmp2-summary-buttons");
         if (consentDialog) {
+            console.log("Quantcast CMP consent banner found, opting out");
+            //wait for a bit
+            // @ts-ignore
+            await new Promise(resolve => setTimeout(resolve, 2000));
             const innerButtons = Array.from(consentDialog.querySelectorAll("button"));
+
+            console.log("Found buttons: ", innerButtons[0].textContent, innerButtons[1].textContent);
+
             const rejectButton = innerButtons.find(button => button.textContent.toLowerCase().includes("reject") ||
                     button.textContent.toLowerCase().includes("disagree"));
             if (rejectButton) {
                 console.log("Reject button clicked");
                 rejectButton.click();
             } else {        //if there isnt a reject button on main banner, look for a button that leads to more options in a sub-banner which should contain a Reject All button
-                const moreOptionsButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.includes('More options'));
+                
+                const moreOptionsButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.toLowerCase().includes('more options'));
                 if (moreOptionsButton) {
                     moreOptionsButton.click();
-                    const rejectAllButton = Array.from(document.querySelectorAll('button')).find(button => button.textContent.toLowerCase().includes('reject all'));
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    const newbuttons = Array.from(document.querySelectorAll('button'));
+                    console.log("Found buttons: ", newbuttons[0].textContent, newbuttons[1].textContent);
+
+                    const rejectAllButton = newbuttons.find(button => button.textContent.toLowerCase().includes('reject all'));
+                    
+                    //now, find and click the save and exit button 
+                    const saveAndExitButton = newbuttons.find(button => button.textContent.toLowerCase().includes('save and exit') || button.textContent.toLowerCase().includes('save & exit') || button.textContent.toLowerCase().includes('save'));
+                        
                     if (rejectAllButton) {
+                        console.log("found reject all button");
                         rejectAllButton.click();
+                    }
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    if (saveAndExitButton) {
+                        console.log("found save and exit button");
+                        saveAndExitButton.click();
                     }
                 }
             }
         } else {
-            console.log("Quantcast CMP consent banner not found");
+            console.log("Quantcast CMP or its consent banner not found");
         }
     });
 }
@@ -76,14 +100,15 @@ async function optOutQuantcast(page) {
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 async function optOutCookieBot(page) {
+    console.log("Checking for Cookiebot CMP");
     await page.evaluate(() => {
         // Precautionary check to see if the Cookie Consent framework is loaded and that submitCustomConsent is a function
         // @ts-ignore
         if (window.CookieConsent && typeof window.CookieConsent.submitCustomConsent === 'function') {
+            console.log("Cookiebot CMP detected, opting out");
             // @ts-ignore
             window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
             console.log("Opted out of Cookiebot");
-            
             //no need for verifying this atm as declined doesnt get updated on time even though it has often opted out successfully
             
             // setTimeout(() => {
@@ -102,4 +127,66 @@ async function optOutCookieBot(page) {
     });
 }
 
-module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot};
+/**
+ * Osano opt-out logic
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+async function optOutOsano(page) {
+    console.log("Checking for Osano CMP");
+    await page.waitForFunction(() => window.Osano.cm.showDoNotSell);
+    await page.evaluate(async () => {
+        // @ts-ignore
+        if (window.Osano) {
+            console.log("Osano CMP detected, opting out");
+            // @ts-ignore
+            if(window.Osano.cm.showDoNotSell) {
+                console.log("Osano CMP showDoNotSell function found");
+            }
+           
+                // @ts-ignore
+            await window.Osano.cm.showDoNotSell();
+            
+
+            const toggle = document.querySelector('#osano-cm-drawer-toggle--category_OPT_OUT');
+
+            if (toggle) {
+                console.log("Toggle switch found");
+                toggle.checked = false;
+                
+                const isOn = toggle.classList.contains("osano-cm-toggle__on");
+
+                if (isOn) {
+                    console.log("Toggle is ON, turning it OFF");
+                    toggle.click();
+                } else {
+                    console.log("Toggle is already OFF");
+                }
+            } else {
+                console.log("Toggle switch not found");
+            }
+
+        } else {
+            console.log("Osano CMP or its functions not found");
+        }
+    });
+}
+
+/**
+ * Usercentrics opt-out logic
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+async function optOutUserCentrics(page) {
+    console.log("Checking for UserCentrics CMP");
+    await page.evaluate(async () => {
+        // @ts-ignore
+        if (window.UC_UI) {
+            console.log("UserCentrics CMP detected, opting out");
+            // @ts-ignore
+            await window.UC_UI.denyAllConsents();
+        } else {
+            console.log("UserCentrics CMP or its functions not found");
+        }
+    });
+}
+
+module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot, optOutOsano, optOutUserCentrics};

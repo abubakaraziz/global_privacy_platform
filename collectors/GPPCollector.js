@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-await-in-loop */
+/* eslint-disable max-lines */
 const BaseCollector = require("./BaseCollector");
 const createDeferred = require("../helpers/deferred");
 // Loading in the helper uspPing function
@@ -11,7 +12,7 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent} = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent} = require("../helpers/CMPConsentFunctions");
 // const didomiUserStatus = require("../helpers/CMPConsentFunctions");
 
 /**
@@ -208,6 +209,17 @@ class GPPCollector extends BaseCollector {
             } else {
                 console.log("No Osano Consent Object retrieved.");
             }
+
+            console.log("Checking for Usercentrics CMP...");
+            const usercentricsConsentObject = await usercentricsConsent(page);
+            if (usercentricsConsentObject === null) {
+                console.log("No Usercentrics Consent Object retrieved.");
+            } else {
+                this.scanResult.cmpsPresent.push("Usercentrics");
+                this.scanResult.cmpConsentObject.push(usercentricsConsentObject);
+                console.log("Usercentrics Consent Object retrieved:", usercentricsConsentObject);
+            }
+            
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);

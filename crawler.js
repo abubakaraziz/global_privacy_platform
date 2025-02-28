@@ -8,6 +8,7 @@ const wait = require('./helpers/wait');
 const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
 const {TimeoutError} = require('puppeteer').errors;
+const {optOutOneTrust, optOutCookieBot, optOutDidomi, optOutQuantcast, optOutUserCentrics} = require('./helpers/optoutHelpers');
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -245,6 +246,36 @@ async function getSiteData(context, url, {
             throw e;
         }
     }
+
+    await sleep(2000); //wait to allow all CMPs and consent banners to load
+    
+    // Checking if CMPs are present on the page and opting out if they are
+    try {
+        await optOutOneTrust(page);
+    } catch {
+        console.error("Error opting out of OneTrust CMP");
+    }
+    try {
+        await optOutCookieBot(page);
+    } catch {
+        console.error("Error opting out of CookieBot CMP");
+    }
+    try {
+        await optOutDidomi(page);
+    } catch {
+        console.error("Error opting out of Didomi CMP");
+    }
+    try {
+        await optOutQuantcast(page);
+    } catch {
+        console.error("Error opting out of Quantcast CMP");
+    }
+    try {
+        await optOutUserCentrics(page);
+    } catch (error) {
+        console.error("Error opting out of UserCentrics CMP", error);
+    }
+
     
     try {
         // Using the puppetter-autoscroll-down package to scroll to the bottom of the page
