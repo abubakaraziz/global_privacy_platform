@@ -30,7 +30,7 @@ const callGPPgetField = async(page, fieldName) => {
         }
         return getField; // Return the retrieved object
     } catch{
-        console.error('Error calling GPP function');
+        console.log('Error calling GPP function in getField');
         return null;
     }
 };

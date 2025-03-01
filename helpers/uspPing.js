@@ -28,7 +28,7 @@ const uspPing = async page => {
         }
         return uspString; // Return the retrieved object
     } catch{
-        console.error('Error calling USP function');
+        console.log('Error calling USP function in Ping');
         return null;
     }
 };

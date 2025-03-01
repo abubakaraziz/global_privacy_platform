@@ -16,7 +16,6 @@ const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, u
 
 /**
  * @typedef {Object} ScanResult
- * @property {any[]} cmpData
  * @property {string[]} gppObjects
  * @property {{ api: any; hasSection: any; }[]} hasSections
  * @property {{ api: any; getSection: any; }[]} getSections
@@ -50,7 +49,6 @@ class GPPCollector extends BaseCollector {
         this.pendingScan = createDeferred();
         /** @type {ScanResult} */
         this.scanResult = {
-            cmpData: [],
             gppObjects: [],
             hasSections: [],
             getSections: [],
@@ -122,11 +120,6 @@ class GPPCollector extends BaseCollector {
         const getSections = [];
         const getFields = [];
 
-        /**
-         * @type {any[]}
-         */
-        let cmpData = [];
-
         const pages = await this.context.pages();
 
         if (pages.length > 0) {
@@ -168,7 +161,7 @@ class GPPCollector extends BaseCollector {
                 //add the cmp name to consent object
                 this.scanResult.cmpsPresent.push("OneTrust");
                 this.scanResult.cmpConsentObject.push(oneTrustGroups);
-                console.log("OneTrust Active Groups retrieved:", oneTrustGroups);
+                console.log("OneTrust Active Groups retrieved.");
             } else {
                 console.log("No OneTrust Active Groups retrieved.");
             }
@@ -180,7 +173,7 @@ class GPPCollector extends BaseCollector {
             if (didomiStatus) {
                 this.scanResult.cmpsPresent.push("Didomi");
                 this.scanResult.cmpConsentObject.push(didomiStatus);
-                console.log("Didomi Current User Status retrieved:", didomiStatus);
+                console.log("Didomi Current User Status retrieved.");
             } else {
                 console.log("No Didomi Current User Status retrieved.");
             }
@@ -285,7 +278,6 @@ class GPPCollector extends BaseCollector {
         this.pendingScan.resolve();
 
         this.scanResult = {
-            cmpData,
             gppObjects,
             hasSections,
             getSections,

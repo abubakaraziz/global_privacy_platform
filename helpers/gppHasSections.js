@@ -41,7 +41,7 @@ const callGPPhasSections = async (page, gppObject) => {
         }
         return hasSections; // Return the array of sections
     } catch{
-        console.error('Error checking for sections');
+        console.log('Could not do GPP hasSections');
         return null;
     }
 };

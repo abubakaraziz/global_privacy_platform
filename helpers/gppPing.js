@@ -28,7 +28,7 @@ const gppPing = async page => {
         }
         return gppObject; // Return the retrieved object
     } catch{
-        console.error('Error calling GPP function');
+        console.log('Error calling GPP function in Ping');
         return null;
     }
 };

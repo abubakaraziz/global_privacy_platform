@@ -4,26 +4,44 @@
 /* eslint-disable no-undef */
 const oneTrustActiveGroups = async page => {
     try {
-        const oneTrustActiveGroupsObject = await page.evaluate(() => new Promise(resolve => {
-                    // Check if OneTrustActiveGroups exists on the window object
-                    // @ts-ignore
-            if (typeof window.OnetrustActiveGroups === "string") {
-                        // @ts-ignore
-                resolve(window.OnetrustActiveGroups);
+        const oneTrustData = await page.evaluate(async () => {
+            const result = {};
+            //@ts-ignore
+            if(window.OneTrust) {
+                console.log("OneTrust CMP found");
+
+                //@ts-ignore
+                if (typeof window.OnetrustActiveGroups === "string") {
+                    //@ts-ignore
+                    result.activeGroups = window.OnetrustActiveGroups;
+                } else {
+                    result.activeGroups = null;
+                }
+                
+                //@ts-ignore
+                if (typeof window.OneTrust.GetDomainData === "function") {
+                    //@ts-ignore 
+                    // eslint-disable-next-line new-cap
+                    result.domainData = await window.OneTrust.GetDomainData();
+                } else {
+                    result.domainData = null;
+                }
+  
+                return result;
             }
-            resolve(null);
-        }));
-        if (oneTrustActiveGroupsObject) {
-            console.log(
-                "OneTrustActiveGroups object retrieved:",
-                oneTrustActiveGroupsObject
-            );
+            console.log("OneTrust CMP not found");
+            return null;
+        
+        });
+  
+        if (oneTrustData) {
+            console.log("OneTrust data retrieved.");
         } else {
-            console.log("No OneTrustActiveGroups object retrieved.");
+            console.log("No OneTrust data retrieved.");
         }
-        return oneTrustActiveGroupsObject; // Return the retrieved object
-    } catch {
-        console.error("Error getting OneTrustActiveGroups object");
+        return oneTrustData;
+    } catch (error) {
+        console.error("Error getting OneTrust data", error);
         return null;
     }
 };
