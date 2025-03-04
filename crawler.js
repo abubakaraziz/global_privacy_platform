@@ -39,7 +39,8 @@ function openBrowser(log, proxyHost, executablePath) {
             '--enable-blink-features=InterestCohortAPI',
             '--enable-features="FederatedLearningOfCohorts:update_interval/10s/minimum_history_domain_size_required/1,FlocIdSortingLshBasedComputation,InterestCohortFeaturePolicy"',
             '--js-flags="--async-stack-traces --stack-trace-limit 32"'
-        ]
+        ],
+        'headless': "new",
     };
     if (VISUAL_DEBUG) {
         args.headless = false;
@@ -177,8 +178,8 @@ async function getSiteData(context, url, {
         page.on("console", msg => {
             let logMessage = msg.text();
 
-            //if the log message starts with "web_gpp_called: ", then we know it's the GPP data and we can push it to the captured_logs array
-            if (logMessage.startsWith("web_gpc_called: ")) {
+            //if the log message starts with "web_gpp_called: " or "Attempted to overwite", then we know it's the GPP data and we can push it to the captured_logs array
+            if (logMessage.startsWith("web_gpc_called: ") || logMessage.startsWith("Attempted to overwrite globalPrivacyControl:")) {
                 capturedLogsGPC.push(logMessage);
             }
         });
