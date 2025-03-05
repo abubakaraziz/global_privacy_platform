@@ -96,7 +96,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -109,6 +109,7 @@ async function getSiteData(context, url, {
     runInEveryFrame,
     maxLoadTimeMs,
     extraExecutionTimeMs,
+    optOut,
     collectorFlags,
 }) {
     const testStarted = Date.now();
@@ -247,33 +248,36 @@ async function getSiteData(context, url, {
         }
     }
 
-    await sleep(2000); //wait to allow all CMPs and consent banners to load
+    if (optOut) {
+        console.log("Opting out of CMPs");
+        await sleep(2000); //wait to allow all CMPs and consent banners to load
     
-    // Checking if CMPs are present on the page and opting out if they are
-    try {
-        await optOutOneTrust(page);
-    } catch {
-        console.error("Error opting out of OneTrust CMP");
-    }
-    try {
-        await optOutCookieBot(page);
-    } catch {
-        console.error("Error opting out of CookieBot CMP");
-    }
-    try {
-        await optOutDidomi(page);
-    } catch {
-        console.error("Error opting out of Didomi CMP");
-    }
-    try {
-        await optOutQuantcast(page);
-    } catch {
-        console.error("Error opting out of Quantcast CMP");
-    }
-    try {
-        await optOutUserCentrics(page);
-    } catch (error) {
-        console.error("Error opting out of UserCentrics CMP", error);
+        // Checking if CMPs are present on the page and opting out if they are
+        try {
+            await optOutOneTrust(page);
+        } catch {
+            console.error("Error opting out of OneTrust CMP");
+        }
+        try {
+            await optOutCookieBot(page);
+        } catch {
+            console.error("Error opting out of CookieBot CMP");
+        }
+        try {
+            await optOutDidomi(page);
+        } catch {
+            console.error("Error opting out of Didomi CMP");
+        }
+        try {
+            await optOutQuantcast(page);
+        } catch {
+            console.error("Error opting out of Quantcast CMP");
+        }
+        try {
+            await optOutUserCentrics(page);
+        } catch (error) {
+            console.error("Error opting out of UserCentrics CMP", error);
+        }
     }
 
     
@@ -376,7 +380,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, collectorFlags?: Object.<string, string>}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
@@ -402,6 +406,7 @@ module.exports = async (url, options) => {
             runInEveryFrame: options.runInEveryFrame,
             maxLoadTimeMs,
             extraExecutionTimeMs,
+            optOut: options.optOut,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
     } catch(e) {
