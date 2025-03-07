@@ -128,50 +128,6 @@ async function optOutCookieBot(page) {
 }
 
 /**
- * Osano opt-out logic
- * @param {import('puppeteer').Page} page - The Puppeteer page instance.
- */
-async function optOutOsano(page) {
-    console.log("Checking for Osano CMP");
-    await page.waitForFunction(() => window.Osano.cm.showDoNotSell);
-    await page.evaluate(async () => {
-        // @ts-ignore
-        if (window.Osano) {
-            console.log("Osano CMP detected, opting out");
-            // @ts-ignore
-            if(window.Osano.cm.showDoNotSell) {
-                console.log("Osano CMP showDoNotSell function found");
-            }
-           
-                // @ts-ignore
-            await window.Osano.cm.showDoNotSell();
-            
-
-            const toggle = document.querySelector('#osano-cm-drawer-toggle--category_OPT_OUT');
-
-            if (toggle) {
-                console.log("Toggle switch found");
-                toggle.checked = false;
-                
-                const isOn = toggle.classList.contains("osano-cm-toggle__on");
-
-                if (isOn) {
-                    console.log("Toggle is ON, turning it OFF");
-                    toggle.click();
-                } else {
-                    console.log("Toggle is already OFF");
-                }
-            } else {
-                console.log("Toggle switch not found");
-            }
-
-        } else {
-            console.log("Osano CMP or its functions not found");
-        }
-    });
-}
-
-/**
  * Usercentrics opt-out logic
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
@@ -189,4 +145,4 @@ async function optOutUserCentrics(page) {
     });
 }
 
-module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot, optOutOsano, optOutUserCentrics};
+module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot, optOutUserCentrics};
