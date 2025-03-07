@@ -248,6 +248,7 @@ async function getSiteData(context, url, {
         }
     }
 
+    console.log("CMP Opt-out Flag: ", optOut);
     if (optOut) {
         console.log("Opting out of CMPs");
         await sleep(2000); //wait to allow all CMPs and consent banners to load

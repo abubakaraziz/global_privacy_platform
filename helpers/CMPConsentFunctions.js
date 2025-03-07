@@ -4,26 +4,44 @@
 /* eslint-disable no-undef */
 const oneTrustActiveGroups = async page => {
     try {
-        const oneTrustActiveGroupsObject = await page.evaluate(() => new Promise(resolve => {
-                    // Check if OneTrustActiveGroups exists on the window object
-                    // @ts-ignore
-            if (typeof window.OnetrustActiveGroups === "string") {
-                        // @ts-ignore
-                resolve(window.OnetrustActiveGroups);
+        const oneTrustData = await page.evaluate(async () => {
+            const result = {};
+            //@ts-ignore
+            if(window.OneTrust) {
+                console.log("OneTrust CMP found");
+
+                //@ts-ignore
+                if (typeof window.OnetrustActiveGroups === "string") {
+                    //@ts-ignore
+                    result.activeGroups = window.OnetrustActiveGroups;
+                } else {
+                    result.activeGroups = null;
+                }
+                
+                //@ts-ignore
+                if (typeof window.OneTrust.GetDomainData === "function") {
+                    //@ts-ignore 
+                    // eslint-disable-next-line new-cap
+                    result.domainData = await window.OneTrust.GetDomainData();
+                } else {
+                    result.domainData = null;
+                }
+  
+                return result;
             }
-            resolve(null);
-        }));
-        if (oneTrustActiveGroupsObject) {
-            console.log(
-                "OneTrustActiveGroups object retrieved:",
-                oneTrustActiveGroupsObject
-            );
+            console.log("OneTrust CMP not found");
+            return null;
+        
+        });
+  
+        if (oneTrustData) {
+            console.log("OneTrust data retrieved.");
         } else {
-            console.log("No OneTrustActiveGroups object retrieved.");
+            console.log("No OneTrust data retrieved.");
         }
-        return oneTrustActiveGroupsObject; // Return the retrieved object
-    } catch {
-        console.error("Error getting OneTrustActiveGroups object");
+        return oneTrustData;
+    } catch (error) {
+        console.error("Error getting OneTrust data", error);
         return null;
     }
 };
@@ -154,27 +172,28 @@ const osanoConsent = async page => {
 /* eslint-disable no-undef */
 const usercentricsConsent = async page => {
     try {
-        const usercentricsConsentObject = await page.evaluate(() => new Promise(resolve => {
-                    // Check if Usercentrics exists on the window object
-                    // @ts-ignore
+        const usercentricsConsentObject = await page.evaluate(async () => {
+            // @ts-ignore
             if (window.UC_UI) {
                 console.log("Usercentrics CMP found");
                 // @ts-ignore
-                const object = window.UC_UI.areAllConsentsAccepted();
-                console.log("Usercentrics object retrieved:", object);
-                resolve(object);
-            } else {
-                console.log("Usercentrics CMP not found");
-                resolve(null);
+                const servicesInfo = await window.UC_UI.getServicesFullInfo();
+                // @ts-ignore
+                const allAccepted = window.UC_UI.areAllConsentsAccepted();
+                const object = {allAccepted, servicesInfo};
+                // console.log("Usercentrics object retrieved:", object);
+                return object;
             }
-        }));
-
+            console.log("Usercentrics CMP not found");
+            return null;
+        });
+      
         if (usercentricsConsentObject) {
-            console.log("Usercentrics object retrieved:", usercentricsConsentObject);
+            console.log("Usercentrics object retrieved.");
         } else {
             console.log("No Usercentrics object retrieved.");
         }
-
+      
         return usercentricsConsentObject;
     } catch {
         console.error("Error getting Usercentrics object");

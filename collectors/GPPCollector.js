@@ -13,11 +13,9 @@ const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
 const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent} = require("../helpers/CMPConsentFunctions");
-// const didomiUserStatus = require("../helpers/CMPConsentFunctions");
 
 /**
  * @typedef {Object} ScanResult
- * @property {any[]} cmpData
  * @property {string[]} gppObjects
  * @property {{ api: any; hasSection: any; }[]} hasSections
  * @property {{ api: any; getSection: any; }[]} getSections
@@ -51,7 +49,6 @@ class GPPCollector extends BaseCollector {
         this.pendingScan = createDeferred();
         /** @type {ScanResult} */
         this.scanResult = {
-            cmpData: [],
             gppObjects: [],
             hasSections: [],
             getSections: [],
@@ -123,11 +120,6 @@ class GPPCollector extends BaseCollector {
         const getSections = [];
         const getFields = [];
 
-        /**
-         * @type {any[]}
-         */
-        let cmpData = [];
-
         const pages = await this.context.pages();
 
         if (pages.length > 0) {
@@ -169,7 +161,7 @@ class GPPCollector extends BaseCollector {
                 //add the cmp name to consent object
                 this.scanResult.cmpsPresent.push("OneTrust");
                 this.scanResult.cmpConsentObject.push(oneTrustGroups);
-                console.log("OneTrust Active Groups retrieved:", oneTrustGroups);
+                console.log("OneTrust Active Groups retrieved.");
             } else {
                 console.log("No OneTrust Active Groups retrieved.");
             }
@@ -181,7 +173,7 @@ class GPPCollector extends BaseCollector {
             if (didomiStatus) {
                 this.scanResult.cmpsPresent.push("Didomi");
                 this.scanResult.cmpConsentObject.push(didomiStatus);
-                console.log("Didomi Current User Status retrieved:", didomiStatus);
+                console.log("Didomi Current User Status retrieved.");
             } else {
                 console.log("No Didomi Current User Status retrieved.");
             }
@@ -217,9 +209,8 @@ class GPPCollector extends BaseCollector {
             } else {
                 this.scanResult.cmpsPresent.push("Usercentrics");
                 this.scanResult.cmpConsentObject.push(usercentricsConsentObject);
-                console.log("Usercentrics Consent Object retrieved:", usercentricsConsentObject);
+                console.log("Usercentrics Consent Object retrieved.");
             }
-            
 
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
@@ -287,7 +278,6 @@ class GPPCollector extends BaseCollector {
         this.pendingScan.resolve();
 
         this.scanResult = {
-            cmpData,
             gppObjects,
             hasSections,
             getSections,
