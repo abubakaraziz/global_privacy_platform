@@ -1,6 +1,6 @@
 {
-    "output": "./Crawls/didomi_userstatus_test",
-    "logPath": "./log/didomi_userstatus_test",
+    "output": "Crawls/combined_cmp_crawl",
+    "logPath": "./log/cookiebot_test",
     "crawlers": 8,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
@@ -20,5 +20,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/didomi_urls.txt"
+    "urls": "Configs/URLS/combined_cmp_urls.txt"
 }

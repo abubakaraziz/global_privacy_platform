@@ -1,5 +1,5 @@
 {
-    "output": "Crawls/cookiebot_test",
+    "output": "Crawls/cookiebot_test_default",
     "logPath": "./log/cookiebot_test",
     "crawlers": 8,
     "maxLoadTimeMs": 90000,
@@ -9,6 +9,7 @@
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": true,
+    "executablePath": "/Users/jawadsaeed/Downloads/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
     "dataCollectors": [
         "requests",
         "cookies",
