@@ -12,7 +12,7 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent} = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
 
 /**
  * @typedef {Object} ScanResult
@@ -210,6 +210,15 @@ class GPPCollector extends BaseCollector {
                 this.scanResult.cmpsPresent.push("Usercentrics");
                 this.scanResult.cmpConsentObject.push(usercentricsConsentObject);
                 console.log("Usercentrics Consent Object retrieved.");
+            }
+
+            console.log("Checking for Quantcast CMP...");
+            const quantCastPresent = await quantcastPresence(page);
+            if (quantCastPresent) {
+                console.log("Quantcast Consent Banner found.");
+                this.scanResult.cmpsPresent.push("Quantcast");
+            } else {
+                console.log("No Usercentrics Consent Object retrieved.");
             }
 
             console.log("Attempting to retrieve GPP objects...");

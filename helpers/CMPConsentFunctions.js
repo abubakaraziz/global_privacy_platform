@@ -41,7 +41,7 @@ const oneTrustActiveGroups = async page => {
         }
         return oneTrustData;
     } catch (error) {
-        console.error("Error getting OneTrust data", error);
+        console.log("Error getting OneTrust data", error);
         return null;
     }
 };
@@ -79,7 +79,7 @@ const didomiUserStatus = async page => {
         }
         return didomiUserStatusObject; // Return the retrieved object
     } catch {
-        console.error("Error getting Didomi object");
+        console.log("Error getting Didomi object");
         return null;
     }
 };
@@ -120,7 +120,7 @@ const cookieBotConsent = async page => {
 
         return cookieBotConsentObject; // Return the retrieved object
     } catch {
-        console.error("Error getting CookieBot object");
+        console.log("Error getting CookieBot object");
         return null;
     }
 };
@@ -161,7 +161,7 @@ const osanoConsent = async page => {
 
         return osanoConsentObject; // Return the retrieved object
     } catch {
-        console.error("Error getting Osano object");
+        console.log("Error getting Osano object");
         return null;
     }
 };
@@ -196,9 +196,34 @@ const usercentricsConsent = async page => {
       
         return usercentricsConsentObject;
     } catch {
-        console.error("Error getting Usercentrics object");
+        console.log("Error getting Usercentrics object");
         return null;
     }
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent};
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const quantcastPresence = async page => {
+    try {
+        const result = await page.evaluate(() => {
+            console.log("Checking for Quantcast CMP");
+            
+            const consentDialog = document.querySelector(".qc-cmp2-summary-buttons");
+            if (consentDialog) {
+                console.log("Quantcast CMP found");
+                return true;
+            }
+            console.log("Quantcast CMP not found");
+            return false;
+        });
+
+        return result;
+    } catch {
+        console.log("Error getting Quantcast object");
+        return false;
+    }
+};
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent, quantcastPresence};
