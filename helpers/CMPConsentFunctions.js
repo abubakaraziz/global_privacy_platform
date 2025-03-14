@@ -36,40 +36,7 @@ const oneTrustActiveGroups = async page => {
   
         if (oneTrustData) {
             console.log("OneTrust data retrieved.");
-        const oneTrustData = await page.evaluate(async () => {
-            const result = {};
-            //@ts-ignore
-            if(window.OneTrust) {
-                console.log("OneTrust CMP found");
-
-                //@ts-ignore
-                if (typeof window.OnetrustActiveGroups === "string") {
-                    //@ts-ignore
-                    result.activeGroups = window.OnetrustActiveGroups;
-                } else {
-                    result.activeGroups = null;
-                }
-                
-                //@ts-ignore
-                if (typeof window.OneTrust.GetDomainData === "function") {
-                    //@ts-ignore 
-                    // eslint-disable-next-line new-cap
-                    result.domainData = await window.OneTrust.GetDomainData();
-                } else {
-                    result.domainData = null;
-                }
-  
-                return result;
-            }
-            console.log("OneTrust CMP not found");
-            return null;
-        
-        });
-  
-        if (oneTrustData) {
-            console.log("OneTrust data retrieved.");
         } else {
-            console.log("No OneTrust data retrieved.");
             console.log("No OneTrust data retrieved.");
         }
         return oneTrustData;
