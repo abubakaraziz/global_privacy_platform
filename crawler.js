@@ -248,6 +248,8 @@ async function getSiteData(context, url, {
         }
     }
 
+    const cmpResults = [];
+
     console.log("CMP Opt-out Flag: ", optOut);
     if (optOut) {
         console.log("Opting out of CMPs");
@@ -255,33 +257,48 @@ async function getSiteData(context, url, {
     
         // Checking if CMPs are present on the page and opting out if they are
         try {
-            await optOutOneTrust(page);
+            const oneTrustResult = await optOutOneTrust(page);
+            if (oneTrustResult) {
+                cmpResults.push(oneTrustResult);
+            }
         } catch {
             console.error("Error opting out of OneTrust CMP");
         }
         try {
-            await optOutCookieBot(page);
+            const cookieBotResult = await optOutCookieBot(page);
+            if (cookieBotResult) {
+                cmpResults.push(cookieBotResult);
+            }
         } catch {
             console.error("Error opting out of CookieBot CMP");
         }
         try {
-            await optOutDidomi(page);
+            const didomiResult = await optOutDidomi(page);
+            if (didomiResult) {
+                cmpResults.push(didomiResult);
+            }
         } catch {
             console.error("Error opting out of Didomi CMP");
         }
         try {
-            await optOutQuantcast(page);
+            const qcResult = await optOutQuantcast(page);
+            if (qcResult) {
+                cmpResults.push(qcResult);
+            }
         } catch {
             console.error("Error opting out of Quantcast CMP");
         }
         try {
-            await optOutUserCentrics(page);
+            const ucResult = await optOutUserCentrics(page);
+            if (ucResult) {
+                cmpResults.push(ucResult);
+            }
         } catch (error) {
             console.error("Error opting out of UserCentrics CMP", error);
         }
     }
 
-    
+
     try {
         // Using the puppetter-autoscroll-down package to scroll to the bottom of the page
         await scrollPageToBottom(page, {
@@ -356,6 +373,10 @@ async function getSiteData(context, url, {
 
     if (!VISUAL_DEBUG) {
         await page.close();
+    }
+
+    if(optOut) {
+        data.cmpResults = cmpResults;
     }
 
     return {
