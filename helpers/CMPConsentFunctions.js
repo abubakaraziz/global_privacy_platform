@@ -36,12 +36,45 @@ const oneTrustActiveGroups = async page => {
   
         if (oneTrustData) {
             console.log("OneTrust data retrieved.");
+        const oneTrustData = await page.evaluate(async () => {
+            const result = {};
+            //@ts-ignore
+            if(window.OneTrust) {
+                console.log("OneTrust CMP found");
+
+                //@ts-ignore
+                if (typeof window.OnetrustActiveGroups === "string") {
+                    //@ts-ignore
+                    result.activeGroups = window.OnetrustActiveGroups;
+                } else {
+                    result.activeGroups = null;
+                }
+                
+                //@ts-ignore
+                if (typeof window.OneTrust.GetDomainData === "function") {
+                    //@ts-ignore 
+                    // eslint-disable-next-line new-cap
+                    result.domainData = await window.OneTrust.GetDomainData();
+                } else {
+                    result.domainData = null;
+                }
+  
+                return result;
+            }
+            console.log("OneTrust CMP not found");
+            return null;
+        
+        });
+  
+        if (oneTrustData) {
+            console.log("OneTrust data retrieved.");
         } else {
+            console.log("No OneTrust data retrieved.");
             console.log("No OneTrust data retrieved.");
         }
         return oneTrustData;
     } catch (error) {
-        console.error("Error getting OneTrust data", error);
+        console.log("Error getting OneTrust data", error);
         return null;
     }
 };
@@ -79,7 +112,7 @@ const didomiUserStatus = async page => {
         }
         return didomiUserStatusObject; // Return the retrieved object
     } catch {
-        console.error("Error getting Didomi object");
+        console.log("Error getting Didomi object");
         return null;
     }
 };
@@ -120,7 +153,7 @@ const cookieBotConsent = async page => {
 
         return cookieBotConsentObject; // Return the retrieved object
     } catch {
-        console.error("Error getting CookieBot object");
+        console.log("Error getting CookieBot object");
         return null;
     }
 };
@@ -161,7 +194,7 @@ const osanoConsent = async page => {
 
         return osanoConsentObject; // Return the retrieved object
     } catch {
-        console.error("Error getting Osano object");
+        console.log("Error getting Osano object");
         return null;
     }
 };
@@ -196,9 +229,34 @@ const usercentricsConsent = async page => {
       
         return usercentricsConsentObject;
     } catch {
-        console.error("Error getting Usercentrics object");
+        console.log("Error getting Usercentrics object");
         return null;
     }
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent};
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const quantcastPresence = async page => {
+    try {
+        const result = await page.evaluate(() => {
+            console.log("Checking for Quantcast CMP");
+            
+            const consentDialog = document.querySelector(".qc-cmp2-summary-buttons");
+            if (consentDialog) {
+                console.log("Quantcast CMP found");
+                return true;
+            }
+            console.log("Quantcast CMP not found");
+            return false;
+        });
+
+        return result;
+    } catch {
+        console.log("Error getting Quantcast object");
+        return false;
+    }
+};
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent, quantcastPresence};

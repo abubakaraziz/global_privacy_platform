@@ -12,8 +12,8 @@ const callGPPgetField = require("../helpers/gppGetField");
 const tcfPing = require("../helpers/tcfPing");
 const tcfEventListener = require("../helpers/tcfEventListener");
 const gppEventListener = require("../helpers/gppEventListener");
-const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent} = require("../helpers/CMPConsentFunctions");
-
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
+const {getGTMObject, getDataLayer} = require("../helpers/gtmHelper");
 /**
  * @typedef {Object} ScanResult
  * @property {string[]} gppObjects
@@ -26,6 +26,8 @@ const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, u
  * @property {string[]} gppEventListenerData
  * @property {any} cmpsPresent
  * @property {any} cmpConsentObject
+ * @property {any} googleTagData
+ * @property {any} dataLayer
  */
 
 /**
@@ -59,6 +61,8 @@ class GPPCollector extends BaseCollector {
             gppEventListenerData: [],
             cmpsPresent: [],
             cmpConsentObject: [],
+            googleTagData: [],
+            dataLayer: [],
         };
     }
 
@@ -212,6 +216,22 @@ class GPPCollector extends BaseCollector {
                 console.log("Usercentrics Consent Object retrieved.");
             }
 
+            console.log("Checking for Quantcast CMP...");
+            const quantCastPresent = await quantcastPresence(page);
+            if (quantCastPresent) {
+                console.log("Quantcast Consent Banner found.");
+                this.scanResult.cmpsPresent.push("Quantcast");
+            } else {
+                console.log("No Usercentrics Consent Object retrieved.");
+            }
+
+            console.log("Retrieving google_tag_data object...");
+            const googleTagData = await getGTMObject(page);
+            const dataLayer = await getDataLayer(page);
+
+            this.scanResult.googleTagData.push(googleTagData);
+            this.scanResult.dataLayer.push(dataLayer);
+
             console.log("Attempting to retrieve GPP objects...");
             const gppObject = await gppPing(page);
 
@@ -288,6 +308,8 @@ class GPPCollector extends BaseCollector {
             gppEventListenerData: this.scanResult.gppEventListenerData,
             cmpsPresent: this.scanResult.cmpsPresent,
             cmpConsentObject: this.scanResult.cmpConsentObject,
+            googleTagData: this.scanResult.googleTagData,
+            dataLayer: this.scanResult.dataLayer,
         };
         // console.log('Scan result:', this.scanResult);
     }
