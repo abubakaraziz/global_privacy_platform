@@ -135,7 +135,8 @@ class APICallCollector extends BaseCollector {
         const breakpoint = trackerTracker.processDebuggerPause(params);
         if (!breakpoint) {
             // it's not a breakpoint we care about
-            this._log(`Unknown breakpoint detected. ${params.hitBreakpoints}`);
+            //Comment out the following line because it was making log files needlessly big and following breakpoints do not concern crawl.
+            //this._log(`Unknown breakpoint detected. ${params.hitBreakpoints}`);
         }
 
         if (breakpoint && breakpoint.source && breakpoint.description) {
