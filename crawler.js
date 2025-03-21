@@ -8,6 +8,7 @@ const wait = require('./helpers/wait');
 const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
 const {TimeoutError} = require('puppeteer').errors;
+const optOutFromCMPs = require('./helpers/CMPOptOut');
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -95,7 +96,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -108,6 +109,7 @@ async function getSiteData(context, url, {
     runInEveryFrame,
     maxLoadTimeMs,
     extraExecutionTimeMs,
+    optOut,
     collectorFlags,
 }) {
     const testStarted = Date.now();
@@ -245,7 +247,16 @@ async function getSiteData(context, url, {
             throw e;
         }
     }
-    
+
+    let cmpResults;
+    console.log("CMP Opt-out Flag: ", optOut);
+
+    if (optOut) {
+        console.log("Opting out of CMPs");
+        cmpResults = await optOutFromCMPs(page);
+    }
+
+
     try {
         // Using the puppetter-autoscroll-down package to scroll to the bottom of the page
         await scrollPageToBottom(page, {
@@ -322,6 +333,10 @@ async function getSiteData(context, url, {
         await page.close();
     }
 
+    if(optOut) {
+        data.cmpResults = cmpResults;
+    }
+
     return {
         initialUrl: url.toString(),
         finalUrl,
@@ -345,7 +360,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, collectorFlags?: Object.<string, string>}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
@@ -371,6 +386,7 @@ module.exports = async (url, options) => {
             runInEveryFrame: options.runInEveryFrame,
             maxLoadTimeMs,
             extraExecutionTimeMs,
+            optOut: options.optOut,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
     } catch(e) {
