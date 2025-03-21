@@ -96,7 +96,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, optIn: boolean, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -110,6 +110,7 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     optOut,
+    optIn,
     collectorFlags,
 }) {
     const testStarted = Date.now();
@@ -249,8 +250,9 @@ async function getSiteData(context, url, {
     }
 
     let cmpResults;
-    console.log("CMP Opt-out Flag: ", optOut);
+    console.log("CMP Opt-in Flag:", optIn);
 
+    console.log("CMP Opt-out Flag: ", optOut);
     if (optOut) {
         console.log("Opting out of CMPs");
         cmpResults = await optOutFromCMPs(page);
@@ -360,7 +362,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, optIn?: boolean, collectorFlags?: Object.<string, string>}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
@@ -387,6 +389,7 @@ module.exports = async (url, options) => {
             maxLoadTimeMs,
             extraExecutionTimeMs,
             optOut: options.optOut,
+            optIn: options.optIn,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
     } catch(e) {

@@ -28,7 +28,7 @@ function getUrlsFromConfig(urlConfig) {
 /**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
  * 
- * @param {{config?: string, optOut?: boolean, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
+ * @param {{config?: string, optOut?: boolean, optIn?: boolean, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
  * @returns {CrawlConfig}
  */
 function figureOut(flags) {
@@ -62,6 +62,10 @@ function figureOut(flags) {
     // Adding optOut flag to the config
     if (crawlConfig.optOut === undefined || flags.optOut !== undefined) {
         crawlConfig.optOut = Boolean(flags.optOut);
+    }
+    //Adding optIn flag to the config
+    if (crawlConfig.optIn === undefined || flags.optIn !== undefined) {
+        crawlConfig.optIn = Boolean(flags.optIn);
     }
 
     // string/number settings
@@ -163,5 +167,6 @@ module.exports = {
  * @property {boolean} disableAntiBot
  * @property {number} maxLoadTimeMs
  * @property {boolean} optOut
+ * @property {boolean} optIn
  * @property {number} extraExecutionTimeMs
  */
