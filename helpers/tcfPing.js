@@ -22,7 +22,7 @@ const tcfPing = async page => {
             });
         }));
         if (tcfObject) {
-            console.log('TCF object retrieved:', tcfObject);
+            console.log('TCF object retrieved.');
         } else {
             console.log('No TCF object retrieved.');
         }

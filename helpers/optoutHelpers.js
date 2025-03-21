@@ -162,8 +162,12 @@ async function optOutQuantcast(page) {
                 }
             }
         }
-    } catch (e) {
-        console.log("Error opting out of Quantcast", e);
+    } catch (error) {
+        if (error.name === "TimeoutError") {
+            console.log("Quantcast CMP not found or not visible");
+        } else {
+            console.log("Error opting out of Quantcast.");
+        }
         qcResult.optedOut = false;
     }
    

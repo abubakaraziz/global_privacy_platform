@@ -100,7 +100,7 @@ class GPPCollector extends BaseCollector {
 
         //@ts-ignore
         await page.exposeFunction('handleTCFEventData', tcData => {
-            console.log('TCF Event Listener triggered:', tcData);
+            console.log('TCF Event Listener triggered.');
             updateTCFScanResult(tcData);  // Call the onEventData callback with the event data
         });
 
@@ -108,7 +108,7 @@ class GPPCollector extends BaseCollector {
         // Expose the callback function to the page context
         // @ts-ignore
         await page.exposeFunction('handleGPPEventData', gppData => {
-            console.log('GPP Event Listener triggered:', gppData);
+            console.log('GPP Event Listener triggered.');
             updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
         });
     

@@ -47,7 +47,7 @@ const tcfEventListener = async page => {
                 // @ts-ignore
                 window.__tcfapi('addEventListener', 2, (tcData, success) => {
                     if (success) {
-                        console.log('TCF Event Listener triggered:', tcData);
+                        console.log('TCF Event Listener triggered.');
                         // Call the exposed function in Node.js context with tcData
                         // @ts-ignore
                         window.handleTCFEventData(tcData);
