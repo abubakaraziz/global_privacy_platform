@@ -8,7 +8,7 @@ const wait = require('./helpers/wait');
 const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
 const {TimeoutError} = require('puppeteer').errors;
-const optOutFromCMPs = require('./helpers/CMPActions');
+const {optOutFromCMPs, optInForCMPs} = require('./helpers/CMPActions');
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -250,7 +250,12 @@ async function getSiteData(context, url, {
     }
 
     let cmpResults;
+    
     console.log("CMP Opt-in Flag:", optIn);
+    if (optIn) {
+        console.log("Opting in to CMPs");
+        cmpResults = await optInForCMPs(page);
+    }
 
     console.log("CMP Opt-out Flag: ", optOut);
     if (optOut) {
