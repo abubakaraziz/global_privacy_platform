@@ -9,7 +9,10 @@ const createDeferred = require('./helpers/deferred');
 // const downloadCustomChromium = require('./helpers/downloadCustomChromium');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BaseCollector = require('./collectors/BaseCollector');
-const notABot = require('./helpers/notABot');
+const f = require('fs');
+// const notABot = require('./helpers/notABot');
+const notABot = f.readFileSync('./helpers/stealth.min.js', 'utf8');
+
 
 const MAX_NUMBER_OF_CRAWLERS = 38;// by trial and error there seems to be network bandwidth issues with more than 38 browsers. 
 const MAX_NUMBER_OF_RETRIES = 2;
@@ -35,6 +38,7 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
      */
     const prefixedLog = (...msg) => log(chalk.gray(`${url.hostname}:`), ...msg);
 
+    // @ts-ignore
     const data = await crawl(url, {
         log: prefixedLog,
         // @ts-ignore

@@ -6,7 +6,6 @@ const wait = require('./helpers/wait');
 const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('./helpers/autoscrollFunctions');
 const {TimeoutError} = require('puppeteer').errors;
-const f = require('fs');
 
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
@@ -25,10 +24,10 @@ const MOBILE_VIEWPORT = {
 };
 
 // Loading in the stealth.min.js file for injection
-const stealthMin = f.readFileSync('./helpers/stealth.min.js', 'utf8');
+// const stealthMin = f.readFileSync('./helpers/stealth.min.js', 'utf8');
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-const VISUAL_DEBUG = false;
+const VISUAL_DEBUG = true;
 
 /**
  * @param {number} waitTime
@@ -196,10 +195,10 @@ async function getSiteData(context, url, {
         page.evaluateOnNewDocument(runInEveryFrame);
     }
 
-    // Injecting the stealth.min.js file into the page
-    console.log("Injecting stealth.min.js into the page");
-    await page.evaluateOnNewDocument(stealthMin);
-    console.log("Done injecting stealth.min.js into the page");
+    // // Injecting the stealth.min.js file into the page
+    // console.log("Injecting stealth.min.js into the page");
+    // await page.evaluateOnNewDocument(stealthMin);
+    // console.log("Done injecting stealth.min.js into the page");
 
     // We are creating CDP connection before page target is created, if we create it only after
     // new target is created we will miss some requests, API calls, etc.
