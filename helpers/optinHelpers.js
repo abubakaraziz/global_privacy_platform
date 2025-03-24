@@ -163,5 +163,43 @@ async function optInQuantcast(page) {
     return null;
 }
 
+/**
+ * Usercentrics opt-out logic
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+async function optInUserCentrics(page) {
+    console.log("Checking for UserCentrics CMP");
+    const ucResult = await page.evaluate(async () => {
+        let found = false;
+        let optedIn = false;
 
-module.exports = {optInDidomi, optInOneTrust, optInCookieBot, optInQuantcast};
+        try {
+            // @ts-ignore
+            if (window.UC_UI) {
+                found = true;
+                console.log("UserCentrics CMP detected, opting in");
+                // @ts-ignore
+                if(typeof window.UC_UI.denyAllConsents === 'function') {
+                    // @ts-ignore
+                    await window.UC_UI.acceptAllConsents();
+                    optedIn = true;
+                }
+            } else {
+                console.log("UserCentrics CMP or its functions not found");
+            }
+        } catch {
+            console.log("Error opting in for UserCentrics.");
+            optedIn = false;
+        }
+        const name = "UserCentrics";
+        return {name, found, optedIn};
+    });
+
+    if (ucResult.found) {
+        return ucResult;
+    }
+    return null;
+}
+
+
+module.exports = {optInDidomi, optInOneTrust, optInCookieBot, optInQuantcast, optInUserCentrics};
