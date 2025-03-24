@@ -10,6 +10,7 @@ const createDeferred = require('./helpers/deferred');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BaseCollector = require('./collectors/BaseCollector');
 const notABot = require('./helpers/notABot');
+const puppeteer = require('puppeteer');
 
 const MAX_NUMBER_OF_CRAWLERS = 38;// by trial and error there seems to be network bandwidth issues with more than 38 browsers. 
 const MAX_NUMBER_OF_RETRIES = 2;
@@ -29,7 +30,7 @@ const MAX_NUMBER_OF_RETRIES = 2;
  * @param {boolean} optOut
  * @param {Object.<string, string>} collectorFlags
  */
-async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, collectorFlags) {
+async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, collectorFlags, browserContext) {
     const url = new URL(urlString);
     /**
      * @type {function(...any):void} 
@@ -49,10 +50,62 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
         extraExecutionTimeMs,
         optOut,
         collectorFlags,
+        browserContext,
     });
 
     dataCallback(url, data);
 }
+
+
+/**
+ * @param {function(...any):void} log
+ * @param {string} proxyHost
+ * @param {string} executablePath path to chromium executable to use
+ */
+function openBrowser(log, proxyHost, executablePath) {
+    /**
+     * @type {import('puppeteer').BrowserLaunchArgumentOptions}
+     */
+    const args = {
+        args: [
+            // enable FLoC
+            '--enable-blink-features=InterestCohortAPI',
+            //'--enable-features="FederatedLearningOfCohorts:update_interval/10s/minimum_history_domain_size_required/1,FlocIdSortingLshBasedComputation,InterestCohortFeaturePolicy"',
+            '--js-flags="--async-stack-traces --stack-trace-limit 32"',
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--ignore-certificate-errors',
+            '--start-maximized',
+            '--disable-infobars',
+            '--no-first-run'
+        ]
+    };
+
+    args.headless = false;
+    args.devtools = true;
+    
+    
+    if (proxyHost) {
+        let url;
+        try {
+            url = new URL(proxyHost);
+        } catch {
+            log('Invalid proxy URL');
+        }
+
+        args.args.push(`--proxy-server=${proxyHost}`);
+        args.args.push(`--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE ${url.hostname}"`);
+    }
+    if (executablePath) {
+        // @ts-ignore there is no single object that encapsulates properties of both BrowserLaunchArgumentOptions and LaunchOptions that are allowed here
+        args.executablePath = executablePath;
+        console.log("Executable path: ", executablePath);
+    }
+
+    // @ts-ignore
+    return puppeteer.launch(args);
+}
+
 
 /**
  * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, collectorFlags?: Object.<string, boolean>}} options
@@ -79,6 +132,11 @@ module.exports = async options => {
     //     executablePath = await downloadCustomChromium(log, options.chromiumVersion);
     // }
 
+    const browser = await openBrowser(log, options.proxyHost, executablePath);
+    const browserContext = await browser.defaultBrowserContext();
+    console.log("Created the browser context:", browserContext);
+    options.browserContext = browserContext;
+
 
     async.eachOfLimit(options.urls, numberOfCrawlers, (urlItem, idx, callback) => {
         const urlString = (typeof urlItem === 'string') ? urlItem : urlItem.url;
@@ -92,7 +150,7 @@ module.exports = async options => {
         log(chalk.cyan(`Processing entry #${Number(idx) + 1} (${urlString}).`));
         const timer = createTimer();
 
-        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.optOut, options.collectorFlags);
+        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.optOut, options.collectorFlags, browserContext);
 
         async.retry(MAX_NUMBER_OF_RETRIES, task, err => {
             if (err) {

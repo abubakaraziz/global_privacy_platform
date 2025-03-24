@@ -209,6 +209,8 @@ async function getSiteData(context, url, {
     for (let collector of collectors) {
         try {
             // eslint-disable-next-line no-await-in-loop
+            await collector.setPage(page);
+            // eslint-disable-next-line no-await-in-loop
             await collector.addTarget({url: url.toString(), type: 'page', cdpClient});
         } catch (e) {
             log(chalk.yellow(`${collector.id()} failed to attach to page`), chalk.gray(e.message), chalk.gray(e.stack));
@@ -275,6 +277,7 @@ async function getSiteData(context, url, {
     for (let collector of collectors) {
         const postLoadTimer = createTimer();
         try {
+            // collector.setPage(page);
             // eslint-disable-next-line no-await-in-loop
             await collector.postLoad();
             log(`${collector.id()} postLoad took ${postLoadTimer.getElapsedTime()}s`);
@@ -367,6 +370,7 @@ module.exports = async (url, options) => {
     const log = options.log || (() => {});
     const browser = options.browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
     // Create a new browser context.
+    console.log("Browser Context received in crawler.js: ", options.browserContext);
     const context = options.browserContext || await browser.defaultBrowserContext();
     // const context = options.browserContext || await browser.createIncognitoBrowserContext();
 
