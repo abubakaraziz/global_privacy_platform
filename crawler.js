@@ -23,11 +23,9 @@ const MOBILE_VIEWPORT = {
     hasTouch: true
 };
 
-// Loading in the stealth.min.js file for injection
-// const stealthMin = f.readFileSync('./helpers/stealth.min.js', 'utf8');
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-const VISUAL_DEBUG = true;
+const VISUAL_DEBUG = false;
 
 /**
  * @param {number} waitTime
@@ -194,11 +192,6 @@ async function getSiteData(context, url, {
     if (runInEveryFrame) {
         page.evaluateOnNewDocument(runInEveryFrame);
     }
-
-    // // Injecting the stealth.min.js file into the page
-    // console.log("Injecting stealth.min.js into the page");
-    // await page.evaluateOnNewDocument(stealthMin);
-    // console.log("Done injecting stealth.min.js into the page");
 
     // We are creating CDP connection before page target is created, if we create it only after
     // new target is created we will miss some requests, API calls, etc.
