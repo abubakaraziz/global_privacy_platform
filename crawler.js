@@ -63,7 +63,8 @@ function openBrowser(log, proxyHost, executablePath) {
             '--start-maximized',
             '--disable-infobars',
             '--no-first-run'
-        ]
+        ],
+        headless: 'new'
     };
     if (VISUAL_DEBUG) {
         args.headless = false;
@@ -93,7 +94,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
 
  *
  * @returns {Promise<CollectResult>}
