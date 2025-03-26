@@ -73,7 +73,7 @@ const didomiUserStatus = async page => {
             }
         }));
         if (didomiUserStatusObject) {
-            console.log('Didomi object retrieved:', didomiUserStatusObject);
+            console.log('Didomi object retrieved.');
         } else {
             console.log('No Didomi object retrieved.');
         }

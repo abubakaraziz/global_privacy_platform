@@ -13,7 +13,7 @@ const gppEventListener = async page => {
                 // @ts-ignore
                 window.__gpp('addEventListener', (gppData, success) => {
                     if (success) {
-                        console.log('GPP Event Listener triggered:', gppData);
+                        console.log('GPP Event Listener triggered.');
                         // Call the exposed function in Node.js context with tcData
                         // @ts-ignore
                         window.handleGPPEventData(gppData);

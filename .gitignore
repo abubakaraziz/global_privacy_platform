@@ -8,3 +8,6 @@ testingLinks/
 testing/
 test_data/
 Crawls/
+validate_cookiebot/
+validate_usercentrics/
+validate_didomi/
