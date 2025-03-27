@@ -7,7 +7,7 @@ const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('./helpers/autoscrollFunctions');
 const {TimeoutError} = require('puppeteer').errors;
 const optOutFromCMPs = require('./helpers/CMPOptOut');
-const {waitForInput} = require('./helpers/waitForInput');
+const {waitForUserInput} = require('./helpers/waitForInput');
 
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
@@ -27,7 +27,7 @@ const MOBILE_VIEWPORT = {
 
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-const VISUAL_DEBUG = false;
+const VISUAL_DEBUG = true;
 
 /**
  * @param {number} waitTime
@@ -95,7 +95,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, semiAutomated: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
 
  *
  * @returns {Promise<CollectResult>}
@@ -110,6 +110,7 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     optOut,
+    semiAutomated,
     collectorFlags,
 }) {
     const testStarted = Date.now();
@@ -248,49 +249,48 @@ async function getSiteData(context, url, {
         }
     }
 
-    let semiAutomated = true;
+    console.log("The value of semiAutomated boolean is:", semiAutomated);
+    // Semi-automated crawl should trigger here and only when VISUAL_DEBUG is set to true meaning in non-headless mode
+    if (semiAutomated && VISUAL_DEBUG) {
+        console.log(chalk.yellow('Semi-automated mode enabled'));
+        console.log(chalk.yellow('Please interact with the page as needed'));
+        console.log(chalk.yellow('Press the Enter key to continue...'));
+        await waitForUserInput();
 
-    // Semi-automated crawl should trigger here
-    if (semiAutomated) {
-        // console.log('\n--- SEMI-AUTOMATED MODE ---');
-        // console.log('Browser will stay open for cookie banner interaction');
-        // console.log('Press Enter in this terminal when done');
-        // await waitForUserInput();
+        // console.log(chalk.yellow('\nSEMI-AUTOMATED MODE: Interact with cookie banner by clicking...'));
 
-        console.log(chalk.yellow('\nSEMI-AUTOMATED MODE: Interact with cookie banner by clicking...'));
+        // // Set up browser-side listeners
+        // await page.evaluate(() => {
+        //      // @ts-ignore
+        //     // eslint-disable-next-line no-undef
+        //     window.__interactionFlag = false;
+        //     const clearFlag = () => {
+        //         // @ts-ignore
+        //         // eslint-disable-next-line no-undef
+        //         window.__interactionFlag = true;
+        //         // eslint-disable-next-line no-undef
+        //         document.removeEventListener('click', clearFlag);
+        //         // eslint-disable-next-line no-undef
+        //         document.removeEventListener('touchstart', clearFlag);
+        //     };
+        //     // eslint-disable-next-line no-undef
+        //     document.addEventListener('click', clearFlag);
+        //     // eslint-disable-next-line no-undef
+        //     document.addEventListener('touchstart', clearFlag);
+        // });
 
-        // Set up browser-side listeners
-        await page.evaluate(() => {
-             // @ts-ignore
-            // eslint-disable-next-line no-undef
-            window.__interactionFlag = false;
-            const clearFlag = () => {
-                // @ts-ignore
-                // eslint-disable-next-line no-undef
-                window.__interactionFlag = true;
-                // eslint-disable-next-line no-undef
-                document.removeEventListener('click', clearFlag);
-                // eslint-disable-next-line no-undef
-                document.removeEventListener('touchstart', clearFlag);
-            };
-            // eslint-disable-next-line no-undef
-            document.addEventListener('click', clearFlag);
-            // eslint-disable-next-line no-undef
-            document.addEventListener('touchstart', clearFlag);
-        });
-
-        // Wait for flag or timeout
-        try {
-            await page.waitForFunction(
-                 // @ts-ignore
-                // eslint-disable-next-line no-undef
-                () => window.__interactionFlag,
-                {timeout: 120000}
-            );
-            console.log(chalk.green('Cookie banner handled, resuming...'));
-        } catch {
-            console.log(chalk.yellow('Proceeding without interaction...'));
-        }
+        // // Wait for flag or timeout
+        // try {
+        //     await page.waitForFunction(
+        //          // @ts-ignore
+        //         // eslint-disable-next-line no-undef
+        //         () => window.__interactionFlag,
+        //         {timeout: 120000}
+        //     );
+        //     console.log(chalk.green('Cookie banner handled, resuming...'));
+        // } catch {
+        //     console.log(chalk.yellow('Proceeding without interaction...'));
+        // }
     }
 
     let cmpResults;
@@ -405,7 +405,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, semiAutomated?: boolean, collectorFlags?: Object.<string, string>}} options
 
  * @returns {Promise<CollectResult>}
  */
@@ -433,6 +433,7 @@ module.exports = async (url, options) => {
             maxLoadTimeMs,
             extraExecutionTimeMs,
             optOut: options.optOut,
+            semiAutomated: options.semiAutomated,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
     } catch(e) {
