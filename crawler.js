@@ -98,7 +98,7 @@ function openBrowser(log, proxyHost, executablePath) {
 
  *
  * @returns {Promise<CollectResult>}
- */
+*/
 async function getSiteData(context, url, {
     collectors,
     log,
