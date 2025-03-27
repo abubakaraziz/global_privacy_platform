@@ -7,6 +7,7 @@ const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('./helpers/autoscrollFunctions');
 const {TimeoutError} = require('puppeteer').errors;
 const optOutFromCMPs = require('./helpers/CMPOptOut');
+const {waitForInput} = require('./helpers/waitForInput');
 
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
@@ -244,6 +245,51 @@ async function getSiteData(context, url, {
             timeout = true;
         } else {
             throw e;
+        }
+    }
+
+    let semiAutomated = true;
+
+    // Semi-automated crawl should trigger here
+    if (semiAutomated) {
+        // console.log('\n--- SEMI-AUTOMATED MODE ---');
+        // console.log('Browser will stay open for cookie banner interaction');
+        // console.log('Press Enter in this terminal when done');
+        // await waitForUserInput();
+
+        console.log(chalk.yellow('\nSEMI-AUTOMATED MODE: Interact with cookie banner by clicking...'));
+
+        // Set up browser-side listeners
+        await page.evaluate(() => {
+             // @ts-ignore
+            // eslint-disable-next-line no-undef
+            window.__interactionFlag = false;
+            const clearFlag = () => {
+                // @ts-ignore
+                // eslint-disable-next-line no-undef
+                window.__interactionFlag = true;
+                // eslint-disable-next-line no-undef
+                document.removeEventListener('click', clearFlag);
+                // eslint-disable-next-line no-undef
+                document.removeEventListener('touchstart', clearFlag);
+            };
+            // eslint-disable-next-line no-undef
+            document.addEventListener('click', clearFlag);
+            // eslint-disable-next-line no-undef
+            document.addEventListener('touchstart', clearFlag);
+        });
+
+        // Wait for flag or timeout
+        try {
+            await page.waitForFunction(
+                 // @ts-ignore
+                // eslint-disable-next-line no-undef
+                () => window.__interactionFlag,
+                {timeout: 120000}
+            );
+            console.log(chalk.green('Cookie banner handled, resuming...'));
+        } catch {
+            console.log(chalk.yellow('Proceeding without interaction...'));
         }
     }
 
