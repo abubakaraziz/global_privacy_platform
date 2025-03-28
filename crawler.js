@@ -95,7 +95,6 @@ function openBrowser(log, proxyHost, executablePath) {
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
  * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, collectorFlags: Object.<string, string>}} data
-
  *
  * @returns {Promise<CollectResult>}
 */
@@ -360,7 +359,6 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 /**
  * @param {URL} url
  * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, collectorFlags?: Object.<string, string>}} options
-
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
