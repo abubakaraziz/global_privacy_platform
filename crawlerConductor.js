@@ -15,6 +15,8 @@ const puppeteer = require('puppeteer');
 const MAX_NUMBER_OF_CRAWLERS = 38;// by trial and error there seems to be network bandwidth issues with more than 38 browsers. 
 const MAX_NUMBER_OF_RETRIES = 2;
 
+const VISUAL_DEBUG = false;
+
 /**
  * @param {string} urlString 
  * @param {BaseCollector[]} dataCollectors
@@ -92,11 +94,10 @@ function openBrowser(log, proxyHost, executablePath) {
             '--no-first-run'
         ]
     };
-
-    args.headless = false;
-    args.devtools = true;
-    
-    
+    if (VISUAL_DEBUG) {
+        args.headless = false;
+        args.devtools = true;
+    }
     if (proxyHost) {
         let url;
         try {
@@ -144,11 +145,12 @@ module.exports = async options => {
     //     executablePath = await downloadCustomChromium(log, options.chromiumVersion);
     // }
     let browserContext = null;
+    let browser = null;
     if (options.statefulCrawl) {
         console.log("Stateful crawl is enabled.");
        
         // @ts-ignore
-        const browser = await openBrowser(log, options.proxyHost, executablePath);
+        browser = await openBrowser(log, options.proxyHost, executablePath);
         browserContext = browser.defaultBrowserContext();
         console.log("Created the browser context:", browserContext);
         // options.browserContext = browserContext;
@@ -188,4 +190,8 @@ module.exports = async options => {
     });
 
     await deferred.promise;
+
+    if (browser && !VISUAL_DEBUG) {
+        await browser.close();
+    }
 };
