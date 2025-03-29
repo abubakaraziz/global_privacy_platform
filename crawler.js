@@ -9,6 +9,8 @@ const tldts = require('tldts');
 const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
 const {TimeoutError} = require('puppeteer').errors;
 const optOutFromCMPs = require('./helpers/CMPOptOut');
+const fs = require('fs');
+const path = require('path');
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -96,7 +98,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
  */
@@ -110,6 +112,9 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     optOut,
+    saveCookies,
+    loadCookies,
+    cookieJarPath,
     collectorFlags,
 }) {
     const testStarted = Date.now();
@@ -192,6 +197,26 @@ async function getSiteData(context, url, {
 
     // Create a new page in a pristine context.
     const page = await context.newPage();
+
+    //Load cookies if needed
+    if (loadCookies) {
+        console.log("Loading cookies from cookie jar: ", cookieJarPath);
+        
+        try {
+            if (fs.existsSync(cookieJarPath)) {
+                const cookies = JSON.parse(fs.readFileSync(cookieJarPath, 'utf-8'));
+                console.log("Cookies loaded from file: ", cookies);
+                await page.setCookie(...cookies);
+                console.log("Cookies set in page context");
+            } else {
+                console.error("Cookie Jar file not found.");
+            }
+     
+        }   catch(error) {
+            console.log("Error loading cookies: ", error);
+        }
+ 
+    }
 
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
@@ -340,6 +365,26 @@ async function getSiteData(context, url, {
         data.cmpResults = cmpResults;
     }
 
+   
+    if (saveCookies) {
+        console.log("Saving cookies to cookie jar: ", cookieJarPath);
+        try {
+            //save data.cookies to a json file
+            const cookieData = data.cookies;
+            // console.log("Cookies: ", cookieData);
+
+            const dir = path.dirname(cookieJarPath);
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, {recursive: true});
+            }
+        
+            fs.writeFileSync(cookieJarPath, JSON.stringify(cookieData, null, 2), 'utf-8');
+            console.log("Cookies saved to file: ", cookieJarPath);
+        } catch (error) {
+            console.error("Error saving cookies: ", error);
+        }
+    }
+
     return {
         initialUrl: url.toString(),
         finalUrl,
@@ -363,15 +408,16 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>}} options
+ * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
-module.exports = async (url, options) => {
+module.exports = async (url, options, browserContext) => {
     const log = options.log || (() => {});
-    const browser = options.browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
+    const browser = browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
     // Create a new browser context.
-    console.log("Browser Context received in crawler.js: ", options.browserContext);
-    const context = options.browserContext || await browser.defaultBrowserContext();
+    console.log("Browser Context received in crawler.js: ", browserContext);
+    const context = browserContext || await browser.defaultBrowserContext();
     // const context = options.browserContext || await browser.createIncognitoBrowserContext();
 
     let data = null;
@@ -391,6 +437,9 @@ module.exports = async (url, options) => {
             maxLoadTimeMs,
             extraExecutionTimeMs,
             optOut: options.optOut,
+            saveCookies: options.saveCookies,
+            loadCookies: options.loadCookies,
+            cookieJarPath: options.cookieJarPath,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
     } catch(e) {
