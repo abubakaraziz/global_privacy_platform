@@ -47,8 +47,6 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
      */
     const prefixedLog = (...msg) => log(chalk.gray(`${url.hostname}:`), ...msg);
 
-    console.log("Passing browser context to crawl function:", browserContext);
-
     // @ts-ignore
     const data = await crawl(
  url, {
@@ -156,7 +154,6 @@ module.exports = async options => {
         // @ts-ignore
         browser = await openBrowser(log, options.proxyHost, executablePath);
         browserContext = browser.defaultBrowserContext();
-        console.log("Created the browser context:", browserContext);
         // options.browserContext = browserContext;
     }
 

@@ -202,7 +202,7 @@ async function getSiteData(context, url, {
         try {
             if (fs.existsSync(cookieJarPath)) {
                 const cookies = JSON.parse(fs.readFileSync(cookieJarPath, 'utf-8'));
-                console.log("Cookies loaded from file: ", cookies);
+                // console.log("Cookies loaded from file: ", cookies);
                 await page.setCookie(...cookies);
                 console.log("Cookies set in page context");
             } else {
@@ -413,7 +413,6 @@ module.exports = async (url, options, browserContext) => {
     const log = options.log || (() => {});
     const browser = browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
     // Create a new browser context.
-    console.log("Browser Context received in crawler.js: ", browserContext);
     const context = browserContext || await browser.defaultBrowserContext();
     // const context = options.browserContext || await browser.createIncognitoBrowserContext();
 
