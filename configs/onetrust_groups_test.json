@@ -1,7 +1,7 @@
 {
     "output": "./Crawls/onetrust_groups_test",
     "logPath": "./log/onetrust_groups_test",
-    "crawlers": 8,
+    "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
     "verbose": true,
@@ -9,6 +9,7 @@
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": true,
+    "executablePath": "/Users/jawadsaeed/Downloads/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
     "dataCollectors": [
         "requests",
         "cookies",

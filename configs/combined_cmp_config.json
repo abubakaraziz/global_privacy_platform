@@ -1,7 +1,7 @@
 {
     "output": "Crawls/combined_cmp_crawl",
     "logPath": "./log/cookiebot_test",
-    "crawlers": 8,
+    "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
     "verbose": true,
