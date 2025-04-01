@@ -27,7 +27,7 @@ const MOBILE_VIEWPORT = {
 
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-const VISUAL_DEBUG = true;
+const VISUAL_DEBUG = false;
 
 /**
  * @param {number} waitTime
