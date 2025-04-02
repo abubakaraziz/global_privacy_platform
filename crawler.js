@@ -451,6 +451,9 @@ module.exports = async (url, options, browserContext) => {
     return data;
 };
 
+module.exports.openBrowser = openBrowser;
+module.exports.VISUAL_DEBUG = VISUAL_DEBUG;
+
 /**
  * @typedef {Object} CollectResult
  * @property {string} initialUrl URL from which the crawler began the crawl (as provided by the caller)
