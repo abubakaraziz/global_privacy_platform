@@ -7,7 +7,7 @@ def analyze_timeout_error_rates(crawl_dir):
     numberOfWebsites = 0
     # Iterate through all JSON files in the directory
     for filename in os.listdir(crawl_dir):
-        if filename.endswith('.json'):
+        if filename.endswith('.json') and filename != 'metadata.json':
             filepath = os.path.join(crawl_dir, filename)
             with open(filepath, 'r', encoding='utf-8') as f:
                 data = json.load(f)
