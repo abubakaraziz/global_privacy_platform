@@ -1,12 +1,10 @@
 /* eslint-disable max-lines */
-// const puppeteer = require('puppeteer');
-const puppeteer = require('puppeteer-extra').default;
-const stealthPlugin = require('puppeteer-extra-plugin-stealth');
+const puppeteer = require('puppeteer');
 const chalk = require('chalk').default;
 const {createTimer} = require('./helpers/timer');
 const wait = require('./helpers/wait');
 const tldts = require('tldts');
-const {scrollPageToBottom, scrollPageToTop} = require('puppeteer-autoscroll-down');
+const {scrollPageToBottom, scrollPageToTop} = require('./helpers/autoscrollFunctions');
 const {TimeoutError} = require('puppeteer').errors;
 const {optOutFromCMPs, optInForCMPs} = require('./helpers/CMPActions');
 
@@ -25,10 +23,8 @@ const MOBILE_VIEWPORT = {
     hasTouch: true
 };
 
-puppeteer.use(stealthPlugin());
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-// const VISUAL_DEBUG = false;
 const VISUAL_DEBUG = false;
 
 /**
@@ -66,7 +62,8 @@ function openBrowser(log, proxyHost, executablePath) {
             '--start-maximized',
             '--disable-infobars',
             '--no-first-run'
-        ]
+        ],
+        headless: 'new'
     };
     if (VISUAL_DEBUG) {
         args.headless = false;
@@ -96,10 +93,10 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, runInEveryFrame: function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optOut: boolean, optIn: boolean, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optIn: boolean, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
- */
+*/
 async function getSiteData(context, url, {
     collectors,
     log,
@@ -367,7 +364,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, optIn?: boolean, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, optIn?: boolean, collectorFlags?: Object.<string, string>}} options
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options) => {
