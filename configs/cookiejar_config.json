@@ -1,0 +1,27 @@
+{	
+	"output": "test_stateful",
+	"logPath": "../opt-out-gpp/logs/tests/default/",
+    "crawlers": 2,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    "optOut": false,
+    "saveCookies": false,
+    "loadCookies": true,
+    "cookieJarPath": "cookie_jar/cookies.json",
+    "statefulCrawl": false,
+    
+    "dataCollectors": [
+        "cookies"
+    ],  
+	"executablePath": "/Users/raahemnabeel/Downloads/chrome-mac-arm64-3/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "reporters": [
+        "cli"
+    ],  
+    "urls": "testing/urls.txt"
+}
+
