@@ -27,7 +27,7 @@ const MOBILE_VIEWPORT = {
 
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-const VISUAL_DEBUG = false;
+const VISUAL_DEBUG = true;
 
 /**
  * @param {number} waitTime
@@ -223,7 +223,9 @@ async function getSiteData(context, url, {
     await page.setViewport(emulateMobile ? MOBILE_VIEWPORT : DEFAULT_VIEWPORT);
 
     // if any prompts open on page load, they'll make the page hang unless closed
-    page.on('dialog', dialog => dialog.dismiss());
+    if (!semiAutomated) {
+        page.on('dialog', dialog => dialog.dismiss());
+    }
 
     // catch and report crash errors
     page.on('error', e => log(chalk.red(e.message)));
@@ -248,6 +250,10 @@ async function getSiteData(context, url, {
         }
     }
 
+    // await page.evaluate(() => {
+    //     alert('Page fully loaded and ready!');
+    // });
+
     console.log("The value of semiAutomated boolean is:", semiAutomated);
     // Semi-automated crawl should trigger here and only when VISUAL_DEBUG is set to true meaning in non-headless mode
     if (semiAutomated && VISUAL_DEBUG) {
@@ -257,6 +263,10 @@ async function getSiteData(context, url, {
         // await waitForUserInput();
 
         console.log(chalk.yellow('\nSEMI-AUTOMATED MODE: Interact with cookie banner by clicking...'));
+
+        await page.evaluate(() => {
+            alert('Page fully loaded and ready! Dismiss this alert, then press ENTER on the page.');
+        });
 
         await page.evaluate(() => {
             // @ts-ignore

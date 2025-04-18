@@ -1,6 +1,6 @@
 {
-    "output": "./Crawls/onetrust_semi_automated_optout",
-    "logPath": "./log/onetrust_groups_test",
+    "output": "./Crawls/usercentrics_semi_automated_optout",
+    "logPath": "./log/didomi_userstatus_test",
     "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
@@ -21,5 +21,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/onetrust_urls.txt"
+    "urls": "Configs/URLS/usercentrics_urls.txt"
 }
