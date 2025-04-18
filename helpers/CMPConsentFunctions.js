@@ -206,22 +206,25 @@ const usercentricsConsent = async page => {
  */
 /* eslint-disable no-undef */
 const quantcastPresence = async page => {
+    
     try {
         const result = await page.evaluate(() => {
-            console.log("Checking for Quantcast CMP");
+            console.log("Checking for any element with classname starting with 'qc-cmp2'");
             
-            const consentDialog = document.querySelector(".qc-cmp2-summary-buttons");
-            if (consentDialog) {
-                console.log("Quantcast CMP found");
+            const element = document.querySelector('[class^="qc-cmp2"]');
+
+            if (element) {
+                console.log("Found Quantcast elements:", element);
                 return true;
             }
-            console.log("Quantcast CMP not found");
+            
+            console.log("No Quantcast element found");
             return false;
         });
 
         return result;
-    } catch {
-        console.log("Error getting Quantcast object");
+    } catch (error) {
+        console.log("Error detecting Quantcast CMP element:", error);
         return false;
     }
 };

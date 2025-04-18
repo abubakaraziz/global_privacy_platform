@@ -8,9 +8,12 @@ import pandas as pd
 # log_file_path = "/Users/jawadsaeed/Downloads/boston_default_crawl_log/default_boston_config_0"
 # log_file_path = "/Users/jawadsaeed/Downloads/boston_default_crawl_log/default_boston_config_1"
 # log_file_path = "/Users/jawadsaeed/Downloads/boston_default_crawl_log/default_boston_config_2"
-log_dir_apth = "/Users/jawadsaeed/Downloads/boston_default_crawl_log"
-urls_file_path = "/Users/jawadsaeed/Downloads/combined_unique_domains.txt"
-output_folder_path = "/Users/jawadsaeed/Downloads/output_all"
+# log_dir_apth = "/Users/jawadsaeed/Downloads/boston_default_crawl_log"
+# urls_file_path = "/Users/jawadsaeed/Downloads/combined_unique_domains.txt"
+# output_folder_path = "/Users/jawadsaeed/Downloads/output_all"
+log_dir_path = "/Users/jawadsaeed/Documents/SPROJ/10k_logs"
+urls_file_path = "/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/configs/URLS/5000_10k.txt"
+output_folder_path = "/Users/jawadsaeed/Documents/SPROJ/10k_crawl"
 
 # Define regex patterns to extract error messages, site processing, and attachment warnings/errors
 error_pattern = re.compile(r"^(\S+): .*?Error: (.+?) at ")  # Updated pattern to handle extra text
@@ -39,8 +42,8 @@ unknown_breakpoint_error = defaultdict(Counter) # Count the occurrences of unkno
 site_errors = {} # Track the errors for each site
 
 # Iterating over all the log files in the directory
-for filename in os.listdir(log_dir_apth):
-    log_file_path = os.path.join(log_dir_apth, filename)
+for filename in os.listdir(log_dir_path):
+    log_file_path = os.path.join(log_dir_path, filename)
     print(f"Processing log file: {log_file_path}")
     # Processing the log file by looping over each line and checking for regex matches
     with open(log_file_path, "r", encoding="utf-8") as file:

@@ -56,9 +56,13 @@ program
  * @param {number} extraExecutionTimeMs
  * @param {boolean} optOut
  * @param {boolean} semiAutomated
+ * @param {boolean} statefulCrawl
+ * @param {boolean} saveCookies
+ * @param {boolean} loadCookies
+ * @param {string} cookieJarPath
  * @param {Object.<string, boolean>} collectorFlags
  */
-async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, semiAutomated, collectorFlags) {
+async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, semiAutomated, statefulCrawl, saveCookies, loadCookies, cookieJarPath, collectorFlags) {
     const startTime = new Date();
 
     reporters.forEach(reporter => {
@@ -179,6 +183,10 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
             extraExecutionTimeMs,
             optOut,
             semiAutomated,
+            statefulCrawl,
+            saveCookies,
+            loadCookies,
+            cookieJarPath,
             collectorFlags,
         });
         log(chalk.green('\n✅ Finished successfully.'));
@@ -263,5 +271,5 @@ if (!config.urls || !config.output) {
         return item;
     });
 
-    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.semiAutomated, collectorFlags);
+    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.semiAutomated, config.statefulCrawl, config.saveCookies, config.loadCookies, config.cookieJarPath, collectorFlags);
 }

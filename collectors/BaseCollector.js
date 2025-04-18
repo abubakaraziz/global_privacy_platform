@@ -23,6 +23,13 @@ class BaseCollector {
     }
 
     /**
+     * @param {import('puppeteer').Page} page
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setPage(page) {
+    }
+
+    /**
      * Called after the page has loaded. Can be async, can throw errors.
      *
      * @returns {Promise<void>|Object}

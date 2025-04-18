@@ -11,11 +11,14 @@ const createDeferred = require('./helpers/deferred');
 const BaseCollector = require('./collectors/BaseCollector');
 const f = require('fs');
 // const notABot = require('./helpers/notABot');
+const puppeteer = require('puppeteer');
 const notABot = f.readFileSync('./helpers/stealth.min.js', 'utf8');
+const {openBrowser, VISUAL_DEBUG} = require('./crawler');
 
 
 const MAX_NUMBER_OF_CRAWLERS = 38;// by trial and error there seems to be network bandwidth issues with more than 38 browsers. 
 const MAX_NUMBER_OF_RETRIES = 2;
+
 
 /**
  * @param {string} urlString 
@@ -31,9 +34,14 @@ const MAX_NUMBER_OF_RETRIES = 2;
  * @param {number} extraExecutionTimeMs
  * @param {boolean} optOut
  * @param {boolean} semiAutomated
+ * @param {boolean} statefulCrawl
+ * @param {boolean} saveCookies
+ * @param {boolean} loadCookies
+ * @param {string} cookieJarPath
+ * @param {puppeteer.BrowserContext} browserContext
  * @param {Object.<string, string>} collectorFlags
  */
-async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, semiAutomated, collectorFlags) {
+async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, semiAutomated, statefulCrawl, saveCookies, loadCookies, cookieJarPath, collectorFlags, browserContext) {
     const url = new URL(urlString);
     /**
      * @type {function(...any):void} 
@@ -41,27 +49,34 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
     const prefixedLog = (...msg) => log(chalk.gray(`${url.hostname}:`), ...msg);
 
     // @ts-ignore
-    const data = await crawl(url, {
-        log: prefixedLog,
+    const data = await crawl(
+ url, {
+     log: prefixedLog,
         // @ts-ignore
-        collectors: dataCollectors.map(collector => new collector.constructor()),
-        filterOutFirstParty,
-        emulateMobile,
-        proxyHost,
-        runInEveryFrame: antiBotDetection ? notABot : undefined,
-        executablePath,
-        maxLoadTimeMs,
-        extraExecutionTimeMs,
-        optOut,
-        semiAutomated,
-        collectorFlags,
-    });
+     collectors: dataCollectors.map(collector => new collector.constructor()),
+     filterOutFirstParty,
+     emulateMobile,
+     proxyHost,
+     runInEveryFrame: antiBotDetection ? notABot : undefined,
+     executablePath,
+     maxLoadTimeMs,
+     extraExecutionTimeMs,
+     optOut,
+     semiAutomated,
+     saveCookies,
+     loadCookies,
+     cookieJarPath,
+     collectorFlags,
+ },
+    browserContext
+);
 
     dataCallback(url, data);
 }
 
+
 /**
- * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, semiAutomated?: boolean, collectorFlags?: Object.<string, boolean>}} options
+ * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, semiAutomated?: boolean, statefulCrawl?:boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags?: Object.<string, boolean>}} options
  */
 module.exports = async options => {
     const deferred = createDeferred();
@@ -84,6 +99,16 @@ module.exports = async options => {
     // if (options.chromiumVersion) {
     //     executablePath = await downloadCustomChromium(log, options.chromiumVersion);
     // }
+    let browserContext = null;
+    let browser = null;
+    if (options.statefulCrawl) {
+        console.log("Stateful crawl is enabled.");
+       
+        // @ts-ignore
+        browser = await openBrowser(log, options.proxyHost, executablePath);
+        browserContext = browser.defaultBrowserContext();
+        // options.browserContext = browserContext;
+    }
 
 
     async.eachOfLimit(options.urls, numberOfCrawlers, (urlItem, idx, callback) => {
@@ -98,7 +123,7 @@ module.exports = async options => {
         log(chalk.cyan(`Processing entry #${Number(idx) + 1} (${urlString}).`));
         const timer = createTimer();
 
-        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.optOut, options.semiAutomated, options.collectorFlags);
+        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.optOut, options.semiAutomated, options.statefulCrawl, options.saveCookies, options.loadCookies, options.cookieJarPath, options.collectorFlags, browserContext);
 
         async.retry(MAX_NUMBER_OF_RETRIES, task, err => {
             if (err) {
@@ -119,4 +144,8 @@ module.exports = async options => {
     });
 
     await deferred.promise;
+
+    if (browser && !VISUAL_DEBUG) {
+        await browser.close();
+    }
 };

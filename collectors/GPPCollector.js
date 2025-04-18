@@ -67,25 +67,12 @@ class GPPCollector extends BaseCollector {
     }
 
     /**
-     * @param {{cdpClient: import('puppeteer').CDPSession, url: string, type: import('./TargetCollector').TargetType}} targetInfo
+     * @param {import('puppeteer').Page} page
      */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    async addTarget(targetInfo) {
-        
-        if (targetInfo.type !== 'page') {
-            // console.log(`Skipping non-page target: ${targetInfo.url}`);
-            return;
-        }
-    
-        const pages = await this.context.pages(); // Wait for pages to be available
-        if (pages.length === 0) {
-            // console.log('No pages found in context yet');
-            return;
-        }
+    async setPage(page) {
+        this.page = page;
 
-        const page = pages[1];
-
-        //@ts-ignore
+         //@ts-ignore
         const updateTCFScanResult = tcData => {
             this.scanResult.tcfEventListenerData.push(tcData);
             // console.log('TCF event data added to scanResult:', tcData);
@@ -112,7 +99,35 @@ class GPPCollector extends BaseCollector {
             updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
         });
     
-        console.log(`Script injected for target: ${targetInfo.url}`);
+        console.log(`Script injected for page: ${page.url} in setPage`);
+
+    }
+
+    /**
+     * @param {{cdpClient: import('puppeteer').CDPSession, url: string, type: import('./TargetCollector').TargetType}} targetInfo
+     */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async addTarget(targetInfo) {
+        
+        // if (targetInfo.type !== 'page') {
+        //     // console.log(`Skipping non-page target: ${targetInfo.url}`);
+        //     return;
+        // }
+    
+        // const pages = await this.context.pages(); // Wait for pages to be available
+
+        // console.log("Pages array in GPP AddTarget:");
+        // for (let i = 0; i < pages.length; i++) {
+        //     console.log(pages[i].url());
+        // }
+
+        // if (pages.length === 0) {
+        //     // console.log('No pages found in context yet');
+        //     return;
+        // }
+
+        // const page = targetInfo.page;
+
     }
 
     async postLoad() {
@@ -125,9 +140,15 @@ class GPPCollector extends BaseCollector {
         const getFields = [];
 
         const pages = await this.context.pages();
+        // console.log("URL in GPP Collector:", this.url);
+        console.log("Page saved in GPP Collector:", this.page.url());
+        console.log("Pages array in GPP COllector:");
+        for (let i = 0; i < pages.length; i++) {
+            console.log(pages[i].url());
+        }
 
         if (pages.length > 0) {
-            const page = pages[1];
+            const page = this.page;
 
             await page.evaluate(() => {console.log("GPP Collector is running...");});
 
