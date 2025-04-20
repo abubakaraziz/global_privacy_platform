@@ -3,47 +3,33 @@
  */
 /* eslint-disable no-undef */
 const oneTrustActiveGroups = async page => {
-    try {
-        const oneTrustData = await page.evaluate(async () => {
+  
+    const oneTrustData = await page.evaluate(async () => {
             const result = {};
-            //@ts-ignore
-            if(window.OneTrust) {
-                console.log("OneTrust CMP found");
+            result.isOneTrust = false;
+            result.domainData = null;
+            result.activeGroups = null;
+            //@ts-ignore 
+            if(window.OneTrust) {   
+                result.isOneTrust = true;
+                try {
+                    //@ts-ignore     
+                    result.domainData = await window.OneTrust.GetDomainData();
+                } catch (error) {}
+            }
 
-                //@ts-ignore
+           //@ts-ignore
                 if (typeof window.OnetrustActiveGroups === "string") {
                     //@ts-ignore
                     result.activeGroups = window.OnetrustActiveGroups;
-                } else {
-                    result.activeGroups = null;
-                }
-                
-                //@ts-ignore
-                if (typeof window.OneTrust.GetDomainData === "function") {
-                    //@ts-ignore 
-                    // eslint-disable-next-line new-cap
-                    result.domainData = await window.OneTrust.GetDomainData();
-                } else {
-                    result.domainData = null;
-                }
-  
-                return result;
-            }
-            console.log("OneTrust CMP not found");
-            return null;
+                } 
+         
+            
+            return result;
         
         });
-  
-        if (oneTrustData) {
-            console.log("OneTrust data retrieved.");
-        } else {
-            console.log("No OneTrust data retrieved.");
-        }
         return oneTrustData;
-    } catch (error) {
-        console.log("Error getting OneTrust data", error);
-        return null;
-    }
+    
 };
 
 /**
@@ -51,37 +37,23 @@ const oneTrustActiveGroups = async page => {
  */
 /* eslint-disable no-undef */
 const didomiUserStatus = async page => {
-    try {
-        const didomiUserStatusObject = await page.evaluate(() => new Promise(resolve => {
-                // Check if DidomiUserStatus exists on the window object
-                // @ts-ignore
-            if (window.Didomi) {
-                console.log('Didomi CMP found');
-                // @ts-ignore
-                // Checking the the user status function exists
-                // @ts-ignore
-                if (typeof window.Didomi.getCurrentUserStatus === 'function') {
-                    // @ts-ignore
-                    resolve(window.Didomi.getCurrentUserStatus());
-                } else {
-                    console.log('Didomi.getCurrentUserStatus function not found');
-                    resolve(null);
-                }
-            } else {
-                console.log('Didomi CMP not found');
-                resolve(null);
-            }
-        }));
-        if (didomiUserStatusObject) {
-            console.log('Didomi object retrieved.');
-        } else {
-            console.log('No Didomi object retrieved.');
+   
+    const didomiUserStatusObject = await page.evaluate(async() => {
+        const result = {};
+        result.isDidomi = false;
+        result.getCurrentUserStatus = null; 
+    // @ts-ignore
+        if (window.Didomi) {
+            result.isDidomi = true
+            try{
+            // @ts-ignore
+            result.getCurrentUserStatus = await window.Didomi.getCurrentUserStatus()
+            }catch{}
+       
         }
-        return didomiUserStatusObject; // Return the retrieved object
-    } catch {
-        console.log("Error getting Didomi object");
-        return null;
-    }
+        return result
+        });
+        return didomiUserStatusObject; 
 };
 
 /**
@@ -89,116 +61,59 @@ const didomiUserStatus = async page => {
  */
 /* eslint-disable no-undef */
 const cookieBotConsent = async page => {
-    try {
-        const cookieBotConsentObject = await page.evaluate(() => new Promise(resolve => {
-                    // Check if CookieBot exists on the window object
-                    // @ts-ignore
-            if (window.Cookiebot) {
-                console.log("CookieBot CMP found");
-                        // @ts-ignore
-
-                        // Checking if the consent object exists and retrieving it
-                        // @ts-ignore
-                if (typeof window.Cookiebot.consent === "object") {
-                            // @ts-ignore
-                    resolve(window.Cookiebot.consent);
-                } else {
-                    console.log("Cookiebot.consent object not found");
-                    resolve(null);
-                }
-            } else {
-                console.log("CookieBot CMP not found");
-                resolve(null);
-            }
-        }));
-
-        if (cookieBotConsentObject) {
-            console.log("CookieBot object retrieved:", cookieBotConsentObject);
-        } else {
-            console.log("No CookieBot object retrieved.");
-        }
+    
+    const cookieBotConsentObject = await page.evaluate(async () =>{
+        // Check if CookieBot exists on the window object
+        // @ts-ignore
+        const result = {};
+        result.isCookieBot = false;
+        result.consent = null;
+        // @ts-ignore
+        if (window.Cookiebot) {
+        try{
+        // @ts-ignore
+        result.consent = await window.Cookiebot.consent;
+        }catch{}
+    }
+        return result;  
+        });
 
         return cookieBotConsentObject; // Return the retrieved object
-    } catch {
-        console.log("Error getting CookieBot object");
-        return null;
-    }
+    
 };
 
 /**
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 /* eslint-disable no-undef */
-const osanoConsent = async page => {
-    try {
-        const osanoConsentObject = await page.evaluate(() => new Promise(resolve => {
-                    // Check if Osano exists on the window object
-                    // @ts-ignore
-            if (window.Osano) {
-                console.log("Osano CMP found");
-                        // @ts-ignore
-
-                        // Checking if the consent object exists and retrieving it
-                        // @ts-ignore
-                if (typeof window.Osano.cm.getConsent === 'function') {
-                            // @ts-ignore
-                    resolve(window.Osano.cm.getConsent());
-                } else {
-                    console.log("Osano.consent object not found");
-                    resolve(null);
-                }
-            } else {
-                console.log("Osano CMP not found");
-                resolve(null);
-            }
-        }));
-
-        if (osanoConsentObject) {
-            console.log("Osano object retrieved:", osanoConsentObject);
-        } else {
-            console.log("No Osano object retrieved.");
-        }
-
-        return osanoConsentObject; // Return the retrieved object
-    } catch {
-        console.log("Error getting Osano object");
-        return null;
-    }
-};
-
-/**
- * @param {import('puppeteer').Page} page - The Puppeteer page instance.
- */
-/* eslint-disable no-undef */
-const usercentricsConsent = async page => {
-    try {
+const usercentricsConsent = async page => {    
+    
         const usercentricsConsentObject = await page.evaluate(async () => {
+            const result = {}
+            result.isUsercentrics = false;
+            result.getServicesFullInfo = null;
+            result.allAccepted = null;
             // @ts-ignore
             if (window.UC_UI) {
-                console.log("Usercentrics CMP found");
-                // @ts-ignore
-                const servicesInfo = await window.UC_UI.getServicesFullInfo();
-                // @ts-ignore
-                const allAccepted = window.UC_UI.areAllConsentsAccepted();
-                const object = {allAccepted, servicesInfo};
-                // console.log("Usercentrics object retrieved:", object);
-                return object;
-            }
-            console.log("Usercentrics CMP not found");
-            return null;
-        });
-      
-        if (usercentricsConsentObject) {
-            console.log("Usercentrics object retrieved.");
-        } else {
-            console.log("No Usercentrics object retrieved.");
-        }
+                result.isUsercentrics = true;
+                try {
+                    // @ts-ignore
+                    result.getServicesFullInfo = await window.UC_UI.getServicesFullInfo();
+                    }catch{}
+                    
+                    try{
+                    // @ts-ignore
+                     result.allAccepted = await window.UC_UI.areAllConsentsAccepted();
+                    }catch{}
+                }
+                
+           
+
+            return result;
+    });
       
         return usercentricsConsentObject;
-    } catch {
-        console.log("Error getting Usercentrics object");
-        return null;
-    }
+    
 };
 
 /**
@@ -206,27 +121,19 @@ const usercentricsConsent = async page => {
  */
 /* eslint-disable no-undef */
 const quantcastPresence = async page => {
+    const result = {};
+    result.isQuantcast = false;
+    result.isQuantcast = await page.evaluate(() => {
+        
+    const element = document.querySelector('[class^="qc-cmp2"]');
+        if (element) {
+        return true;
+        }
+    return false;
+    });
+
+    return result;
     
-    try {
-        const result = await page.evaluate(() => {
-            console.log("Checking for any element with classname starting with 'qc-cmp2'");
-            
-            const element = document.querySelector('[class^="qc-cmp2"]');
-
-            if (element) {
-                console.log("Found Quantcast elements:", element);
-                return true;
-            }
-            
-            console.log("No Quantcast element found");
-            return false;
-        });
-
-        return result;
-    } catch (error) {
-        console.log("Error detecting Quantcast CMP element:", error);
-        return false;
-    }
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, osanoConsent, usercentricsConsent, quantcastPresence};
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence};
