@@ -290,6 +290,7 @@ async function getSiteData(context, url, {
         console.log(chalk.yellow('\nSEMI-AUTOMATED MODE: Interact with cookie banner by clicking...'));
 
         await page.evaluate(() => {
+            // eslint-disable-next-line no-alert, no-undef
             alert('Page fully loaded and ready! Dismiss this alert, then press ENTER on the page.');
         });
 
