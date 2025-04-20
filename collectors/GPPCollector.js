@@ -66,6 +66,11 @@ class GPPCollector extends BaseCollector {
         };
     }
 
+    //When running a stateful crawl, the context.pages() method returns an array of pages which we cannot simply select the first index from, as was done in our GPP collector initially (following the pattern of the CMP Collector postLoad function). 
+    //In order to counter this, we have introduced a separate setPage here in the GPP collector. It does the job of saving the relevant page for the website so we do not need to get the page object from the pages array during the postLoad. 
+    //By utilizing this method, we no longer have to hard-code the index while ensuring the right page is always selected for each website. 
+    //We call this method early on when we call addTarget, as that is the first function to be called on any website and later when we make use of the page in postLoad, the page is already set.
+
     /**
      * @param {import('puppeteer').Page} page
      */
