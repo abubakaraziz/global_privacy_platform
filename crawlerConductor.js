@@ -99,6 +99,10 @@ module.exports = async options => {
     // }
     let browserContext = null;
     let browser = null;
+
+    //When we have a stateful crawl, we pre-create a browser context using the openBrowser method which we have imported here from crawler.js.
+    // By creating this browser context and passing it to the crawlAndSaveData function, we can ensure that all crawlers share the same browser context.
+    // This allows us to maintain a consistent state across all crawlers, which is important for stateful crawling.
     if (options.statefulCrawl) {
         console.log("Stateful crawl is enabled.");
        
@@ -143,6 +147,8 @@ module.exports = async options => {
 
     await deferred.promise;
 
+    //In case of stateful crawls, the browser context will have been created in this file and hence will require to be closed here. 
+    //If the browser context was created in the crawler.js file, it will be closed there as the browswer object below will be undefined.
     if (browser && !VISUAL_DEBUG) {
         await browser.close();
     }
