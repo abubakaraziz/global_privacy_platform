@@ -52,7 +52,7 @@ class GPPCollector extends BaseCollector {
             uspString: [],
             tcfString: [],
             tcfEventListenerData: [],
-            gppEventListenerData: [], 
+            gppEventListenerData: [],
             cmpConsentObject: [],
             googleTagData: [],
             dataLayer: [],
@@ -62,38 +62,39 @@ class GPPCollector extends BaseCollector {
     /**
      * @param {import('puppeteer').Page} page
      */
+   /* eslint-disable-next-line require-await */
     async setPage(page) {
         this.page = page;
-        /*
-         //@ts-ignore
-        const updateTCFScanResult = tcData => {
-            this.scanResult.tcfEventListenerData.push(tcData);
-            // console.log('TCF event data added to scanResult:', tcData);
-        };
-
-        //@ts-ignore    
-        const updateGPPScanResult = gppData => {
-            this.scanResult.gppEventListenerData.push(gppData);
-            // console.log("GPP event data added to scanResult:", gppData);
-        };
-
-
-        //@ts-ignore
-        await page.exposeFunction('handleTCFEventData', tcData => {
-            console.log('TCF Event Listener triggered.');
-            updateTCFScanResult(tcData);  // Call the onEventData callback with the event data
-        });
-
-
-        // Expose the callback function to the page context
-        // @ts-ignore
-        await page.exposeFunction('handleGPPEventData', gppData => {
-            console.log('GPP Event Listener triggered.');
-            updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
-        });
-    
-        console.log(`Script injected for page: ${page.url} in setPage`);
-        */
+        // 
+        // //@ts-ignore
+        // const updateTCFScanResult = tcData => {
+        //     this.scanResult.tcfEventListenerData.push(tcData);
+        //     // console.log('TCF event data added to scanResult:', tcData);
+        // };
+        // 
+        // //@ts-ignore    
+        // const updateGPPScanResult = gppData => {
+        //     this.scanResult.gppEventListenerData.push(gppData);
+        //     // console.log("GPP event data added to scanResult:", gppData);
+        // };
+        // 
+        // 
+        // //@ts-ignore
+        // await page.exposeFunction('handleTCFEventData', tcData => {
+        //     console.log('TCF Event Listener triggered.');
+        //     updateTCFScanResult(tcData);  // Call the onEventData callback with the event data
+        // });
+        // 
+        // 
+        // // Expose the callback function to the page context
+        // // @ts-ignore
+        // await page.exposeFunction('handleGPPEventData', gppData => {
+        //     console.log('GPP Event Listener triggered.');
+        //     updateGPPScanResult(gppData);  // Call the onEventData callback with the event data
+        // });
+        // 
+        // console.log(`Script injected for page: ${page.url} in setPage`);
+        // 
     }
 
     /**
@@ -110,7 +111,7 @@ class GPPCollector extends BaseCollector {
          */
         const gppObjects = [];
         const hasSections = [];
-        const getSections = [];  
+        const getSections = [];
 
         const pages = await this.context.pages();
        
@@ -159,19 +160,19 @@ class GPPCollector extends BaseCollector {
 
             if (hasSection) {
                 hasSections.push(...hasSection);
-            } 
+            }
             //get GPP getSections for sections that we get from gppObject
             const getSection = await callGPPgetSections(page, gppObject);
             if (getSection) {
                 getSections.push(...getSection);
-            } 
+            }
 
             //get uspString
             const uspString = await uspPing(page);
 
             if (uspString) {
                 this.scanResult.uspString.push(uspString);
-            } 
+            }
 
             
             //get tcfString
@@ -179,18 +180,18 @@ class GPPCollector extends BaseCollector {
 
             if (tcfString) {
                 this.scanResult.tcfString.push(tcfString);
-            } 
+            }
         }
         this.pendingScan.resolve();
 
         this.scanResult = {
             gppObjects,
             hasSections,
-            getSections, 
+            getSections,
             uspString: this.scanResult.uspString,
             tcfString: this.scanResult.tcfString,
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
-            gppEventListenerData: this.scanResult.gppEventListenerData, 
+            gppEventListenerData: this.scanResult.gppEventListenerData,
             cmpConsentObject: this.scanResult.cmpConsentObject,
             googleTagData: this.scanResult.googleTagData,
             dataLayer: this.scanResult.dataLayer,

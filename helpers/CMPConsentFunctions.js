@@ -5,30 +5,30 @@
 const oneTrustActiveGroups = async page => {
   
     const oneTrustData = await page.evaluate(async () => {
-            const result = {};
-            result.isOneTrust = false;
-            result.domainData = null;
-            result.activeGroups = null;
+        const result = {};
+        result.isOneTrust = false;
+        result.domainData = null;
+        result.activeGroups = null;
             //@ts-ignore 
-            if(window.OneTrust) {   
-                result.isOneTrust = true;
-                try {
-                    //@ts-ignore     
-                    result.domainData = await window.OneTrust.GetDomainData();
-                } catch (error) {}
-            }
+        if(window.OneTrust) {
+            result.isOneTrust = true;
+            try {
+            //@ts-ignore     
+                result.domainData = await window.OneTrust.GetDomainData();
+            } catch {}
+        }
 
            //@ts-ignore
-                if (typeof window.OnetrustActiveGroups === "string") {
+        if (typeof window.OnetrustActiveGroups === "string") {
                     //@ts-ignore
-                    result.activeGroups = window.OnetrustActiveGroups;
-                } 
+            result.activeGroups = window.OnetrustActiveGroups;
+        }
          
             
-            return result;
+        return result;
         
-        });
-        return oneTrustData;
+    });
+    return oneTrustData;
     
 };
 
@@ -41,19 +41,19 @@ const didomiUserStatus = async page => {
     const didomiUserStatusObject = await page.evaluate(async() => {
         const result = {};
         result.isDidomi = false;
-        result.getCurrentUserStatus = null; 
+        result.getCurrentUserStatus = null;
     // @ts-ignore
         if (window.Didomi) {
-            result.isDidomi = true
+            result.isDidomi = true;
             try{
             // @ts-ignore
-            result.getCurrentUserStatus = await window.Didomi.getCurrentUserStatus()
+                result.getCurrentUserStatus = await window.Didomi.getCurrentUserStatus();
             }catch{}
        
         }
-        return result
-        });
-        return didomiUserStatusObject; 
+        return result;
+    });
+    return didomiUserStatusObject;
 };
 
 /**
@@ -62,7 +62,7 @@ const didomiUserStatus = async page => {
 /* eslint-disable no-undef */
 const cookieBotConsent = async page => {
     
-    const cookieBotConsentObject = await page.evaluate(async () =>{
+    const cookieBotConsentObject = await page.evaluate(async () => {
         // Check if CookieBot exists on the window object
         // @ts-ignore
         const result = {};
@@ -70,15 +70,15 @@ const cookieBotConsent = async page => {
         result.consent = null;
         // @ts-ignore
         if (window.Cookiebot) {
-        try{
+            try{
         // @ts-ignore
-        result.consent = await window.Cookiebot.consent;
-        }catch{}
-    }
-        return result;  
-        });
+                result.consent = await window.Cookiebot.consent;
+            }catch{}
+        }
+        return result;
+    });
 
-        return cookieBotConsentObject; // Return the retrieved object
+    return cookieBotConsentObject; // Return the retrieved object
     
 };
 
@@ -86,33 +86,32 @@ const cookieBotConsent = async page => {
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 /* eslint-disable no-undef */
-const usercentricsConsent = async page => {    
+const usercentricsConsent = async page => {
     
-        const usercentricsConsentObject = await page.evaluate(async () => {
-            const result = {}
-            result.isUsercentrics = false;
-            result.getServicesFullInfo = null;
-            result.allAccepted = null;
+    const usercentricsConsentObject = await page.evaluate(async () => {
+        const result = {};
+        result.isUsercentrics = false;
+        result.getServicesFullInfo = null;
+        result.allAccepted = null;
             // @ts-ignore
-            if (window.UC_UI) {
-                result.isUsercentrics = true;
-                try {
+        if (window.UC_UI) {
+            result.isUsercentrics = true;
+            try {
                     // @ts-ignore
-                    result.getServicesFullInfo = await window.UC_UI.getServicesFullInfo();
-                    }catch{}
+                result.getServicesFullInfo = await window.UC_UI.getServicesFullInfo();
+            }catch{}
                     
-                    try{
+            try{
                     // @ts-ignore
-                     result.allAccepted = await window.UC_UI.areAllConsentsAccepted();
-                    }catch{}
-                }
-                
+                result.allAccepted = await window.UC_UI.areAllConsentsAccepted();
+            }catch{}
+        }
            
 
-            return result;
+        return result;
     });
       
-        return usercentricsConsentObject;
+    return usercentricsConsentObject;
     
 };
 
@@ -125,11 +124,11 @@ const quantcastPresence = async page => {
     result.isQuantcast = false;
     result.isQuantcast = await page.evaluate(() => {
         
-    const element = document.querySelector('[class^="qc-cmp2"]');
+        const element = document.querySelector('[class^="qc-cmp2"]');
         if (element) {
-        return true;
+            return true;
         }
-    return false;
+        return false;
     });
 
     return result;

@@ -263,9 +263,9 @@ async function getSiteData(context, url, {
             for (let target of targets) {
                 if (target.type === 'page') {
                     // eslint-disable-next-line no-await-in-loop
-                    /*Comment out the following linem, because even after page is still loading after timeout, we do not want to
-                    prevent external scripts from loading, because we want to collect all data from the page.
-                    */
+                    // Comment out the following linem, because even after page is still loading after timeout, we do not want to
+                    // prevent external scripts from loading, because we want to collect all data from the page.
+                    // 
                     //await target.cdpClient.send('Page.stopLoading');
                     
                 }
