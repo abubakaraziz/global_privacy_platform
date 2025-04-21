@@ -70,6 +70,7 @@ const cookieBotConsent = async page => {
         result.consent = null;
         // @ts-ignore
         if (window.Cookiebot) {
+            result.isCookieBot = true;
             try{
         // @ts-ignore
                 result.consent = await window.Cookiebot.consent;
