@@ -10,32 +10,30 @@
 /* eslint-disable no-undef */
 async function optOutDidomi(page) {
     console.log("Checking for Didomi CMP");
+
     const didomiResult = await page.evaluate(() => {
-        let found = false;
-        let optedOut = false;
-        try {
+        let result = {};
+        result.isDidomi = false;
+        result.optedOut = false;
+       
         // @ts-ignore
-            if (window.Didomi) {
-                found = true;
-                console.log("Didomi banner visible, opting out");
-            // @ts-ignore
+        if (window.Didomi) {
+            result.isDidomi = true;
+            console.log("Didomi banner visible, opting out");
+
+            try {
+                // @ts-ignore
                 window.Didomi.setUserDisagreeToAll();
-                optedOut = true;
-            } else {
-                console.log("Didomi CMP or its functions not found");
+                result.optedOut = true;
+            } catch {
+                console.log("Error opting out of Didomi.");
             }
-        } catch {
-            console.log("Error opting out of Didomi.");
-            optedOut = false;
         }
-        const name = "Didomi";
-        return {name, found, optedOut};
+        
+        return result;
     });
 
-    if (didomiResult.found) {
-        return didomiResult;
-    }
-    return null;
+    return didomiResult;
 }
 
 /**
@@ -44,34 +42,31 @@ async function optOutDidomi(page) {
  */
 async function optOutOneTrust(page) {
     console.log("Checking for OneTrust CMP");
-    const result = await page.evaluate(() => {
-        let found = false;
-        let optedOut = false;
-        try {
-            // @ts-ignore
-            if (window.OneTrust) {
-                found = true;
-                console.log("OneTrust CMP detected, opting out");
+    
+    const oneTrustResult = await page.evaluate(() => {
+        let result = {};
+        result.isOneTrust = false;
+        result.optedOut = false;
+
+        // @ts-ignore
+        if(window.OneTrust) {
+            result.isOneTrust = true;
+            console.log("OneTrust banner visible, opting out");
+
+            try {
                 // @ts-ignore
                 // eslint-disable-next-line new-cap
                 window.OneTrust.RejectAll();
-                optedOut = true;
-            } else {
-                console.log("OneTrust CMP or its functions not found");
+
+                result.optedOut = true;
+            } catch (error) {
+                console.error("Error opting out of OneTrust:", error);
             }
-        } catch (error) {
-            console.error("Error getting OneTrust data", error);
-            optedOut = false;
         }
-        const name = "OneTrust";
-        return {name, found, optedOut};
+        return result;
     });
 
-    //only return a valid result object if CMP was at least detected
-    if (result.found) {
-        return result;
-    }
-    return null;
+    return oneTrustResult;
 }
 /**
  * Quantcast opt-out logic
@@ -241,39 +236,29 @@ async function optOutQuantcast(page) {
  */
 async function optOutCookieBot(page) {
     console.log("Checking for Cookiebot CMP");
-    const result = await page.evaluate(() => {
-        
-        let found = false;
-        let optedOut = false;
-        try {
+
+    const cookieBotResult = await page.evaluate(() => {
+        let result = {};
+        result.isCookiebot = false;
+        result.optedOut = false;
+
         // @ts-ignore
-            if (window.CookieConsent) {
-                found = true;
-                console.log("Cookiebot CMP detected, opting out");
-                
+        if (window.CookieConsent) {
+            result.isCookiebot = true;
+            console.log("Cookiebot CMP detected, opting out");
+            try {
                 // @ts-ignore
-                if (typeof window.CookieConsent.submitCustomConsent === 'function') {
-                // @ts-ignore
-                    window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
-                    console.log("Opted out of Cookiebot");
-                    optedOut = true;
-                }
+                window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
+                result.optedOut = true;
            
-            } else {
-                console.log("Cookiebot Consent banner not found.");
+            } catch (error) {
+                console.error("Error getting Cookiebot data:", error);
             }
-        } catch  {
-            console.error("Error getting Cookiebot data");
-            optedOut = false;
         }
-        const name = "Cookiebot";
-        return {name, found, optedOut};
+        return result;
     });
 
-    if (result.found) {
-        return result;
-    }
-    return null;
+    return cookieBotResult;
 }
 
 /**
@@ -282,36 +267,30 @@ async function optOutCookieBot(page) {
  */
 async function optOutUserCentrics(page) {
     console.log("Checking for UserCentrics CMP");
-    const ucResult = await page.evaluate(async () => {
-        let found = false;
-        let optedOut = false;
 
-        try {
-            // @ts-ignore
-            if (window.UC_UI) {
-                found = true;
-                console.log("UserCentrics CMP detected, opting out");
+    const ucResult = await page.evaluate(async () => {
+        let result = {};
+        result.isUserCentrics = false;
+        result.optedOut = false;
+
+        // @ts-ignore
+        if (window.UC_UI) {
+            result.isUserCentrics = true;
+            console.log("UserCentrics CMP detected, opting out");
+
+            try {
                 // @ts-ignore
-                if(typeof window.UC_UI.denyAllConsents === 'function') {
-                    // @ts-ignore
-                    await window.UC_UI.denyAllConsents();
-                    optedOut = true;
-                }
-            } else {
-                console.log("UserCentrics CMP or its functions not found");
+                window.UC_UI.denyAllConsents();
+                result.optedOut = true;
+            } catch {
+                console.log("Error opting out of UserCentrics.");
             }
-        } catch {
-            console.log("Error opting out of UserCentrics.");
-            optedOut = false;
         }
-        const name = "UserCentrics";
-        return {name, found, optedOut};
+
+        return result;
     });
 
-    if (ucResult.found) {
-        return ucResult;
-    }
-    return null;
+    return ucResult;
 }
 
 module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot, optOutUserCentrics};
