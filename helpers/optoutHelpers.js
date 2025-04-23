@@ -11,7 +11,7 @@
 async function optOutDidomi(page) {
     console.log("Checking for Didomi CMP");
 
-    const didomiResult = await page.evaluate(() => {
+    const didomiResult = await page.evaluate(async () => {
         let result = {};
         result.isDidomi = false;
         result.optedOut = false;
@@ -23,7 +23,7 @@ async function optOutDidomi(page) {
 
             try {
                 // @ts-ignore
-                window.Didomi.setUserDisagreeToAll();
+                await window.Didomi.setUserDisagreeToAll();
                 result.optedOut = true;
             } catch {
                 console.log("Error opting out of Didomi.");
@@ -43,7 +43,7 @@ async function optOutDidomi(page) {
 async function optOutOneTrust(page) {
     console.log("Checking for OneTrust CMP");
     
-    const oneTrustResult = await page.evaluate(() => {
+    const oneTrustResult = await page.evaluate(async () => {
         let result = {};
         result.isOneTrust = false;
         result.optedOut = false;
@@ -56,7 +56,7 @@ async function optOutOneTrust(page) {
             try {
                 // @ts-ignore
                 // eslint-disable-next-line new-cap
-                window.OneTrust.RejectAll();
+                await window.OneTrust.RejectAll();
 
                 result.optedOut = true;
             } catch (error) {
@@ -237,7 +237,7 @@ async function optOutQuantcast(page) {
 async function optOutCookieBot(page) {
     console.log("Checking for Cookiebot CMP");
 
-    const cookieBotResult = await page.evaluate(() => {
+    const cookieBotResult = await page.evaluate(async () => {
         let result = {};
         result.isCookiebot = false;
         result.optedOut = false;
@@ -248,7 +248,7 @@ async function optOutCookieBot(page) {
             console.log("Cookiebot CMP detected, opting out");
             try {
                 // @ts-ignore
-                window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
+                await window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
                 result.optedOut = true;
            
             } catch (error) {
@@ -280,7 +280,7 @@ async function optOutUserCentrics(page) {
 
             try {
                 // @ts-ignore
-                window.UC_UI.denyAllConsents();
+                await window.UC_UI.denyAllConsents();
                 result.optedOut = true;
             } catch {
                 console.log("Error opting out of UserCentrics.");
