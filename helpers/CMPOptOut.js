@@ -31,14 +31,10 @@ const optOutFromCMPs = async page => {
     } catch {
         console.error("Error opting out of Didomi CMP");
     }
-    try {
-        const qcResult = await optOutQuantcast(page);
-        if (qcResult) {
-            cmpResults.push(qcResult);
-        }
-    } catch {
-        console.error("Error opting out of Quantcast CMP");
-    }
+    
+    const qcResult = await optOutQuantcast(page);
+    cmpResults.push(qcResult);
+       
     try {
         const ucResult = await optOutUserCentrics(page);
         if (ucResult) {

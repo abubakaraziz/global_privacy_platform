@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable no-console */ // Disable console warnings in this file
 
 
@@ -78,103 +79,160 @@ async function optOutOneTrust(page) {
  */
 async function optOutQuantcast(page) {
     console.log("Checking for Quantcast CMP");
-    const qcResult = {name: "Quantcast", found: false, optedOut: false};
+    const qcResult = {};
+    qcResult.isQuantcast = false;
+    qcResult.oldBanner = false;
+    qcResult.uspBanner = false;
+    qcResult.optedOut = false;
 
+    let consentDialog = null;
     try {
         //first, im gonna get the QC CMP dialog box
-        const consentDialog = await page.waitForSelector(".qc-cmp2-summary-buttons", {timeout: 2000});
+        consentDialog = await page.waitForSelector(".qc-cmp2-summary-buttons", {timeout: 2000});
+    } catch (e) {
+        if (e.name === "TimeoutError") {
+            console.log("Quantcast CMP first banner not found or not visible");
+        } else {
+            console.log("Error opting out of Quantcast first banner.");
+        }
+    }
 
-        if (consentDialog) {
-            qcResult.found = true;
-            console.log("Quantcast CMP detected, opting out");
+    if (consentDialog) {
+        qcResult.isQuantcast = true;
+        qcResult.oldBanner = true;
 
-            //this page.$$ method is a Puppeteer method that returns an array of all elements that match the selector
-            const buttons = await page.$$(".qc-cmp2-summary-buttons button");
+        console.log("Quantcast CMP detected, opting out");
 
-            let rejectButton = null;
+        //this page.$$ method is a Puppeteer method that returns an array of all elements that match the selector
+        const buttons = await page.$$(".qc-cmp2-summary-buttons button");
+
+        let rejectButton = null;
+        for (const button of buttons) {
+            // eslint-disable-next-line no-await-in-loop
+            const buttonText = await page.evaluate(el => el.textContent, button);
+            if (buttonText.toLowerCase().includes("reject") || buttonText.toLowerCase().includes("deny") || buttonText.toLowerCase().includes("disagree")) {
+                rejectButton = button;
+                break;
+            }
+        }
+
+        //if we have the reject button, we can just directly click it to opt out.
+        if (rejectButton) {
+            console.log("Reject button found, clicking");
+            await rejectButton.evaluate(btn => btn.click());
+            qcResult.optedOut = true;
+        }
+
+        if (qcResult.optedOut === false) {
+            //if we dont have the reject button, we need to look for a 'more options' button to expand the dialog
+            console.log("Reject button not found, looking for a 'more options' button...");
+
+            let moreOptionsButton = null;
             for (const button of buttons) {
                 // eslint-disable-next-line no-await-in-loop
                 const buttonText = await page.evaluate(el => el.textContent, button);
-                if (buttonText.toLowerCase().includes("reject") || buttonText.toLowerCase().includes("deny") || buttonText.toLowerCase().includes("disagree")) {
-                    rejectButton = button;
+                // eslint-disable-next-line max-depth
+                if (buttonText.toLowerCase().includes("more options") || buttonText.toLowerCase().includes("manage") || buttonText.toLowerCase().includes("options")) {
+                    moreOptionsButton = button;
                     break;
                 }
             }
 
-            //if we have the reject button, we can just directly click it to opt out.
-            if (rejectButton) {
-                console.log("Reject button found, clicking");
-                await rejectButton.evaluate(btn => btn.click());
-                qcResult.optedOut = true;
-            } else {
-                //if we dont have the reject button, we need to look for a 'more options' button to expand the dialog
-                // console.log("Reject button not found, looking for a 'more options' button...");
+            if (moreOptionsButton) {
+                // console.log("More options button found, clicking...");
+                await moreOptionsButton.evaluate(btn => btn.click());
+        
+                //here, we need to wait for the new buttons to appear in this new dialog
+                await page.waitForSelector("button", {timeout: 2000});
+                const newButtons = await page.$$("button");
+                let rejectAllButton = null;
+                let saveAndExitButton = null;
 
-                let moreOptionsButton = null;
-                for (const button of buttons) {
+                // eslint-disable-next-line max-depth
+                for (const button of newButtons) {
                     // eslint-disable-next-line no-await-in-loop
-                    const buttonText = await page.evaluate(el => el.textContent, button);
+                    const text = (await page.evaluate(el => el.textContent, button)).toLowerCase();
                     // eslint-disable-next-line max-depth
-                    if (buttonText.toLowerCase().includes("more options") || buttonText.toLowerCase().includes("manage") || buttonText.toLowerCase().includes("options")) {
-                        moreOptionsButton = button;
-                        break;
+                    if (text.includes("reject all") && !rejectAllButton) {
+                        rejectAllButton = button;
+                    }
+                    // eslint-disable-next-line max-depth
+                    if (text.toLowerCase().includes("save and exit") || text.toLowerCase().includes("save & exit") || text.toLowerCase().includes("save")) {
+                        saveAndExitButton = button;
                     }
                 }
-
-                if (moreOptionsButton) {
-                    // console.log("More options button found, clicking...");
-                    await moreOptionsButton.evaluate(btn => btn.click());
-          
-                    //here, we need to wait for the new buttons to appear in this new dialog
-                    await page.waitForSelector("button", {timeout: 2000});
-                    const newButtons = await page.$$("button");
-                    let rejectAllButton = null;
-                    let saveAndExitButton = null;
-
-                    // eslint-disable-next-line max-depth
-                    for (const button of newButtons) {
-                        // eslint-disable-next-line no-await-in-loop
-                        const text = (await page.evaluate(el => el.textContent, button)).toLowerCase();
-                        // eslint-disable-next-line max-depth
-                        if (text.includes("reject all") && !rejectAllButton) {
-                            rejectAllButton = button;
-                        }
-                        // eslint-disable-next-line max-depth
-                        if (text.toLowerCase().includes("save and exit") || text.toLowerCase().includes("save & exit") || text.toLowerCase().includes("save")) {
-                            saveAndExitButton = button;
-                        }
-                    }
-          
-                    // eslint-disable-next-line max-depth
-                    if (rejectAllButton) {
-                        // console.log("Reject All button found, clicking...");
-                        await rejectAllButton.evaluate(btn => btn.click());
-                    }
-
-                    // eslint-disable-next-line max-depth
-                    if (saveAndExitButton) {
-                        console.log("Save and Exit button found, clicking...");
-                        await saveAndExitButton.evaluate(btn => btn.click());
-                        qcResult.optedOut = true;
-                    }
-                } else {
-                    console.log("No more options button not found");
+        
+                // eslint-disable-next-line max-depth
+                if (rejectAllButton) {
+                    // console.log("Reject All button found, clicking...");
+                    await rejectAllButton.evaluate(btn => btn.click());
                 }
+
+                // eslint-disable-next-line max-depth
+                if (saveAndExitButton) {
+                    console.log("Save and Exit button found, clicking...");
+                    await saveAndExitButton.evaluate(btn => btn.click());
+                    qcResult.optedOut = true;
+                }
+            } else {
+                console.log("No more options button not found");
             }
         }
-    } catch (error) {
-        if (error.name === "TimeoutError") {
-            console.log("Quantcast CMP not found or not visible");
-        } else {
-            console.log("Error opting out of Quantcast.");
+
+        //if we have opted out, we can just return the result
+        if (qcResult.optedOut) {
+            return qcResult;
         }
-        qcResult.optedOut = false;
+        console.log("No Opt out from first QC banner.");
+    }
+    
+    //if the old banner was not found, we need to check for the new one
+    console.log("Checking for QC Usp Consent Dialog");
+    consentDialog = await page.$(".qc-usp-ui-form-content");
+
+    if(consentDialog) {
+        console.log("QC Usp Consent Dialog found");
+        qcResult.isQuantcast = true;
+        qcResult.uspBanner = true;
+
+        const preferencesMenu = await page.$("button.qc-cmp2-list-item-header");
+
+        if(preferencesMenu) {
+            console.log("Preferences menu found, clicking...");
+            await preferencesMenu.evaluate(btn => btn.click());
+            
+            const optOutResult = await page.evaluate(async () => {
+                const toggles = Array.from(document.querySelectorAll('button[role="switch"]'));
+                for (const btn of toggles) {
+                    if (btn.getAttribute('aria-checked') === 'false') {
+                        // @ts-ignore
+                        btn.click();
+                        // eslint-disable-next-line no-await-in-loop
+                        await new Promise(requestAnimationFrame);       //gives DOM the chance to render changes so we dont end up skipping any
+                    }
+                }
+
+                const buttons = Array.from(document.querySelectorAll('.qc-usp-ui-form-content button'));
+                
+                for (const btn of buttons) {
+                    const text = btn.textContent.trim().toLowerCase();
+                    if (text.includes('confirm') || text.includes('save')) {
+                        // @ts-ignore
+                        btn.click();
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+
+            if (optOutResult) {
+                qcResult.optedOut = true;
+            }
+        }
     }
    
-    if (qcResult.found) {
-        return qcResult;
-    }
-    return null;
+    return qcResult;
 }
 
 /**
