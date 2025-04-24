@@ -5,15 +5,36 @@ import json
 # folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/combined_cmp_crawl'
 # folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/combined_cmp_crawl_new'
 # Quantcast testing
-# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/quantcast_test'
+# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/quantcast_test_old'
 # folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/quantcast_test_new'
 # New combined cmp crawl testing
-folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/combined_cmp_crawl_old'
-folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/combined_cmp_crawl_new_1'
+# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/combined_cmp_crawl_old'
+# folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/combined_cmp_crawl_new_1'
+# Onetrust testing
+# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/onetrust_groups_test_old'
+# folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/onetrust_groups_test_new'
+# # Didomi testing
+# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/didomi_userstatus_test_old'
+# folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/didomi_userstatus_test_new'
+# Cookiebot testing
+# Didomi testing
+# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/cookiebot_test_old'
+# folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/cookiebot_test_new'
+# Usercentrics testing
+# folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/usercentrics_test_old'
+# folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/usercentrics_test_new'
+# 100 URL crawl
+folder_path_1 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/100_url_crawl_old'
+folder_path_2 = '/Users/jawadsaeed/Documents/SPROJ/global_privacy_platform/Crawls/100_url_crawl_new'
 
 # CSV_OUTPUT_PATH = '../new_cmp_analysis.csv'
 # CSV_OUTPUT_PATH = '../new_cmp_analysis_quantcast.csv'
-CSV_OUTPUT_PATH = '../new_cmp_analysis_combined_crawl.csv'
+# CSV_OUTPUT_PATH = '../new_cmp_analysis_combined_crawl.csv'
+# CSV_OUTPUT_PATH = '../new_cmp_analysis_onetrust.csv'
+# CSV_OUTPUT_PATH = '../new_cmp_analysis_didomi.csv'
+# CSV_OUTPUT_PATH = '../new_cmp_analysis_cookiebot.csv'
+# CSV_OUTPUT_PATH = '../new_cmp_analysis_usercentrics.csv'
+CSV_OUTPUT_PATH = '../new_cmp_analysis_100_url_crawl.csv'
 
 # First getting the common files from the 2 folders
 files_1 = set(os.listdir(folder_path_1))
