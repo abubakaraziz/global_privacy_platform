@@ -83,7 +83,7 @@ async function optOutQuantcast(page) {
     let consentDialog = null;
     try {
         //first, im gonna get the QC CMP dialog box
-        consentDialog = await page.waitForSelector(".qc-cmp2-summary-buttons", {timeout: 2000});
+        consentDialog = await page.waitForSelector('div[class^="qc-cmp2"]', {timeout: 2000});
     } catch (e) {
         if (e.name === "TimeoutError") {
             console.log("Quantcast CMP first banner not found or not visible");
@@ -92,14 +92,20 @@ async function optOutQuantcast(page) {
         }
     }
 
-    if (consentDialog) {
-        qcResult.isQuantcast = true;
+    //if dialog is not found, we know there is no QC here
+    if (!consentDialog) {
+        console.log("No Quantcast CMP found");
+        return qcResult;
+    }
+
+    qcResult.isQuantcast = true;
+        
+    //this page.$$ method is a Puppeteer method that returns an array of all elements that match the selector
+    const buttons = await page.$$(".qc-cmp2-summary-buttons button");
+
+    //if there are any buttons we know that the old banner exists - this entire block is for the old banner
+    if (buttons.length > 0) {
         qcResult.oldBanner = true;
-
-        console.log("Quantcast CMP detected, opting out");
-
-        //this page.$$ method is a Puppeteer method that returns an array of all elements that match the selector
-        const buttons = await page.$$(".qc-cmp2-summary-buttons button");
 
         let rejectButton = null;
         for (const button of buttons) {
@@ -110,18 +116,18 @@ async function optOutQuantcast(page) {
                 break;
             }
         }
-
+    
         //if we have the reject button, we can just directly click it to opt out.
         if (rejectButton) {
             console.log("Reject button found, clicking");
             await rejectButton.evaluate(btn => btn.click());
             qcResult.optedOut = true;
         }
-
+    
         if (qcResult.optedOut === false) {
             //if we dont have the reject button, we need to look for a 'more options' button to expand the dialog
             console.log("Reject button not found, looking for a 'more options' button...");
-
+    
             let moreOptionsButton = null;
             for (const button of buttons) {
                 // eslint-disable-next-line no-await-in-loop
@@ -132,7 +138,7 @@ async function optOutQuantcast(page) {
                     break;
                 }
             }
-
+    
             if (moreOptionsButton) {
                 // console.log("More options button found, clicking...");
                 await moreOptionsButton.evaluate(btn => btn.click());
@@ -142,7 +148,7 @@ async function optOutQuantcast(page) {
                 const newButtons = await page.$$("button");
                 let rejectAllButton = null;
                 let saveAndExitButton = null;
-
+    
                 // eslint-disable-next-line max-depth
                 for (const button of newButtons) {
                     // eslint-disable-next-line no-await-in-loop
@@ -162,7 +168,7 @@ async function optOutQuantcast(page) {
                     // console.log("Reject All button found, clicking...");
                     await rejectAllButton.evaluate(btn => btn.click());
                 }
-
+    
                 // eslint-disable-next-line max-depth
                 if (saveAndExitButton) {
                     console.log("Save and Exit button found, clicking...");
@@ -173,7 +179,7 @@ async function optOutQuantcast(page) {
                 console.log("No more options button not found");
             }
         }
-
+    
         //if we have opted out, we can just return the result
         if (qcResult.optedOut) {
             return qcResult;
@@ -183,9 +189,10 @@ async function optOutQuantcast(page) {
     
     //if the old banner was not found, we need to check for the new one
     console.log("Checking for QC Usp Consent Dialog");
-    consentDialog = await page.$(".qc-usp-ui-form-content");
+    const secondBanner = await page.$(".qc-usp-ui-form-content");
 
-    if(consentDialog) {
+    //this entire block is for the USP banner
+    if(secondBanner) {
         console.log("QC Usp Consent Dialog found");
         qcResult.isQuantcast = true;
         qcResult.uspBanner = true;
@@ -207,9 +214,9 @@ async function optOutQuantcast(page) {
                     }
                 }
 
-                const buttons = Array.from(document.querySelectorAll('.qc-usp-ui-form-content button'));
+                const uspButtons = Array.from(document.querySelectorAll('.qc-usp-ui-form-content button'));
                 
-                for (const btn of buttons) {
+                for (const btn of uspButtons) {
                     const text = btn.textContent.trim().toLowerCase();
                     if (text.includes('confirm') || text.includes('save')) {
                         // @ts-ignore

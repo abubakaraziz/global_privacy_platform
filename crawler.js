@@ -276,12 +276,12 @@ async function getSiteData(context, url, {
         }
     }
 
-    let cmpResults;
+    let cmpOptOutResults;
     console.log("CMP Opt-out Flag: ", optOut);
 
     if (optOut) {
         console.log("Opting out of CMPs");
-        cmpResults = await optOutFromCMPs(page);
+        cmpOptOutResults = await optOutFromCMPs(page);
     }
 
 
@@ -363,7 +363,7 @@ async function getSiteData(context, url, {
     }
 
     if(optOut) {
-        data.cmpResults = cmpResults;
+        data.cmpOptOutResults = cmpOptOutResults;
     }
 
    
