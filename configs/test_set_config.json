@@ -20,5 +20,6 @@
     "reporters": [
         "cli"
     ],
+    "headless": true,
     "urls": "Configs/URLS/testing_set_urls.txt"
 }
