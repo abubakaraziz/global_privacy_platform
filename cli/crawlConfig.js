@@ -63,7 +63,10 @@ function figureOut(flags) {
     if (crawlConfig.optOut === undefined || flags.optOut !== undefined) {
         crawlConfig.optOut = Boolean(flags.optOut);
     }
-
+    //Adding headless flag to the config
+    if (crawlConfig.headless === undefined || flags.headless !== undefined) {
+        crawlConfig.headless = Boolean(flags.headless);
+    }
     // string/number settings
     if (flags.output) {
         crawlConfig.output = flags.output;

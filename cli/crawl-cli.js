@@ -185,6 +185,7 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
             statefulCrawl,
             saveCookies,
             loadCookies,
+            headless,
             cookieJarPath,
             collectorFlags,
         });
@@ -269,6 +270,6 @@ if (!config.urls || !config.output) {
         
         return item;
     });
-
+    
     run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.statefulCrawl, config.saveCookies, config.loadCookies, config.headless, config.cookieJarPath, collectorFlags);
 }

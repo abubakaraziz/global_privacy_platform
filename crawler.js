@@ -75,7 +75,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
     }
 
     //By default, chrome run in headless mode, so if we need to run chrome in non-headless mode, we need to set the headless option to false. 
-    if (!headless) {
+        if (!headless) {
         args.headless = false;
     }
     if (proxyHost) {
@@ -117,7 +117,7 @@ async function getSiteData(context, url, {
     extraExecutionTimeMs,
     optOut,
     saveCookies,
-    loadCookies,
+    loadCookies, 
     cookieJarPath,
     collectorFlags,
 }) {
@@ -416,7 +416,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>, headless?: boolean}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -445,7 +445,7 @@ module.exports = async (url, options, browserContext) => {
             extraExecutionTimeMs,
             optOut: options.optOut,
             saveCookies: options.saveCookies,
-            loadCookies: options.loadCookies,
+            loadCookies: options.loadCookies, 
             cookieJarPath: options.cookieJarPath,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
@@ -460,7 +460,7 @@ module.exports = async (url, options, browserContext) => {
 	
 	//close the browser if it was open in non-headless mode
         if (browser && !options.headless) {
-	   await browser.close();
+	        await browser.close();
         }
     }
 
