@@ -29,7 +29,6 @@ const MOBILE_VIEWPORT = {
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
 const VISUAL_DEBUG = false;
 
-
 /**
  * @param {number} waitTime
  */
@@ -48,9 +47,8 @@ function getRandomUpTo(maxValue) {
  * @param {function(...any):void} log
  * @param {string} proxyHost
  * @param {string} executablePath path to chromium executable to use
- * @param {boolean} headless
  */
-function openBrowser(log, proxyHost, executablePath, headless) {
+function openBrowser(log, proxyHost, executablePath) {
     /**
      * @type {import('puppeteer').BrowserLaunchArgumentOptions}
      */
@@ -72,11 +70,6 @@ function openBrowser(log, proxyHost, executablePath, headless) {
     if (VISUAL_DEBUG) {
         args.headless = false;
         args.devtools = true;
-    }
-
-    //By default, chrome run in headless mode, so if we need to run chrome in non-headless mode, we need to set the headless option to false. 
-    if (!headless) {
-        args.headless = false;
     }
     if (proxyHost) {
         let url;
@@ -416,13 +409,13 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>, headless?: boolean}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options, browserContext) => {
     const log = options.log || (() => {});
-    const browser = browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath, options.headless);
+    const browser = browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
     // Create a new browser context.
     const context = browserContext || await browser.defaultBrowserContext();
     // const context = options.browserContext || await browser.createIncognitoBrowserContext();
@@ -456,11 +449,6 @@ module.exports = async (url, options, browserContext) => {
         // only close the browser if it was created here and not debugging
         if (browser && !VISUAL_DEBUG) {
             await browser.close();
-        }
-	
-	//close the browser if it was open in non-headless mode
-        if (browser && !options.headless) {
-	   await browser.close();
         }
     }
 
