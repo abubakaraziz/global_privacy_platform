@@ -36,12 +36,11 @@ const MAX_NUMBER_OF_RETRIES = 2;
  * @param {boolean} statefulCrawl
  * @param {boolean} saveCookies
  * @param {boolean} loadCookies
- * @param {boolean} headless
  * @param {string} cookieJarPath
  * @param {puppeteer.BrowserContext} browserContext
  * @param {Object.<string, string>} collectorFlags
  */
-async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, statefulCrawl, saveCookies, loadCookies, headless,  cookieJarPath, collectorFlags, browserContext) {
+async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, statefulCrawl, saveCookies, loadCookies, cookieJarPath, collectorFlags, browserContext) {
     const url = new URL(urlString);
     /**
      * @type {function(...any):void} 
@@ -75,7 +74,7 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
 
 
 /**
- * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, statefulCrawl?:boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, headless?: boolean, collectorFlags?: Object.<string, boolean>}} options
+ * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, statefulCrawl?:boolean, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags?: Object.<string, boolean>}} options
  */
 module.exports = async options => {
     const deferred = createDeferred();
@@ -153,9 +152,4 @@ module.exports = async options => {
     if (browser && !VISUAL_DEBUG) {
         await browser.close();
     }
-	
-    if (browser && !options.headless) {
-   	    await browser.close();
-    }
-
 };
