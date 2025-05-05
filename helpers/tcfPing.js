@@ -11,6 +11,10 @@ const tcfPing = async page => {
                 resolve(null); // Resolve with null if __tcfapi doesn't exist
                 return;
             }
+
+            // Adding a simple timeout in case function call takes too long
+            setTimeout(() => resolve(null), 5000);
+
             // Call the __tcfapi function if it exists
             // @ts-ignore
             window.__tcfapi('getTCData', 2, (tcData, success) => {
