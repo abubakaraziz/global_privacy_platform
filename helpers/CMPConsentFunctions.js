@@ -1,10 +1,11 @@
+/* eslint-disable new-cap */
 /**
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
 /* eslint-disable no-undef */
 const oneTrustActiveGroups = async page => {
   
-    const oneTrustData = await page.evaluate(async () => {
+    const oneTrustDataPromise = page.evaluate(async () => {
         const result = {};
         result.isOneTrust = false;
         result.domainData = null;
@@ -13,7 +14,7 @@ const oneTrustActiveGroups = async page => {
         if(window.OneTrust) {
             result.isOneTrust = true;
             try {
-            //@ts-ignore     
+                //@ts-ignore     
                 result.domainData = await window.OneTrust.GetDomainData();
             } catch {}
         }
@@ -24,13 +25,15 @@ const oneTrustActiveGroups = async page => {
             result.activeGroups = window.OnetrustActiveGroups;
         }
          
-            
         return result;
-        
     });
-    return oneTrustData;
-    
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+
+    const finalResult = await Promise.race([oneTrustDataPromise, timeoutPromise]);
+
+    return finalResult;
 };
+
 
 /**
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
@@ -38,11 +41,11 @@ const oneTrustActiveGroups = async page => {
 /* eslint-disable no-undef */
 const didomiUserStatus = async page => {
    
-    const didomiUserStatusObject = await page.evaluate(async() => {
+    const didomiUserStatusObjectPromise = page.evaluate(async() => {
         const result = {};
         result.isDidomi = false;
         result.getCurrentUserStatus = null;
-    // @ts-ignore
+        // @ts-ignore
         if (window.Didomi) {
             result.isDidomi = true;
             try{
@@ -53,7 +56,11 @@ const didomiUserStatus = async page => {
         }
         return result;
     });
-    return didomiUserStatusObject;
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+
+    const finalResult = await Promise.race([didomiUserStatusObjectPromise, timeoutPromise]);
+
+    return finalResult;
 };
 
 /**
@@ -62,7 +69,7 @@ const didomiUserStatus = async page => {
 /* eslint-disable no-undef */
 const cookieBotConsent = async page => {
     
-    const cookieBotConsentObject = await page.evaluate(async () => {
+    const cookieBotConsentPromise = page.evaluate(() => {
         // Check if CookieBot exists on the window object
         // @ts-ignore
         const result = {};
@@ -71,16 +78,22 @@ const cookieBotConsent = async page => {
         // @ts-ignore
         if (window.Cookiebot) {
             result.isCookieBot = true;
-            try{
-        // @ts-ignore
-                result.consent = await window.Cookiebot.consent;
-            }catch{}
+
+            // @ts-ignore
+            result.consent = window.Cookiebot.consent;
         }
         return result;
     });
 
-    return cookieBotConsentObject; // Return the retrieved object
-    
+    const timeoutPromise = new Promise(resolve => {
+        setTimeout(() => {
+            resolve(null);
+        }, 5000);
+    });
+
+    const finalResult = await Promise.race([cookieBotConsentPromise, timeoutPromise]);
+
+    return finalResult;
 };
 
 /**
@@ -89,7 +102,7 @@ const cookieBotConsent = async page => {
 /* eslint-disable no-undef */
 const usercentricsConsent = async page => {
     
-    const usercentricsConsentObject = await page.evaluate(async () => {
+    const usercentricsConsentPromise = page.evaluate(async () => {
         const result = {};
         result.isUsercentrics = false;
         result.getServicesFullInfo = null;
@@ -98,22 +111,24 @@ const usercentricsConsent = async page => {
         if (window.UC_UI) {
             result.isUsercentrics = true;
             try {
-                    // @ts-ignore
+                // @ts-ignore
                 result.getServicesFullInfo = await window.UC_UI.getServicesFullInfo();
             }catch{}
                     
             try{
-                    // @ts-ignore
+                // @ts-ignore
                 result.allAccepted = await window.UC_UI.areAllConsentsAccepted();
             }catch{}
         }
            
-
         return result;
     });
+
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+
+    const finalResult = await Promise.race([usercentricsConsentPromise, timeoutPromise]);
       
-    return usercentricsConsentObject;
-    
+    return finalResult;
 };
 
 /**
@@ -123,7 +138,8 @@ const usercentricsConsent = async page => {
 const quantcastPresence = async page => {
     const result = {};
     result.isQuantcast = false;
-    result.isQuantcast = await page.evaluate(() => {
+
+    const QCPromise =  page.evaluate(() => {
         
         const element = document.querySelector('[class^="qc-cmp2"]');
         if (element) {
@@ -131,9 +147,16 @@ const quantcastPresence = async page => {
         }
         return false;
     });
+    
+    const timeoutPromise = new Promise(resolve => {
+        setTimeout(() => {
+            resolve(null);
+        }, 5000);
+    });
+
+    result.isQuantcast = await Promise.race([QCPromise, timeoutPromise]);
 
     return result;
-    
 };
 
 module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence};
