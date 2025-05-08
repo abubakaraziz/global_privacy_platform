@@ -2,6 +2,8 @@
 /**
  * @param {import('puppeteer').Page} page - The Puppeteer page instance.
  */
+
+
 /* eslint-disable no-undef */
 const oneTrustActiveGroups = async page => {
   
@@ -30,7 +32,8 @@ const oneTrustActiveGroups = async page => {
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isOneTrust: false,
         domainData: null,
-        activeGroups: null
+        activeGroups: null,
+        timeout: true
     }), 5000));
 
     const finalResult = await Promise.race([oneTrustDataPromise, timeoutPromise]);
@@ -62,7 +65,8 @@ const didomiUserStatus = async page => {
     });
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isDidomi: false,
-        getCurrentUserStatus: null
+        getCurrentUserStatus: null,
+        timeout: true
     }), 5000));
 
     const finalResult = await Promise.race([didomiUserStatusObjectPromise, timeoutPromise]);
@@ -96,7 +100,8 @@ const cookieBotConsent = async page => {
         setTimeout(() => {
             resolve({
                 isCookieBot: false,
-                consent: null
+                consent: null,
+                timeout: true
             });
         }, 5000);
     });
@@ -137,7 +142,8 @@ const usercentricsConsent = async page => {
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isUserCentrics: false,
         getServicesFullInfo: null,
-        allAccepted: null
+        allAccepted: null,
+        timeout: true
     }), 5000));
 
     const finalResult = await Promise.race([usercentricsConsentPromise, timeoutPromise]);
@@ -165,7 +171,8 @@ const quantcastPresence = async page => {
     const timeoutPromise = new Promise(resolve => {
         setTimeout(() => {
             resolve({
-                isQuantcast: false
+                isQuantcast: false,
+                timeout: true
             });
         }, 5000);
     });

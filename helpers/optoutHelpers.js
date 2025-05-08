@@ -36,6 +36,7 @@ async function optOutDidomi(page) {
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isDidomi: false,
         optedOut: false,
+        timeout: true,
     }), 5000));
 
     const finalResult = await Promise.race([didomiResultPromise, timeoutPromise]);
@@ -76,6 +77,7 @@ async function optOutOneTrust(page) {
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isOneTrust: false,
         optedOut: false,
+        timeout: true,
     }), 5000));
     
 
@@ -308,6 +310,7 @@ async function optOutCookieBot(page) {
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isCookiebot: false,
         optedOut: false,
+        timeout: true,
     }), 5000));
 
     const finalResult = await Promise.race([cookieBotResultPromise, timeoutPromise]);
@@ -347,6 +350,7 @@ async function optOutUserCentrics(page) {
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isUserCentrics: false,
         optedOut: false,
+        timeout: true,
     }), 5000));
 
     const finalResult = await Promise.race([ucResultPromise, timeoutPromise]);
