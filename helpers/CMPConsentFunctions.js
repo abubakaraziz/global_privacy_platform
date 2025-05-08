@@ -27,7 +27,11 @@ const oneTrustActiveGroups = async page => {
          
         return result;
     });
-    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isOneTrust: false,
+        domainData: null,
+        activeGroups: null
+    }), 5000));
 
     const finalResult = await Promise.race([oneTrustDataPromise, timeoutPromise]);
 
@@ -56,7 +60,10 @@ const didomiUserStatus = async page => {
         }
         return result;
     });
-    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isDidomi: false,
+        getCurrentUserStatus: null
+    }), 5000));
 
     const finalResult = await Promise.race([didomiUserStatusObjectPromise, timeoutPromise]);
 
@@ -87,7 +94,10 @@ const cookieBotConsent = async page => {
 
     const timeoutPromise = new Promise(resolve => {
         setTimeout(() => {
-            resolve(null);
+            resolve({
+                isCookieBot: false,
+                consent: null
+            });
         }, 5000);
     });
 
@@ -124,7 +134,11 @@ const usercentricsConsent = async page => {
         return result;
     });
 
-    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 5000));
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isUserCentrics: false,
+        getServicesFullInfo: null,
+        allAccepted: null
+    }), 5000));
 
     const finalResult = await Promise.race([usercentricsConsentPromise, timeoutPromise]);
       
@@ -150,7 +164,9 @@ const quantcastPresence = async page => {
     
     const timeoutPromise = new Promise(resolve => {
         setTimeout(() => {
-            resolve(null);
+            resolve({
+                isQuantcast: false
+            });
         }, 5000);
     });
 
