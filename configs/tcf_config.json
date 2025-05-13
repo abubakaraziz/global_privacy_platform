@@ -1,7 +1,7 @@
 {
-    "output": "./Crawls/onetrust_semi_automated_optout",
+    "output": "./Crawls/tcf_test_default",
     "logPath": "./log/onetrust_groups_test",
-    "crawlers": 1,
+    "crawlers": 8,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
     "verbose": true,
@@ -9,8 +9,7 @@
     "filterOutFirstParty": false,
     "emulateMobile": false,
     "disableAntiBot": false,
-    "semiAutomated": true,
-    "headless": false,
+    "headless": true,
     "executablePath": "/Users/jawadsaeed/Downloads/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
     "dataCollectors": [
         "requests",
@@ -22,5 +21,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/onetrust_urls.txt"
+    "urls": "Configs/URLS/tcf_urls.txt"
 }

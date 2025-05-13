@@ -24,6 +24,10 @@ const callGPPhasSections = async (page, gppObject) => {
                         resolve(null); // Resolve with null if __gpp doesn't exist
                         return;
                     }
+
+                    // Adding a simple timeout in case function call takes too long
+                    setTimeout(() => resolve(null), 5000);
+
                         // Call the __gpp function with the apiId
                         // @ts-ignore
                     window.__gpp('hasSection', (/** @type {Boolean} */ data, /** @type {Boolean} */ success) => {

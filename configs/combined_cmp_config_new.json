@@ -1,5 +1,5 @@
 {
-    "output": "Crawls/combined_cmp_crawl_old",
+    "output": "Crawls/combined_cmp_crawl_new_1",
     "logPath": "./log/cookiebot_test",
     "crawlers": 8,
     "maxLoadTimeMs": 90000,
