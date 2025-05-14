@@ -27,7 +27,7 @@ const MOBILE_VIEWPORT = {
 
 
 // for debugging: will lunch in window mode instad of headless, open devtools and don't close windows after process finishes
-const VISUAL_DEBUG = false;
+const VISUAL_DEBUG = true;
 
 /**
  * @param {number} waitTime
@@ -100,7 +100,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, semiAutomated?: boolean, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -114,6 +114,7 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     optOut,
+    semiAutomated,
     saveCookies,
     loadCookies,
     cookieJarPath,
@@ -252,7 +253,9 @@ async function getSiteData(context, url, {
     await page.setViewport(emulateMobile ? MOBILE_VIEWPORT : DEFAULT_VIEWPORT);
 
     // if any prompts open on page load, they'll make the page hang unless closed
-    page.on('dialog', dialog => dialog.dismiss());
+    if (!semiAutomated) {
+        page.on('dialog', dialog => dialog.dismiss());
+    }
 
     // catch and report crash errors
     page.on('error', e => log(chalk.red(e.message)));
@@ -273,11 +276,67 @@ async function getSiteData(context, url, {
                     // 
                     //await target.cdpClient.send('Page.stopLoading');
                     
+                    // Comment out the following linem, because even after page is still loading after timeout, we do not want to
+                    // prevent external scripts from loading, because we want to collect all data from the page.
+                    // 
+                    //await target.cdpClient.send('Page.stopLoading');
+                    
                 }
             }
             timeout = true;
         } else {
             throw e;
+        }
+    }
+
+    console.log("The value of semiAutomated boolean is:", semiAutomated);
+    // Semi-automated crawl should trigger here and only when VISUAL_DEBUG is set to true meaning in non-headless mode
+    if (semiAutomated && VISUAL_DEBUG) {
+        // console.log(chalk.yellow('Semi-automated mode enabled'));
+        // console.log(chalk.yellow('Please interact with the page as needed'));
+        // console.log(chalk.yellow('Press the Enter key to continue...'));
+        // await waitForUserInput();
+
+        console.log(chalk.yellow('\nSEMI-AUTOMATED MODE: Interact with cookie banner by clicking...'));
+
+        await page.evaluate(() => {
+            // eslint-disable-next-line no-alert, no-undef
+            alert('Page fully loaded and ready! Dismiss this alert, then press ENTER on the page.');
+        });
+
+        await page.evaluate(() => {
+            // @ts-ignore
+            // eslint-disable-next-line no-undef
+            window.__interactionFlag = false;
+        
+            const clearFlag = () => {
+                // @ts-ignore
+                // eslint-disable-next-line no-undef
+                window.__interactionFlag = true;
+                // eslint-disable-next-line no-undef
+                document.removeEventListener('keydown', clearFlag);
+            };
+        
+            // eslint-disable-next-line no-undef
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Enter') {
+                    console.log("Enter key pressed");
+                    clearFlag();
+                }
+            });
+        });
+        
+        // Wait for flag or timeout
+        try {
+            await page.waitForFunction(
+                // @ts-ignore
+                // eslint-disable-next-line no-undef
+                () => window.__interactionFlag,
+                {timeout: 120000}
+            );
+            console.log(chalk.green('User interaction detected via key press, resuming...'));
+        } catch {
+            console.log(chalk.yellow('Proceeding without interaction...'));
         }
     }
 
@@ -414,7 +473,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, semiAutomated?:boolean, collectorFlags?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -442,6 +501,7 @@ module.exports = async (url, options, browserContext) => {
             maxLoadTimeMs,
             extraExecutionTimeMs,
             optOut: options.optOut,
+            semiAutomated: options.semiAutomated,
             saveCookies: options.saveCookies,
             loadCookies: options.loadCookies,
             cookieJarPath: options.cookieJarPath,
@@ -451,11 +511,6 @@ module.exports = async (url, options, browserContext) => {
         log(chalk.red('Crawl failed'), e.message, chalk.gray(e.stack));
         throw e;
     } finally {
-        // only close the browser if it was created here and not debugging
-        if (browser && !VISUAL_DEBUG) {
-            await browser.close();
-        }
-
         //close the browser if it was open in non-headless mode
         if (browser && !options.headless) {
             await browser.close();

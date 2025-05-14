@@ -28,7 +28,7 @@ function getUrlsFromConfig(urlConfig) {
 /**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
  * 
- * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, statefulCrawl?:boolean, optOut?: boolean, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
+ * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, statefulCrawl?:boolean, optOut?: boolean, semiAutomated?: boolean, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
  * @returns {CrawlConfig}
  */
 function figureOut(flags) {
@@ -67,6 +67,10 @@ function figureOut(flags) {
      //Adding headless flag to the config
     if (crawlConfig.headless === undefined || flags.headless !== undefined) {
         crawlConfig.headless = Boolean(flags.headless);
+    }
+    // Adding semiAutomated flag to the config
+    if (crawlConfig.semiAutomated === undefined || flags.semiAutomated !== undefined) {
+        crawlConfig.semiAutomated = Boolean(flags.semiAutomated);
     }
 
     // string/number settings
@@ -180,6 +184,7 @@ module.exports = {
  * @property {boolean} disableAntiBot
  * @property {number} maxLoadTimeMs
  * @property {boolean} optOut
+ * @property {boolean} semiAutomated
  * @property {boolean} statefulCrawl
  * @property {boolean} saveCookies
  * @property {boolean} loadCookies

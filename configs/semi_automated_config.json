@@ -1,6 +1,6 @@
 {
-    "output": "./Crawls/onetrust_semi_automated_optout",
-    "logPath": "./log/onetrust_groups_test",
+    "output": "./Crawls/semi_automated_test",
+    "logPath": "./log/semi_automated_test",
     "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
@@ -10,7 +10,6 @@
     "emulateMobile": false,
     "disableAntiBot": false,
     "semiAutomated": true,
-    "headless": false,
     "executablePath": "/Users/jawadsaeed/Downloads/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
     "dataCollectors": [
         "requests",
@@ -22,5 +21,5 @@
     "reporters": [
         "cli"
     ],
-    "urls": "Configs/URLS/onetrust_urls.txt"
+    "urls": "Configs/URLS/semi_automated_urls.txt"
 }
