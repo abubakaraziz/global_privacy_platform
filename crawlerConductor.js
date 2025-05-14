@@ -4,7 +4,7 @@ const chalk = require("chalk").default;
 const async = require("async");
 const crawl = require("./crawler");
 const URL = require("url").URL;
-const { createTimer } = require("./helpers/timer");
+const {createTimer} = require("./helpers/timer");
 const createDeferred = require("./helpers/deferred");
 // const downloadCustomChromium = require('./helpers/downloadCustomChromium');
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,7 +13,7 @@ const f = require("fs");
 // const notABot = require('./helpers/notABot');
 const puppeteer = require("puppeteer");
 const notABot = f.readFileSync("./helpers/stealth.min.js", "utf8");
-const { openBrowser, VISUAL_DEBUG } = require("./crawler");
+const {openBrowser, VISUAL_DEBUG} = require("./crawler");
 
 const MAX_NUMBER_OF_CRAWLERS = 38; // by trial and error there seems to be network bandwidth issues with more than 38 browsers.
 const MAX_NUMBER_OF_RETRIES = 2;
@@ -74,9 +74,7 @@ async function crawlAndSaveData(
         {
             log: prefixedLog,
             // @ts-ignore
-            collectors: dataCollectors.map(
-                (collector) => new collector.constructor()
-            ),
+            collectors: dataCollectors.map(collector => new collector.constructor()),
             filterOutFirstParty,
             emulateMobile,
             proxyHost,
@@ -101,7 +99,7 @@ async function crawlAndSaveData(
 /**
  * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, statefulCrawl?:boolean, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, optIn?: boolean, collectorFlags?: Object.<string, boolean>}} options
  */
-module.exports = async (options) => {
+module.exports = async options => {
     const deferred = createDeferred();
     const log = options.logFunction || (() => {});
     const failureCallback = options.failureCallback || (() => {});
@@ -159,11 +157,7 @@ module.exports = async (options) => {
                 dataCollectors = urlItem.dataCollectors;
             }
 
-            log(
-                chalk.cyan(
-                    `Processing entry #${Number(idx) + 1} (${urlString}).`
-                )
-            );
+            log(chalk.cyan(`Processing entry #${Number(idx) + 1} (${urlString}).`));
             const timer = createTimer();
 
             const task = crawlAndSaveData.bind(
@@ -190,26 +184,18 @@ module.exports = async (options) => {
                 browserContext
             );
 
-            async.retry(MAX_NUMBER_OF_RETRIES, task, (err) => {
+            async.retry(MAX_NUMBER_OF_RETRIES, task, err => {
                 if (err) {
-                    log(
-                        chalk.red(
-                            `Max number of retries (${MAX_NUMBER_OF_RETRIES}) exceeded for "${urlString}".`
-                        )
-                    );
+                    log(chalk.red(`Max number of retries (${MAX_NUMBER_OF_RETRIES}) exceeded for "${urlString}".`));
                     failureCallback(urlString, err);
                 } else {
-                    log(
-                        chalk.cyan(
-                            `Processing "${urlString}" took ${timer.getElapsedTime()}s.`
-                        )
-                    );
+                    log(chalk.cyan(`Processing "${urlString}" took ${timer.getElapsedTime()}s.`));
                 }
 
                 callback();
             });
         },
-        (err) => {
+        err => {
             if (err) {
                 deferred.reject(err);
             } else {
