@@ -1,4 +1,4 @@
-const {optOutOneTrust, optOutCookieBot, optOutDidomi, optOutQuantcast, optOutUserCentrics} = require('./optoutHelpers');
+const {optOutOneTrust, optOutCookieBot, optOutDidomi, optOutQuantcast, optOutUserCentrics, optOutOsano} = require('./optoutHelpers');
 
 /**
  * CMP Opt-Out Conducted in this function
@@ -22,6 +22,9 @@ const optOutFromCMPs = async page => {
        
     const ucResult = await optOutUserCentrics(page);
     cmpResults.push(ucResult);
+
+    const osanoResult = await optOutOsano(page);
+    cmpResults.push(osanoResult);
 
     return cmpResults;
 };

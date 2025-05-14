@@ -358,10 +358,87 @@ async function optOutUserCentrics(page) {
     return finalResult;
 }
 
+/**
+ * Osano opt-out logic
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+async function optOutOsano(page) {
+    console.log("Checking for Osano CMP");
+
+    const osanoResultPromise = page.evaluate(async () => {
+        let result = {};
+        result.isOsano = false;
+        result.optedOutCookies = false;
+        result.optedOutSelling = false;
+
+        // @ts-ignore
+        if (window.Osano) {
+            result.isOsano = true;
+            console.log("Osano CMP detected, opting out");
+
+            await window.Osano.cm.showDrawer();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
+            const toggles = Array.from(document.querySelectorAll('input.osano-cm-toggle__input:not([disabled])'));
+
+            toggles.forEach(toggle => {
+                // If the toggle is checked, click to uncheck
+                if (toggle.checked) {
+                    toggle.click();
+                }
+            });
+
+            // await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+
+            const saveButton = document.querySelector('button.osano-cm-save');
+            if (saveButton) {
+                saveButton.click();
+                result.optedOutCookies = true;
+            }
+
+            // await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+
+            await window.Osano.cm.showDoNotSell();
+
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
+
+
+            const infoDialog = document.querySelector('.osano-cm-info--do_not_sell');
+            if (infoDialog) {
+                const toggle = infoDialog.querySelector('input[type="checkbox"][data-category="OPT_OUT"]');
+                if (toggle && !toggle.checked && !toggle.disabled) {
+                    toggle.click(); // Turn ON the toggle
+                }
+
+                // await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+
+                const saveButton2 = infoDialog.querySelector('button.osano-cm-save');
+                if (saveButton2) {
+                    saveButton2.click();
+                    result.optedOutSelling = true;
+                }
+            }
+            
+        }
+
+        return result;
+    });
+
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isOsano: false,
+        optedOutCookies: false,
+        optedOutSelling: false,
+        timeout: true,
+    }), 10000));
+
+    const finalResult = await Promise.race([osanoResultPromise, timeoutPromise]);
+    return finalResult;
+}
+   
 module.exports = {
     optOutDidomi,
     optOutOneTrust,
     optOutQuantcast,
     optOutCookieBot,
     optOutUserCentrics,
+    optOutOsano,
 };
