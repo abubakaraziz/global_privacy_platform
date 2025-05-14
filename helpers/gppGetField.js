@@ -12,6 +12,10 @@ const callGPPgetField = async(page, fieldName) => {
                 resolve(null); // Resolve with null if __gpp doesn't exist
                 return;
             }
+            
+            // Adding a simple timeout in case function call takes too long
+            setTimeout(() => resolve(null), 5000);
+
                 // Call the __gpp function if it exists
                 // @ts-ignore
             window.__gpp('getField', (gppData, success) => {

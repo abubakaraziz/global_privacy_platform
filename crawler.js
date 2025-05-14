@@ -45,8 +45,9 @@ function getRandomUpTo(maxValue) {
  * @param {function(...any):void} log
  * @param {string} proxyHost
  * @param {string} executablePath path to chromium executable to use
+ * @param {boolean} headless 
  */
-function openBrowser(log, proxyHost, executablePath) {
+function openBrowser(log, proxyHost, executablePath, headless) {
     /**
      * @type {import('puppeteer').BrowserLaunchArgumentOptions}
      */
@@ -68,6 +69,10 @@ function openBrowser(log, proxyHost, executablePath) {
     if (VISUAL_DEBUG) {
         args.headless = false;
         args.devtools = true;
+    }
+    // By default, chrome run in headless mode, so if we need to run chrome in non-headless mode, we need to set the headless option to false. 
+    if (!headless) {
+        args.headless = false;
     }
     if (proxyHost) {
         let url;
@@ -93,7 +98,7 @@ function openBrowser(log, proxyHost, executablePath) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, optIn: boolean, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, optIn: boolean, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -107,6 +112,9 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     optOut,
+    saveCookies,
+    loadCookies,
+    cookieJarPath,
     optIn,
     collectorFlags,
 }) {
@@ -191,6 +199,26 @@ async function getSiteData(context, url, {
     // Create a new page in a pristine context.
     const page = await context.newPage();
 
+    //Load cookies if needed
+    if (loadCookies) {
+        console.log("Loading cookies from cookie jar: ", cookieJarPath);
+        
+        try {
+            if (fs.existsSync(cookieJarPath)) {
+                const cookies = JSON.parse(fs.readFileSync(cookieJarPath, 'utf-8'));
+                // console.log("Cookies loaded from file: ", cookies);
+                await page.setCookie(...cookies);
+                console.log("Cookies set in page context");
+            } else {
+                console.error("Cookie Jar file not found.");
+            }
+     
+        }   catch(error) {
+            console.log("Error loading cookies: ", error);
+        }
+ 
+    }
+
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
         page.evaluateOnNewDocument(runInEveryFrame);
@@ -206,6 +234,8 @@ async function getSiteData(context, url, {
     const initPageTimer = createTimer();
     for (let collector of collectors) {
         try {
+            // eslint-disable-next-line no-await-in-loop
+            await collector.setPage(page);
             // eslint-disable-next-line no-await-in-loop
             await collector.addTarget({url: url.toString(), type: 'page', cdpClient});
         } catch (e) {
@@ -237,7 +267,11 @@ async function getSiteData(context, url, {
             for (let target of targets) {
                 if (target.type === 'page') {
                     // eslint-disable-next-line no-await-in-loop
-                    await target.cdpClient.send('Page.stopLoading');
+                    // Comment out the following linem, because even after page is still loading after timeout, we do not want to
+                    // prevent external scripts from loading, because we want to collect all data from the page.
+                    // 
+                    //await target.cdpClient.send('Page.stopLoading');
+                    
                 }
             }
             timeout = true;
@@ -246,7 +280,7 @@ async function getSiteData(context, url, {
         }
     }
 
-    let cmpResults;
+    let cmpOptOutResults;
     
     console.log("CMP Opt-in Flag:", optIn);
     if (optIn) {
@@ -257,7 +291,7 @@ async function getSiteData(context, url, {
     console.log("CMP Opt-out Flag: ", optOut);
     if (optOut) {
         console.log("Opting out of CMPs");
-        cmpResults = await optOutFromCMPs(page);
+        cmpOptOutResults = await optOutFromCMPs(page);
     }
 
 
@@ -279,6 +313,7 @@ async function getSiteData(context, url, {
     for (let collector of collectors) {
         const postLoadTimer = createTimer();
         try {
+            // collector.setPage(page);
             // eslint-disable-next-line no-await-in-loop
             await collector.postLoad();
             log(`${collector.id()} postLoad took ${postLoadTimer.getElapsedTime()}s`);
@@ -338,7 +373,27 @@ async function getSiteData(context, url, {
     }
 
     if(optOut) {
-        data.cmpResults = cmpResults;
+        data.cmpOptOutResults = cmpOptOutResults;
+    }
+
+   
+    if (saveCookies) {
+        console.log("Saving cookies to cookie jar: ", cookieJarPath);
+        try {
+            //save data.cookies to a json file
+            const cookieData = data.cookies;
+            // console.log("Cookies: ", cookieData);
+
+            const dir = path.dirname(cookieJarPath);
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, {recursive: true});
+            }
+        
+            fs.writeFileSync(cookieJarPath, JSON.stringify(cookieData, null, 2), 'utf-8');
+            console.log("Cookies saved to file: ", cookieJarPath);
+        } catch (error) {
+            console.error("Error saving cookies: ", error);
+        }
     }
 
     return {
@@ -364,14 +419,15 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, optIn?: boolean, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, optIn?: boolean, collectorFlags?: Object.<string, string>}} options
+ * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
-module.exports = async (url, options) => {
+module.exports = async (url, options, browserContext) => {
     const log = options.log || (() => {});
-    const browser = options.browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath);
+    const browser = browserContext ? null : await openBrowser(log, options.proxyHost, options.executablePath, options.headless);
     // Create a new browser context.
-    const context = options.browserContext || await browser.defaultBrowserContext();
+    const context = browserContext || await browser.defaultBrowserContext();
     // const context = options.browserContext || await browser.createIncognitoBrowserContext();
 
     let data = null;
@@ -391,6 +447,9 @@ module.exports = async (url, options) => {
             maxLoadTimeMs,
             extraExecutionTimeMs,
             optOut: options.optOut,
+            saveCookies: options.saveCookies,
+            loadCookies: options.loadCookies,
+            cookieJarPath: options.cookieJarPath,
             optIn: options.optIn,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
@@ -402,10 +461,18 @@ module.exports = async (url, options) => {
         if (browser && !VISUAL_DEBUG) {
             await browser.close();
         }
+
+        //close the browser if it was open in non-headless mode
+        if (browser && !options.headless) {
+            await browser.close();
+        }
     }
 
     return data;
 };
+
+module.exports.openBrowser = openBrowser;
+module.exports.VISUAL_DEBUG = VISUAL_DEBUG;
 
 /**
  * @typedef {Object} CollectResult

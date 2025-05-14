@@ -1,5 +1,6 @@
+// @ts-nocheck
+/* eslint-disable max-lines */
 /* eslint-disable no-console */ // Disable console warnings in this file
-
 
 /**
  * Didomi CMP opt-out logic.
@@ -9,32 +10,38 @@
 /* eslint-disable no-undef */
 async function optOutDidomi(page) {
     console.log("Checking for Didomi CMP");
-    const didomiResult = await page.evaluate(() => {
-        let found = false;
-        let optedOut = false;
-        try {
+
+    const didomiResultPromise = page.evaluate(async () => {
+        let result = {};
+        result.isDidomi = false;
+        result.optedOut = false;
+       
         // @ts-ignore
-            if (window.Didomi) {
-                found = true;
-                console.log("Didomi banner visible, opting out");
-            // @ts-ignore
-                window.Didomi.setUserDisagreeToAll();
-                optedOut = true;
-            } else {
-                console.log("Didomi CMP or its functions not found");
+        if (window.Didomi) {
+            result.isDidomi = true;
+            console.log("Didomi banner visible, opting out");
+
+            try {
+                // @ts-ignore
+                await window.Didomi.setUserDisagreeToAll();
+                result.optedOut = true;
+            } catch {
+                console.log("Error opting out of Didomi.");
             }
-        } catch {
-            console.log("Error opting out of Didomi.");
-            optedOut = false;
         }
-        const name = "Didomi";
-        return {name, found, optedOut};
+        
+        return result;
     });
 
-    if (didomiResult.found) {
-        return didomiResult;
-    }
-    return null;
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isDidomi: false,
+        optedOut: false,
+        timeout: true,
+    }), 5000));
+
+    const finalResult = await Promise.race([didomiResultPromise, timeoutPromise]);
+
+    return finalResult;
 }
 
 /**
@@ -43,34 +50,40 @@ async function optOutDidomi(page) {
  */
 async function optOutOneTrust(page) {
     console.log("Checking for OneTrust CMP");
-    const result = await page.evaluate(() => {
-        let found = false;
-        let optedOut = false;
-        try {
-            // @ts-ignore
-            if (window.OneTrust) {
-                found = true;
-                console.log("OneTrust CMP detected, opting out");
+
+    const oneTrustResultPromise = await page.evaluate(async () => {
+        let result = {};
+        result.isOneTrust = false;
+        result.optedOut = false;
+
+        // @ts-ignore
+        if (window.OneTrust) {
+            result.isOneTrust = true;
+            console.log("OneTrust banner visible, opting out");
+
+            try {
                 // @ts-ignore
                 // eslint-disable-next-line new-cap
-                window.OneTrust.RejectAll();
-                optedOut = true;
-            } else {
-                console.log("OneTrust CMP or its functions not found");
+                await window.OneTrust.RejectAll();
+
+                result.optedOut = true;
+            } catch (error) {
+                console.error("Error opting out of OneTrust:", error);
             }
-        } catch (error) {
-            console.error("Error getting OneTrust data", error);
-            optedOut = false;
         }
-        const name = "OneTrust";
-        return {name, found, optedOut};
+        return result;
     });
 
-    //only return a valid result object if CMP was at least detected
-    if (result.found) {
-        return result;
-    }
-    return null;
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isOneTrust: false,
+        optedOut: false,
+        timeout: true,
+    }), 5000));
+    
+
+    const finalResult =  await Promise.race([oneTrustResultPromise, timeoutPromise]);
+
+    return finalResult;
 }
 /**
  * Quantcast opt-out logic
@@ -78,103 +91,192 @@ async function optOutOneTrust(page) {
  */
 async function optOutQuantcast(page) {
     console.log("Checking for Quantcast CMP");
-    const qcResult = {name: "Quantcast", found: false, optedOut: false};
+    const qcResult = {};
+    qcResult.isQuantcast = false;
+    qcResult.oldBanner = false;
+    qcResult.uspBanner = false;
+    qcResult.optedOut = false;
 
+    let consentDialog = null;
     try {
         //first, im gonna get the QC CMP dialog box
-        const consentDialog = await page.waitForSelector(".qc-cmp2-summary-buttons", {timeout: 2000});
+        consentDialog = await page.waitForSelector('div[class^="qc-cmp2"]', {
+            timeout: 2000,
+        });
+    } catch (e) {
+        if (e.name === "TimeoutError") {
+            console.log("Quantcast CMP first banner not found or not visible");
+        } else {
+            console.log("Error opting out of Quantcast first banner.");
+        }
+    }
 
-        if (consentDialog) {
-            qcResult.found = true;
-            console.log("Quantcast CMP detected, opting out");
+    //if dialog is not found, we know there is no QC here
+    if (!consentDialog) {
+        console.log("No Quantcast CMP found");
+        return qcResult;
+    }
 
-            //this page.$$ method is a Puppeteer method that returns an array of all elements that match the selector
-            const buttons = await page.$$(".qc-cmp2-summary-buttons button");
+    qcResult.isQuantcast = true;
 
-            let rejectButton = null;
+    //this page.$$ method is a Puppeteer method that returns an array of all elements that match the selector
+    const buttons = await page.$$(".qc-cmp2-summary-buttons button");
+
+    //if there are any buttons we know that the old banner exists - this entire block is for the old banner
+    if (buttons.length > 0) {
+        qcResult.oldBanner = true;
+
+        let rejectButton = null;
+        for (const button of buttons) {
+            // eslint-disable-next-line no-await-in-loop
+            const buttonText = await page.evaluate(
+                el => el.textContent,
+                button
+            );
+            if (
+                buttonText.toLowerCase().includes("reject") ||
+                buttonText.toLowerCase().includes("deny") ||
+                buttonText.toLowerCase().includes("disagree")
+            ) {
+                rejectButton = button;
+                break;
+            }
+        }
+
+        //if we have the reject button, we can just directly click it to opt out.
+        if (rejectButton) {
+            console.log("Reject button found, clicking");
+            await rejectButton.evaluate(btn => btn.click());
+            qcResult.optedOut = true;
+        }
+
+        if (qcResult.optedOut === false) {
+            //if we dont have the reject button, we need to look for a 'more options' button to expand the dialog
+            console.log("Reject button not found, looking for a 'more options' button...");
+
+            let moreOptionsButton = null;
             for (const button of buttons) {
                 // eslint-disable-next-line no-await-in-loop
-                const buttonText = await page.evaluate(el => el.textContent, button);
-                if (buttonText.toLowerCase().includes("reject") || buttonText.toLowerCase().includes("deny") || buttonText.toLowerCase().includes("disagree")) {
-                    rejectButton = button;
+                const buttonText = await page.evaluate(
+                    el => el.textContent,
+                    button
+                );
+                // eslint-disable-next-line max-depth
+                if (
+                    buttonText.toLowerCase().includes("more options") ||
+                    buttonText.toLowerCase().includes("manage") ||
+                    buttonText.toLowerCase().includes("options")
+                ) {
+                    moreOptionsButton = button;
                     break;
                 }
             }
 
-            //if we have the reject button, we can just directly click it to opt out.
-            if (rejectButton) {
-                console.log("Reject button found, clicking");
-                await rejectButton.evaluate(btn => btn.click());
-                qcResult.optedOut = true;
-            } else {
-                //if we dont have the reject button, we need to look for a 'more options' button to expand the dialog
-                // console.log("Reject button not found, looking for a 'more options' button...");
+            if (moreOptionsButton) {
+                // console.log("More options button found, clicking...");
+                await moreOptionsButton.evaluate(btn => btn.click());
 
-                let moreOptionsButton = null;
-                for (const button of buttons) {
+                //here, we need to wait for the new buttons to appear in this new dialog
+                await page.waitForSelector("button", {timeout: 2000});
+                const newButtons = await page.$$("button");
+                let rejectAllButton = null;
+                let saveAndExitButton = null;
+
+                // eslint-disable-next-line max-depth
+                for (const button of newButtons) {
                     // eslint-disable-next-line no-await-in-loop
-                    const buttonText = await page.evaluate(el => el.textContent, button);
+                    const text = // eslint-disable-next-line no-await-in-loop
+                    (await page.evaluate(el => el.textContent, button)).toLowerCase();
                     // eslint-disable-next-line max-depth
-                    if (buttonText.toLowerCase().includes("more options") || buttonText.toLowerCase().includes("manage") || buttonText.toLowerCase().includes("options")) {
-                        moreOptionsButton = button;
-                        break;
+                    if (text.includes("reject all") && !rejectAllButton) {
+                        rejectAllButton = button;
+                    }
+                    // eslint-disable-next-line max-depth
+                    if (
+                        text.toLowerCase().includes("save and exit") ||
+                        text.toLowerCase().includes("save & exit") ||
+                        text.toLowerCase().includes("save")
+                    ) {
+                        saveAndExitButton = button;
                     }
                 }
 
-                if (moreOptionsButton) {
-                    // console.log("More options button found, clicking...");
-                    await moreOptionsButton.evaluate(btn => btn.click());
-          
-                    //here, we need to wait for the new buttons to appear in this new dialog
-                    await page.waitForSelector("button", {timeout: 2000});
-                    const newButtons = await page.$$("button");
-                    let rejectAllButton = null;
-                    let saveAndExitButton = null;
-
-                    // eslint-disable-next-line max-depth
-                    for (const button of newButtons) {
-                        // eslint-disable-next-line no-await-in-loop
-                        const text = (await page.evaluate(el => el.textContent, button)).toLowerCase();
-                        // eslint-disable-next-line max-depth
-                        if (text.includes("reject all") && !rejectAllButton) {
-                            rejectAllButton = button;
-                        }
-                        // eslint-disable-next-line max-depth
-                        if (text.toLowerCase().includes("save and exit") || text.toLowerCase().includes("save & exit") || text.toLowerCase().includes("save")) {
-                            saveAndExitButton = button;
-                        }
-                    }
-          
-                    // eslint-disable-next-line max-depth
-                    if (rejectAllButton) {
-                        // console.log("Reject All button found, clicking...");
-                        await rejectAllButton.evaluate(btn => btn.click());
-                    }
-
-                    // eslint-disable-next-line max-depth
-                    if (saveAndExitButton) {
-                        console.log("Save and Exit button found, clicking...");
-                        await saveAndExitButton.evaluate(btn => btn.click());
-                        qcResult.optedOut = true;
-                    }
-                } else {
-                    console.log("No more options button not found");
+                // eslint-disable-next-line max-depth
+                if (rejectAllButton) {
+                    // console.log("Reject All button found, clicking...");
+                    await rejectAllButton.evaluate(btn => btn.click());
                 }
+
+                // eslint-disable-next-line max-depth
+                if (saveAndExitButton) {
+                    console.log("Save and Exit button found, clicking...");
+                    await saveAndExitButton.evaluate(btn => btn.click());
+                    qcResult.optedOut = true;
+                }
+            } else {
+                console.log("No more options button not found");
             }
         }
-    } catch (error) {
-        if (error.name === "TimeoutError") {
-            console.log("Quantcast CMP not found or not visible");
-        } else {
-            console.log("Error opting out of Quantcast.");
+
+        //if we have opted out, we can just return the result
+        if (qcResult.optedOut) {
+            return qcResult;
         }
-        qcResult.optedOut = false;
+        console.log("No Opt out from first QC banner.");
     }
-   
-    if (qcResult.found) {
-        return qcResult;
+
+    //if the old banner was not found, we need to check for the new one
+    console.log("Checking for QC Usp Consent Dialog");
+    const secondBanner = await page.$(".qc-usp-ui-form-content");
+
+    //this entire block is for the USP banner
+    if (secondBanner) {
+        console.log("QC Usp Consent Dialog found");
+        qcResult.isQuantcast = true;
+        qcResult.uspBanner = true;
+
+        const preferencesMenu = await page.$("button.qc-cmp2-list-item-header");
+
+        if (preferencesMenu) {
+            console.log("Preferences menu found, clicking...");
+            await preferencesMenu.evaluate(btn => btn.click());
+
+            const optOutResult = await page.evaluate(async () => {
+                const toggles = Array.from(document.querySelectorAll('button[role="switch"]'));
+                for (const btn of toggles) {
+                    if (btn.getAttribute("aria-checked") === "false") {
+                        // @ts-ignore
+                        btn.click();
+                        // eslint-disable-next-line no-await-in-loop
+                        await Promise.race([
+                            //gives DOM the chance to render changes so we dont end up skipping any
+                            new Promise(resolve => requestAnimationFrame(resolve)),
+                            new Promise(resolve => setTimeout(resolve, 200)),
+                        ]);
+                    }
+                }
+
+                const uspButtons = Array.from(document.querySelectorAll(".qc-usp-ui-form-content button"));
+
+                for (const btn of uspButtons) {
+                    const text = btn.textContent.trim().toLowerCase();
+                    if (text.includes("confirm") || text.includes("save")) {
+                        // @ts-ignore
+                        btn.click();
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+
+            if (optOutResult) {
+                qcResult.optedOut = true;
+            }
+        }
     }
-    return null;
+
+    return qcResult;
 }
 
 /**
@@ -183,39 +285,37 @@ async function optOutQuantcast(page) {
  */
 async function optOutCookieBot(page) {
     console.log("Checking for Cookiebot CMP");
-    const result = await page.evaluate(() => {
-        
-        let found = false;
-        let optedOut = false;
-        try {
+
+    const cookieBotResultPromise = page.evaluate(async () => {
+        let result = {};
+        result.isCookiebot = false;
+        result.optedOut = false;
+
         // @ts-ignore
-            if (window.CookieConsent) {
-                found = true;
-                console.log("Cookiebot CMP detected, opting out");
-                
+        if (window.CookieConsent) {
+            result.isCookiebot = true;
+            console.log("Cookiebot CMP detected, opting out");
+            try {
                 // @ts-ignore
-                if (typeof window.CookieConsent.submitCustomConsent === 'function') {
-                // @ts-ignore
-                    window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
-                    console.log("Opted out of Cookiebot");
-                    optedOut = true;
-                }
+                await window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
+                result.optedOut = true;
            
-            } else {
-                console.log("Cookiebot Consent banner not found.");
+            } catch (error) {
+                console.error("Error getting Cookiebot data:", error);
             }
-        } catch  {
-            console.error("Error getting Cookiebot data");
-            optedOut = false;
         }
-        const name = "Cookiebot";
-        return {name, found, optedOut};
+        return result;
     });
 
-    if (result.found) {
-        return result;
-    }
-    return null;
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isCookiebot: false,
+        optedOut: false,
+        timeout: true,
+    }), 5000));
+
+    const finalResult = await Promise.race([cookieBotResultPromise, timeoutPromise]);
+
+    return finalResult;
 }
 
 /**
@@ -224,36 +324,121 @@ async function optOutCookieBot(page) {
  */
 async function optOutUserCentrics(page) {
     console.log("Checking for UserCentrics CMP");
-    const ucResult = await page.evaluate(async () => {
-        let found = false;
-        let optedOut = false;
 
-        try {
-            // @ts-ignore
-            if (window.UC_UI) {
-                found = true;
-                console.log("UserCentrics CMP detected, opting out");
+    const ucResultPromise = page.evaluate(async () => {
+        let result = {};
+        result.isUserCentrics = false;
+        result.optedOut = false;
+
+        // @ts-ignore
+        if (window.UC_UI) {
+            result.isUserCentrics = true;
+            console.log("UserCentrics CMP detected, opting out");
+
+            try {
                 // @ts-ignore
-                if(typeof window.UC_UI.denyAllConsents === 'function') {
-                    // @ts-ignore
-                    await window.UC_UI.denyAllConsents();
-                    optedOut = true;
-                }
-            } else {
-                console.log("UserCentrics CMP or its functions not found");
+                await window.UC_UI.denyAllConsents();
+                result.optedOut = true;
+            } catch {
+                console.log("Error opting out of UserCentrics.");
             }
-        } catch {
-            console.log("Error opting out of UserCentrics.");
-            optedOut = false;
         }
-        const name = "UserCentrics";
-        return {name, found, optedOut};
+
+        return result;
     });
 
-    if (ucResult.found) {
-        return ucResult;
-    }
-    return null;
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isUserCentrics: false,
+        optedOut: false,
+        timeout: true,
+    }), 5000));
+
+    const finalResult = await Promise.race([ucResultPromise, timeoutPromise]);
+
+    return finalResult;
 }
 
-module.exports = {optOutDidomi, optOutOneTrust, optOutQuantcast, optOutCookieBot, optOutUserCentrics};
+/**
+ * Osano opt-out logic
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+async function optOutOsano(page) {
+    console.log("Checking for Osano CMP");
+
+    const osanoResultPromise = page.evaluate(async () => {
+        let result = {};
+        result.isOsano = false;
+        result.optedOutCookies = false;
+        result.optedOutSelling = false;
+
+        // @ts-ignore
+        if (window.Osano) {
+            result.isOsano = true;
+            console.log("Osano CMP detected, opting out");
+
+            await window.Osano.cm.showDrawer();
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
+            const toggles = Array.from(document.querySelectorAll('input.osano-cm-toggle__input:not([disabled])'));
+
+            toggles.forEach(toggle => {
+                // If the toggle is checked, click to uncheck
+                if (toggle.checked) {
+                    toggle.click();
+                }
+            });
+
+            // await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+
+            const saveButton = document.querySelector('button.osano-cm-save');
+            if (saveButton) {
+                saveButton.click();
+                result.optedOutCookies = true;
+            }
+
+            // await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+
+            await window.Osano.cm.showDoNotSell();
+
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
+
+
+            const infoDialog = document.querySelector('.osano-cm-info--do_not_sell');
+            if (infoDialog) {
+                const toggle = infoDialog.querySelector('input[type="checkbox"][data-category="OPT_OUT"]');
+                if (toggle && !toggle.checked && !toggle.disabled) {
+                    toggle.click(); // Turn ON the toggle
+                }
+
+                // await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+
+                const saveButton2 = infoDialog.querySelector('button.osano-cm-save');
+                if (saveButton2) {
+                    saveButton2.click();
+                    result.optedOutSelling = true;
+                }
+            }
+            
+        }
+
+        return result;
+    });
+
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isOsano: false,
+        optedOutCookies: false,
+        optedOutSelling: false,
+        timeout: true,
+    }), 10000));
+
+    const finalResult = await Promise.race([osanoResultPromise, timeoutPromise]);
+    return finalResult;
+}
+   
+module.exports = {
+    optOutDidomi,
+    optOutOneTrust,
+    optOutQuantcast,
+    optOutCookieBot,
+    optOutUserCentrics,
+    optOutOsano,
+};

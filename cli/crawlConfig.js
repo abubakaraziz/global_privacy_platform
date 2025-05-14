@@ -28,7 +28,7 @@ function getUrlsFromConfig(urlConfig) {
 /**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
  * 
- * @param {{config?: string, optOut?: boolean, optIn?: boolean, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
+ * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, statefulCrawl?:boolean, optOut?: boolean, optIn?: boolean, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
  * @returns {CrawlConfig}
  */
 function figureOut(flags) {
@@ -63,6 +63,11 @@ function figureOut(flags) {
     if (crawlConfig.optOut === undefined || flags.optOut !== undefined) {
         crawlConfig.optOut = Boolean(flags.optOut);
     }
+
+     //Adding headless flag to the config
+    if (crawlConfig.headless === undefined || flags.headless !== undefined) {
+        crawlConfig.headless = Boolean(flags.headless);
+    }
     //Adding optIn flag to the config
     if (crawlConfig.optIn === undefined || flags.optIn !== undefined) {
         crawlConfig.optIn = Boolean(flags.optIn);
@@ -89,6 +94,18 @@ function figureOut(flags) {
     }
     if (flags.executablePath) {
         crawlConfig.executablePath = flags.executablePath;
+    }
+    if (flags.statefulCrawl) {
+        crawlConfig.statefulCrawl = flags.statefulCrawl;
+    }
+    if (flags.saveCookies) {
+        crawlConfig.saveCookies = flags.saveCookies;
+    }
+    if (flags.loadCookies) {
+        crawlConfig.loadCookies = flags.loadCookies;
+    }
+    if (flags.cookieJarPath) {
+        crawlConfig.cookieJarPath = flags.cookieJarPath;
     }
 
     // array settings
@@ -167,6 +184,11 @@ module.exports = {
  * @property {boolean} disableAntiBot
  * @property {number} maxLoadTimeMs
  * @property {boolean} optOut
+ * @property {boolean} statefulCrawl
+ * @property {boolean} saveCookies
+ * @property {boolean} loadCookies
+ * @property {boolean} headless
+ * @property {string} cookieJarPath
  * @property {boolean} optIn
  * @property {number} extraExecutionTimeMs
  */

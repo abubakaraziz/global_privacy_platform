@@ -11,6 +11,10 @@ const uspPing = async page => {
                 resolve(null); // Resolve with null if __uspapi doesn't exist
                 return;
             }
+
+            // Adding a simple timeout in case function call takes too long
+            setTimeout(() => resolve(null), 5000);
+
             // Call the __uspapi function if it exists
             // @ts-ignore
             window.__uspapi('getUSPData',1, (uspData, success) => {
