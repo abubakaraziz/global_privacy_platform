@@ -182,4 +182,39 @@ const quantcastPresence = async page => {
     return result;
 };
 
-module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence};
+/**
+ * @param {import('puppeteer').Page} page - The Puppeteer page instance.
+ */
+/* eslint-disable no-undef */
+const osanoConsent = async page => {
+    
+    const osanoConsentPromise = page.evaluate(async () => {
+        const result = {};
+        result.isOsano = false;
+        result.getConsent = null;
+
+        // @ts-ignore
+        if (window.Osano) {
+            result.isOsano = true;
+            try {
+                // @ts-ignore
+                result.getConsent = await window.Osano.cm.getConsent();
+            }catch{}
+        }
+           
+        return result;
+    });
+
+    const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
+        isOsano: false,
+        getConsent: null,
+        timeout: true
+    }), 5000));
+
+    const finalResult = await Promise.race([osanoConsentPromise, timeoutPromise]);
+      
+    return finalResult;
+};
+
+
+module.exports = {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence, osanoConsent};

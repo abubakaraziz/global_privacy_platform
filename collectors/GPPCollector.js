@@ -9,7 +9,7 @@ const gppPing = require("../helpers/gppPing");
 const callGPPhasSections = require("../helpers/gppHasSections");
 const callGPPgetSections = require("../helpers/gppGetSections");
 const tcfPing = require("../helpers/tcfPing");
-const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence, osanoConsent} = require("../helpers/CMPConsentFunctions");
 const {getGTMObject, getDataLayer} = require("../helpers/gtmHelper");
 /**
  * @typedef {Object} ScanResult
@@ -140,6 +140,9 @@ class GPPCollector extends BaseCollector {
             // Checking for the Quantcast CMP and retrieving the consent object
             const quantCastPresent = await quantcastPresence(page);
             this.scanResult.cmpConsentObject.push(quantCastPresent);
+
+            const osanoConsentObject = await osanoConsent(page);
+            this.scanResult.cmpConsentObject.push(osanoConsentObject);
            
             
             //Get Google Tag Manager Object and data layer object
