@@ -1,5 +1,11 @@
-const {optInOneTrust, optInCookieBot, optInDidomi, optInQuantcast, optInUserCentrics} = require('./optinHelpers');
-
+const {
+    optInOneTrust,
+    optInCookieBot,
+    optInDidomi,
+    optInQuantcast,
+    optInUserCentrics,
+    optInOsano,
+} = require("./optinHelpers");
 
 /**
  * CMP Opt-In Conducted in this function
@@ -7,50 +13,26 @@ const {optInOneTrust, optInCookieBot, optInDidomi, optInQuantcast, optInUserCent
  */
 const optInForCMPs = async page => {
     const cmpResults = [];
-    // Checking if CMPs are present on the page and opting out if they are
-    try {
-        const oneTrustResult = await optInOneTrust(page);
-        if (oneTrustResult) {
-            cmpResults.push(oneTrustResult);
-        }
-    } catch {
-        console.error("Error opting in for OneTrust CMP");
-    }
-    try {
-        const cookieBotResult = await optInCookieBot(page);
-        if (cookieBotResult) {
-            cmpResults.push(cookieBotResult);
-        }
-    } catch {
-        console.error("Error opting in for CookieBot CMP");
-    }
-    try {
-        const didomiResult = await optInDidomi(page);
-        if (didomiResult) {
-            cmpResults.push(didomiResult);
-        }
-    } catch {
-        console.error("Error opting out of Didomi CMP");
-    }
-    try {
-        const qcResult = await optInQuantcast(page);
-        if (qcResult) {
-            cmpResults.push(qcResult);
-        }
-    } catch {
-        console.error("Error opting in for Quantcast CMP");
-    }
-    try {
-        const ucResult = await optInUserCentrics(page);
-        if (ucResult) {
-            cmpResults.push(ucResult);
-        }
-    } catch (error) {
-        console.error("Error opting in for UserCentrics CMP", error);
-    }
+
+    const oneTrustResult = await optInOneTrust(page);
+    cmpResults.push(oneTrustResult);
+
+    const cookieBotResult = await optInCookieBot(page);
+    cmpResults.push(cookieBotResult);
+
+    const didomiResult = await optInDidomi(page);
+    cmpResults.push(didomiResult);
+    
+    const qcResult = await optInQuantcast(page);
+    cmpResults.push(qcResult);
+       
+    const ucResult = await optInUserCentrics(page);
+    cmpResults.push(ucResult);
+
+    const osanoResult = await optInOsano(page);
+    cmpResults.push(osanoResult);
 
     return cmpResults;
 };
-
 
 module.exports = optInForCMPs;
