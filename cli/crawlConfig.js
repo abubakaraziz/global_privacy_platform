@@ -72,7 +72,6 @@ function figureOut(flags) {
     if (crawlConfig.semiAutomated === undefined || flags.semiAutomated !== undefined) {
         crawlConfig.semiAutomated = Boolean(flags.semiAutomated);
     }
-
     // string/number settings
     if (flags.output) {
         crawlConfig.output = flags.output;
