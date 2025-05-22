@@ -308,17 +308,22 @@ async function optInOsano(page) {
 
             //@ts-ignore
             await window.Osano.cm.showDrawer();
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
+            // await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
             const toggles = Array.from(document.querySelectorAll('input.osano-cm-toggle__input:not([disabled])'));
 
             toggles.forEach(toggle => {
-                // If the toggle is unchecked, click to check
-                if (!toggle.checked) {
+                const isOptOut = toggle.dataset.category === 'OPT_OUT';
+        
+                if (isOptOut && toggle.checked) {
+                    //Some Osano sites have a Do Not Sell toggle which needs to be OFF unlike the others. If it's the Do Not Sell toggle and it's ON, this code will turn it OFF
+                    toggle.click();
+                } else if (!isOptOut && !toggle.checked) {
+                    //For all other toggles, we ensure they're turned ON
                     toggle.click();
                 }
             });
 
-            await new Promise(resolve => setTimeout(resolve, 5000)); // Wait for the toggles to update
+            await new Promise(resolve => setTimeout(resolve, 100));
 
             const saveButton = document.querySelector('button.osano-cm-save');
             if (saveButton) {
@@ -326,22 +331,22 @@ async function optInOsano(page) {
                 result.optedInCookies = true;
             }
 
-            await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+            await new Promise(resolve => setTimeout(resolve, 500)); //This wait is important to give the DOM time to update
 
             //@ts-ignore
             await window.Osano.cm.showDoNotSell();
 
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
+            // await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for the drawer to open
 
 
             const infoDialog = document.querySelector('.osano-cm-info--do_not_sell');
             if (infoDialog) {
                 const toggle = infoDialog.querySelector('input[type="checkbox"][data-category="OPT_OUT"]');
                 if (toggle && toggle.checked && !toggle.disabled) {
-                    toggle.click(); // Turn OFF the toggle
+                    toggle.click(); // Turn OFF the toggle if its on 
                 }
 
-                await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for the toggles to update
+                await new Promise(resolve => setTimeout(resolve, 100)); // Wait for the toggles to update
 
                 const saveButton2 = infoDialog.querySelector('button.osano-cm-save');
                 if (saveButton2) {
@@ -364,8 +369,6 @@ async function optInOsano(page) {
 
     const finalResult = await Promise.race([osanoResultPromise, timeoutPromise]);
     return finalResult;
-
-
 }
 
 
