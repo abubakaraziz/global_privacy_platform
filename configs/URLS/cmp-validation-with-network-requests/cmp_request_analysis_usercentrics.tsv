@@ -1,0 +1,10 @@
+initial_url	cmp_name	request_url	request_domain_name	isOneTrust	isDidomi	isCookieBot	isUsercentrics	isQuantcast
+https://www.konicaminolta.eu/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	True	False
+https://doxy.me/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	False	False
+https://app.gostudiopro.com/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	False	False
+https://www.highsnobiety.com/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	True	False
+https://www.osram.com/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	True	False
+https://www.chicksaddlery.com/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	True	False
+https://www.chbeck.de/	usercentrics	https://app.usercentrics.eu/session/1px.png?settingsId=Vgz4q31sB	usercentrics.eu	False	False	False	True	False
+https://www.sixt.com/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	True	False
+https://www.cewe.co.uk/	usercentrics	https://app.usercentrics.eu/browser-ui/latest/loader.js	usercentrics.eu	False	False	False	False	False

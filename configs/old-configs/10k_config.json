@@ -1,0 +1,23 @@
+{
+    "output": "./Crawls/test_config",
+    "logPath": "./log/test_config",
+    "crawlers": 4,
+    "maxLoadTimeMs": 30000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    "proxyConfig": "socks5://localhost:11000",
+    "dataCollectors": [
+        "requests",
+        "cookies",
+        "links",
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/5000_10k.txt"
+}

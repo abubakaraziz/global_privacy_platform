@@ -1,0 +1,23 @@
+{
+    "output": "./Crawls/quantcast_test",
+    "logPath": "../opt_out_gpp/logs/default/output_split_2",
+    "crawlers": 8,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": false,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    "dataCollectors": [
+        "apis",
+        "cookies",
+        "requests",
+        "gpp"
+    ],
+    "executablePath": "/Users/jawadsaeed/Downloads/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/quantcast_test_urls.txt"
+}

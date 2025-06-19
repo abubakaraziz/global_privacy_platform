@@ -1,0 +1,23 @@
+{
+    "output": "./Crawls/bot_config",
+    "logPath": "./log/bot_config",
+    "crawlers": 1,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    "dataCollectors": [
+       "requests",
+        "cookies",
+        "links",
+        "gpp",
+        "apis"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/bot_testing.txt"
+}

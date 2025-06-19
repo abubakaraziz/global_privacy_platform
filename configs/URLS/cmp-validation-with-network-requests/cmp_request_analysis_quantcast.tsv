@@ -1,0 +1,14 @@
+initial_url	cmp_name	request_url	request_domain_name	isOneTrust	isDidomi	isCookieBot	isUsercentrics	isQuantcast
+https://www.ilgiornale.it/	quantcast	https://cmp.inmobi.com/choice/hMU0XDu2_Mqb_/www.ilgiornale.it/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://index.hu/	quantcast	https://cmp.inmobi.com/choice/4z9XXyvnuPTjK/index.hu/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.origo.hu/	quantcast	https://cmp.inmobi.com/choice/gq2uc_c-uMyQL/www.origo.hu/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.lrytas.lt/	quantcast	https://cmp.inmobi.com/choice/UV9U0wgzknhEN/lrytas.lt/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://anime-sama.fr/	quantcast	https://cmp.inmobi.com/choice/n5-DbqbxTAvSJ/anime-sama.fr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://24.hu/	quantcast	https://cmp.inmobi.com/choice/ZWemmHq85Y1fR/24.hu/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.sportime.gr/	quantcast	https://cmp.inmobi.com/choice/GDV98Rd3QNPFJ/www.sportime.gr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.gazzetta.gr/	quantcast	https://cmp.inmobi.com/choice/8U8hwwyS8cLzr/www.gazzetta.gr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.bankingnews.gr/	quantcast	https://cmp.inmobi.com/choice/pGsN4RcfVD3K_/www.bankingnews.gr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	False
+https://www.newsbeast.gr/	quantcast	https://cmp.inmobi.com/choice/TzRx-fN80kA27/www.newsbeast.gr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://telex.hu/	quantcast	https://cmp.inmobi.com/choice/Vug8mkU2uKf2W/telex.hu/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.newsit.gr/	quantcast	https://cmp.inmobi.com/choice/65WJWHJ5HtDNc/www.newsit.gr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True
+https://www.newsbomb.gr/	quantcast	https://cmp.inmobi.com/choice/eLT_jqyFg7ftW/www.newsbomb.gr/choice.js?tag_version=V3	inmobi.com	False	False	False	False	True

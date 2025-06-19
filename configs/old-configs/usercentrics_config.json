@@ -1,0 +1,24 @@
+{
+    "output": "Crawls/usercentrics_test_new",
+    "logPath": "./log/cookiebot_test",
+    "crawlers": 8,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    "executablePath": "/Users/jawadsaeed/Downloads/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+    "dataCollectors": [
+        "requests",
+        "cookies",
+        "links",
+        "gpp",
+        "apis"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/usercentrics_urls.txt"
+}

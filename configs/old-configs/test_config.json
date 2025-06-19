@@ -1,0 +1,27 @@
+{	
+     "output": "../opt_out_gpp/data/tests/default/",
+    "logPath": "../opt-out-gpp/logs/tests/default/",
+    "crawlers": 1,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": false,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    "dataCollectors": [
+     "apis",
+     "requests",
+     "links",
+     "cookies",
+      "gpp"
+    ],  
+    "executablePath": "./chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary",
+    "reporters": [
+        "cli"
+    ],  
+    "headless": false,
+    "optOut": true,
+    "urls": "configs/URLS/test_2_websites.txt"
+}
+

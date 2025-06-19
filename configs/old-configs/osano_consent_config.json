@@ -1,0 +1,22 @@
+{
+    "output": "Crawls/osano_consent_test",
+    "logPath": "./log/osano_consent_test",
+    "crawlers": 8,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    "dataCollectors": [
+        "requests",
+        "cookies",
+        "links",
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/osano_urls.txt"
+}

@@ -1,0 +1,27 @@
+
+{	
+    "output": "../opt_out_gpp/data/tests/opt-out-cmp/",
+    "logPath": "../opt-out-gpp/logs/tests/opt-out-cmp/",
+    "crawlers": 1,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": false,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    "dataCollectors": [
+     "apis",
+     "requests",
+     "links",
+     "cookies",
+      "gpp"
+    ],  
+    "executablePath": "./chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary",
+    "reporters": [
+        "cli"
+    ],  
+    "headless": false,
+    "optOut": true,
+    "urls": "configs/URLS/cmp-opt-out-testing/onetrust-10-urls.txt"
+}

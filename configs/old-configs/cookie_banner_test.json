@@ -1,0 +1,20 @@
+{
+    "output": "./Crawls/cookie_banner_test",
+    "logPath": "./log/cookie_banner_test",
+    "crawlers": 1,
+    "maxLoadTimeMs": 30000,
+    "extraExecutionTimeMs": 2500,
+    "verbose": true,
+    "forceOverwrite": true,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": true,
+    
+    "dataCollectors": [
+        "gpp"
+    ],
+    "reporters": [
+        "cli"
+    ],
+    "urls": "Configs/URLS/cookie_banner_test.txt"
+}

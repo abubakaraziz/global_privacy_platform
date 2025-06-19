@@ -1,0 +1,14 @@
+initial_url	cmp_name	request_url	request_domain_name	isOneTrust	isDidomi	isCookieBot	isUsercentrics	isQuantcast
+https://www.peardeck.com/	onetrust	https://geolocation.onetrust.com/cookieconsentpub/v1/geo/location	onetrust.com	True	False	False	False	False
+https://www.carlsjr.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.zoominfo.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://alsroblox.fandom.com/	onetrust	https://cdn.cookielaw.org/consent/tcf.stub.js	cookielaw.org	True	False	False	False	False
+https://www.famousfootwear.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.wowhead.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.myschoolbucks.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.arlo.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js?did=dabf8452-cb28-42ac-b994-02f10392b33c	cookielaw.org	True	False	False	False	False
+https://www.flashscore.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://zoom.us/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.ikea.com/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.atlassian.com/	onetrust	https://cdn.cookielaw.org/consent/ed42d30f-c9f0-408c-b65a-cd77205ecdf5/otSDKStub.js	cookielaw.org	True	False	False	False	False
+https://www.rightmove.co.uk/	onetrust	https://cdn.cookielaw.org/scripttemplates/otSDKStub.js	cookielaw.org	True	False	False	False	False
