@@ -1,0 +1,2289 @@
+
+> tracker-radar-collector@1.0.0 crawl
+> node ./cli/crawl-cli --config configs/default-cmp.json
+
+Start time: Mon, 23 Jun 2025 15:19:22 GMT
+URLs to crawl: 50
+Number of crawlers: 8
+
+Processing entry #1 (https://fortune.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #2 (https://www.scientificamerican.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #3 (https://www.ivanti.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #4 (https://saucelabs.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #5 (https://simpli.fi/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #6 (https://www.symbolab.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #7 (https://www.ntv.com.tr/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Processing entry #8 (https://adtelligent.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.ivanti.com: apis init took 0.000s
+www.ivanti.com: requests init took 0.000s
+www.ivanti.com: links init took 0.000s
+www.ivanti.com: cookies init took 0.000s
+www.ivanti.com: gpp init took 0.000s
+simpli.fi: apis init took 0.000s
+simpli.fi: requests init took 0.000s
+simpli.fi: links init took 0.000s
+simpli.fi: cookies init took 0.000s
+simpli.fi: gpp init took 0.000s
+fortune.com: apis init took 0.000s
+fortune.com: requests init took 0.000s
+fortune.com: links init took 0.000s
+fortune.com: cookies init took 0.000s
+fortune.com: gpp init took 0.000s
+saucelabs.com: apis init took 0.000s
+saucelabs.com: requests init took 0.000s
+saucelabs.com: links init took 0.000s
+saucelabs.com: cookies init took 0.000s
+saucelabs.com: gpp init took 0.000s
+adtelligent.com: apis init took 0.000s
+adtelligent.com: requests init took 0.000s
+adtelligent.com: links init took 0.000s
+adtelligent.com: cookies init took 0.000s
+adtelligent.com: gpp init took 0.000s
+www.symbolab.com: apis init took 0.000s
+www.symbolab.com: requests init took 0.000s
+www.symbolab.com: links init took 0.000s
+www.symbolab.com: cookies init took 0.000s
+www.symbolab.com: gpp init took 0.000s
+www.ntv.com.tr: apis init took 0.000s
+www.ntv.com.tr: requests init took 0.000s
+www.ntv.com.tr: links init took 0.000s
+www.ntv.com.tr: cookies init took 0.000s
+www.ntv.com.tr: gpp init took 0.000s
+www.scientificamerican.com: apis init took 0.000s
+www.scientificamerican.com: requests init took 0.000s
+www.scientificamerican.com: links init took 0.000s
+www.scientificamerican.com: cookies init took 0.000s
+www.scientificamerican.com: gpp init took 0.000s
+www.scientificamerican.com: page context initiated in 0.027s
+www.scientificamerican.com: ⚠️ duplicate scriptId 5
+www.scientificamerican.com: ⚠️ duplicate scriptId 6
+www.scientificamerican.com: ⚠️ duplicate scriptId 7
+www.scientificamerican.com: ⚠️ duplicate scriptId 8
+www.scientificamerican.com: ⚠️ duplicate scriptId 9
+simpli.fi: page context initiated in 0.012s
+www.symbolab.com: page context initiated in 0.010s
+adtelligent.com: page context initiated in 0.022s
+fortune.com: page context initiated in 0.042s
+saucelabs.com: page context initiated in 0.074s
+www.ivanti.com: page context initiated in 0.015s
+www.ntv.com.tr: page context initiated in 0.017s
+CMP Opt-out Flag:  false
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+CMP Opt-out Flag:  false
+CMP Opt-out Flag:  false
+simpli.fi:  (other) context initiated in 3.497s
+fortune.com: blob:https://fortune.com/17cc9346-7272-47cb-bfd4-14d8e5663712 (other) context initiated in 1.494s
+www.scientificamerican.com:  (other) context initiated in 7.881s
+www.scientificamerican.com:  (other) context initiated in 6.270s
+www.scientificamerican.com:  (other) context initiated in 6.269s
+www.scientificamerican.com:  (other) context initiated in 4.779s
+simpli.fi:  (other) context initiated in 1.138s
+fortune.com:  (other) context initiated in 1.478s
+www.ivanti.com:  (other) context initiated in 2.502s
+www.scientificamerican.com:  (other) context initiated in 2.212s
+www.scientificamerican.com:  (other) context initiated in 0.146s
+www.ntv.com.tr:  (other) context initiated in 6.419s
+www.ntv.com.tr:  (other) context initiated in 1.548s
+www.ntv.com.tr:  (other) context initiated in 0.466s
+www.ntv.com.tr: https://www.ntv.com.tr/relatedpush_sw.js (service_worker) context initiated in 0.051s
+www.ntv.com.tr:  (other) context initiated in 0.016s
+www.ntv.com.tr: https://www.ntv.com.tr/relatedpush_sw.js?1750691981295 (service_worker) context initiated in 0.026s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+simpli.fi:  (other) context initiated in 0.477s
+saucelabs.com:  (other) context initiated in 0.015s
+fortune.com: Unexpected existing pending call 7:2
+fortune.com: Unexpected existing pending call 7:2
+www.ntv.com.tr:  (other) context initiated in 0.054s
+www.scientificamerican.com:  (other) context initiated in 0.014s
+www.scientificamerican.com:  (other) context initiated in 0.011s
+fortune.com:  (other) context initiated in 0.013s
+fortune.com:  (other) context initiated in 0.007s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.scientificamerican.com:  (other) context initiated in 0.030s
+www.scientificamerican.com:  (other) context initiated in 0.028s
+www.scientificamerican.com:  (other) context initiated in 0.025s
+www.scientificamerican.com:  (other) context initiated in 0.016s
+www.scientificamerican.com:  (other) context initiated in 0.010s
+adtelligent.com: apis postLoad took 0.000s
+adtelligent.com: requests postLoad took 0.000s
+adtelligent.com: links postLoad took 0.000s
+adtelligent.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+adtelligent.com: gpp postLoad took 0.035s
+Scrolling to the top of the page
+simpli.fi:  (other) context initiated in 0.011s
+www.ivanti.com: apis postLoad took 0.000s
+www.ivanti.com: requests postLoad took 0.000s
+www.ivanti.com: links postLoad took 0.000s
+www.ivanti.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.ivanti.com: gpp postLoad took 0.043s
+Scrolling to the top of the page
+adtelligent.com: getting apis data took 0.015s
+adtelligent.com: getting requests data took 0.187s
+Scrolling to the top of the page
+adtelligent.com: Skipping same-page or fragment link: https://adtelligent.com/#
+adtelligent.com: Skipping mailto link: mailto:support.adtelligent.com
+adtelligent.com: Skipping same-page or fragment link: https://adtelligent.com/#solutions
+adtelligent.com: Skipping same-page or fragment link: https://adtelligent.com/#publishers
+adtelligent.com: Skipping same-page or fragment link: https://adtelligent.com/#advertisers
+adtelligent.com: Skipping same-page or fragment link: https://adtelligent.com/#enterprises
+adtelligent.com: Will skip the external link: https://www.linkedin.com/company/adtelligent
+adtelligent.com: Will skip the external link: https://www.facebook.com/adtelligentinc
+adtelligent.com: Will skip the external link: https://www.instagram.com/adtelligent.inc
+adtelligent.com: Will skip the external link: https://www.threads.net/@adtelligent.inc
+adtelligent.com: Will skip the external link: https://twitter.com/adtelligent
+adtelligent.com: Will skip the external link: https://www.youtube.com/@adtelligentinc.6006
+adtelligent.com: Will skip the external link: https://www.g2.com/products/adtelligent-header-bidding-platform/reviews
+adtelligent.com: Found 15 internal links
+adtelligent.com: getting links data took 0.061s
+adtelligent.com: getting cookies data took 0.003s
+adtelligent.com: getting gpp data took 0.000s
+fortune.com:  (other) context initiated in 0.321s
+www.scientificamerican.com:  (other) context initiated in 0.013s
+fortune.com:  (other) context initiated in 0.012s
+fortune.com:  (other) context initiated in 0.024s
+fortune.com:  (other) context initiated in 0.041s
+fortune.com:  (other) context initiated in 0.037s
+fortune.com:  (other) context initiated in 0.036s
+Site 1 / 50 (2.0%)
+Processing "https://adtelligent.com/" took 47.139s.
+Processing entry #9 (https://www.freshworks.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.symbolab.com: apis postLoad took 0.000s
+www.symbolab.com: requests postLoad took 0.000s
+www.symbolab.com: links postLoad took 0.000s
+www.symbolab.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.symbolab.com: gpp postLoad took 0.026s
+Scrolling to the top of the page
+www.ivanti.com: getting apis data took 0.001s
+www.ivanti.com: getting requests data took 0.003s
+Scrolling to the top of the page
+www.ivanti.com: Will skip the external link: https://www.ivmeme.com
+www.ivanti.com: Skipping same-page or fragment link: https://www.ivanti.com/#animation-page-wrap
+www.ivanti.com: Will skip the external link: https://status.ivanticloud.com
+www.ivanti.com: Will skip the external link: https://www.youtube.com/watch?v=f4taetyhkbe
+www.ivanti.com: Will skip the external link: https://twitter.com/goivanti
+www.ivanti.com: Will skip the external link: https://www.linkedin.com/company/ivanti
+www.ivanti.com: Will skip the external link: https://www.instagram.com/goivanti
+www.ivanti.com: Will skip the external link: https://www.facebook.com/goivanti
+www.ivanti.com: Will skip the external link: https://www.youtube.com/c/ivanti
+www.ivanti.com: Will skip the external link: https://cookiepedia.co.uk/giving-consent-to-cookies
+www.ivanti.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.ivanti.com: Found 15 internal links
+www.ivanti.com: getting links data took 0.012s
+www.ivanti.com: getting cookies data took 0.006s
+www.ivanti.com: getting gpp data took 0.000s
+www.freshworks.com: apis init took 0.000s
+www.freshworks.com: requests init took 0.000s
+www.freshworks.com: links init took 0.000s
+www.freshworks.com: cookies init took 0.000s
+www.freshworks.com: gpp init took 0.000s
+www.freshworks.com: page context initiated in 0.132s
+www.symbolab.com: getting apis data took 0.000s
+www.symbolab.com: getting requests data took 0.001s
+Scrolling to the top of the page
+www.symbolab.com: Skipping same-page or fragment link: https://www.symbolab.com/#
+www.symbolab.com: Will skip the external link: https://play.google.com/store/apps/details?id=com.devsense.symbolab
+www.symbolab.com: Will skip the external link: https://itunes.apple.com/app/id876942533
+www.symbolab.com: Will skip the external link: https://play.google.com/store/apps/details?id=com.symbolab.graphingcalculator
+www.symbolab.com: Will skip the external link: https://play.google.com/store/apps/details?id=com.symbolab.practice
+www.symbolab.com: Will skip the external link: https://apps.apple.com/us/app/id876942533
+www.symbolab.com: Will skip the external link: https://apps.apple.com/us/app/id1435182798
+www.symbolab.com: Will skip the external link: https://apps.apple.com/us/app/id1469186281
+www.symbolab.com: Will skip the external link: https://chromewebstore.google.com/detail/mgfcnnpakbfcefgphceolkjldjfpieff
+www.symbolab.com: Bad file extension, will skip: https://www.symbolab.com/public/terms.pdf
+www.symbolab.com: Will skip the external link: https://learneo.com/legal
+www.symbolab.com: Skipping mailto link: mailto:contact@symbolab.com
+www.symbolab.com: Will skip the external link: https://www.facebook.com/symbolab
+www.symbolab.com: Will skip the external link: https://twitter.com/symbolab
+www.symbolab.com: Will skip the external link: https://www.instagram.com/symbolab_app
+www.symbolab.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.symbolab.com: Found 15 internal links
+www.symbolab.com: getting links data took 0.020s
+www.symbolab.com: getting cookies data took 0.002s
+www.symbolab.com: getting gpp data took 0.000s
+Site 2 / 50 (4.0%)
+Processing "https://www.ivanti.com/" took 55.100s.
+Processing entry #10 (https://www.verywellmind.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+fortune.com: Failed to connect to "" Protocol error (Target.attachToTarget): No target with given id found ProtocolError: Protocol error (Target.attachToTarget): No target with given id found
+    at <instance_members_initializer> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:49:14)
+    at new Callback (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:53:16)
+    at CallbackRegistry.create (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:93:26)
+    at Connection._rawSend (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:207:26)
+    at Connection.send (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:201:21)
+    at Connection._createSession (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:306:42)
+    at OtherTarget.createSession (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Browser.js:201:37)
+    at OtherTarget.createCDPSession (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Target.js:85:36)
+    at /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/crawler.js:162:38
+    at /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/third_party/mitt/index.js:3:248
+fortune.com:  (other) context initiated in 4.285s
+fortune.com:  (other) context initiated in 3.616s
+fortune.com:  (other) context initiated in 3.322s
+fortune.com:  (other) context initiated in 3.063s
+fortune.com:  (other) context initiated in 0.227s
+fortune.com:  (other) context initiated in 0.230s
+fortune.com:  (other) context initiated in 0.218s
+fortune.com:  (other) context initiated in 0.200s
+fortune.com:  (other) context initiated in 0.200s
+fortune.com:  (other) context initiated in 0.200s
+fortune.com:  (other) context initiated in 0.188s
+fortune.com:  (other) context initiated in 0.152s
+fortune.com:  (other) context initiated in 0.042s
+www.freshworks.com:  (other) context initiated in 0.013s
+www.verywellmind.com: apis init took 0.000s
+www.verywellmind.com: requests init took 0.000s
+www.verywellmind.com: links init took 0.000s
+www.verywellmind.com: cookies init took 0.000s
+www.verywellmind.com: gpp init took 0.000s
+www.verywellmind.com: page context initiated in 0.031s
+fortune.com:  (other) context initiated in 0.013s
+fortune.com:  (other) context initiated in 0.016s
+www.freshworks.com:  (other) context initiated in 0.007s
+fortune.com:  (other) context initiated in 0.017s
+simpli.fi:  (other) context initiated in 0.048s
+www.freshworks.com:  (other) context initiated in 0.017s
+www.freshworks.com:  (other) context initiated in 0.015s
+www.freshworks.com:  (other) context initiated in 0.019s
+www.freshworks.com:  (other) context initiated in 0.364s
+www.freshworks.com:  (other) context initiated in 0.727s
+www.freshworks.com:  (other) context initiated in 0.399s
+www.verywellmind.com:  (other) context initiated in 0.015s
+www.freshworks.com: blob:https://www.freshworks.com/47919d32-f120-4961-b111-dc461dbd60e9 (other) context initiated in 0.024s
+CMP Opt-out Flag:  false
+Site 3 / 50 (6.0%)
+Processing "https://www.symbolab.com/" took 67.966s.
+Processing entry #11 (https://www.pokemon.com/us).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.pokemon.com: apis init took 0.000s
+www.pokemon.com: requests init took 0.000s
+www.pokemon.com: links init took 0.000s
+www.pokemon.com: cookies init took 0.000s
+www.pokemon.com: gpp init took 0.000s
+www.pokemon.com: page context initiated in 0.015s
+www.verywellmind.com:  (other) context initiated in 0.441s
+www.verywellmind.com:  (other) context initiated in 0.043s
+fortune.com:  (other) context initiated in 0.168s
+www.pokemon.com:  (other) context initiated in 0.014s
+www.pokemon.com: ⚠️ unmatched failed response {
+  requestId: 'F0F62D09C8CD1DD4F2A7FCA60C5A9271',
+  timestamp: 169509.008781,
+  type: 'Document',
+  errorText: 'net::ERR_ABORTED',
+  canceled: true
+}
+CMP Opt-out Flag:  false
+fortune.com:  (other) context initiated in 0.041s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.verywellmind.com: apis postLoad took 0.000s
+www.verywellmind.com: requests postLoad took 0.000s
+www.verywellmind.com: links postLoad took 0.000s
+www.verywellmind.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.verywellmind.com: gpp postLoad took 0.034s
+Scrolling to the top of the page
+www.pokemon.com:  (other) context initiated in 0.031s
+www.verywellmind.com: getting apis data took 0.001s
+www.verywellmind.com: getting requests data took 0.004s
+Scrolling to the top of the page
+www.verywellmind.com: Skipping same-page or fragment link: https://www.verywellmind.com/#skip-to-content
+www.verywellmind.com: Will skip the external link: https://www.dotdashmeredith.com/brands-privacy
+www.verywellmind.com: Will skip the external link: https://www.dotdashmeredith.com/advertising
+www.verywellmind.com: Will skip the external link: https://www.dotdashmeredith.com/brands-termsofservice
+www.verywellmind.com: Will skip the external link: https://www.dotdashmeredith.com/careers
+www.verywellmind.com: Skipping same-page or fragment link: https://www.verywellmind.com/#
+www.verywellmind.com: Will skip the external link: https://www.instagram.com/verywellmind
+www.verywellmind.com: Will skip the external link: https://www.tiktok.com/@verywellmind
+www.verywellmind.com: Will skip the external link: https://www.facebook.com/verywell
+www.verywellmind.com: Will skip the external link: https://flipboard.com/@verywellmind
+www.verywellmind.com: Will skip the external link: https://privacy.truste.com/privacy-seal/validation?rid=8f15e7a5-6c05-47d8-bf12-8822d4d7cddd
+www.verywellmind.com: Will skip the external link: https://www.dotdashmeredith.com
+www.verywellmind.com: Found 15 internal links
+www.verywellmind.com: getting links data took 0.061s
+www.verywellmind.com: getting cookies data took 0.002s
+www.verywellmind.com: getting gpp data took 0.000s
+Site 4 / 50 (8.0%)
+Processing "https://www.verywellmind.com/" took 41.177s.
+Processing entry #12 (https://www.lumen.com/en-us/home.html).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.scientificamerican.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.lumen.com: apis init took 0.000s
+www.lumen.com: requests init took 0.000s
+www.lumen.com: links init took 0.000s
+www.lumen.com: cookies init took 0.000s
+www.lumen.com: gpp init took 0.000s
+www.lumen.com: page context initiated in 0.012s
+simpli.fi: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+fortune.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+saucelabs.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.ntv.com.tr: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+fortune.com: Unexpected existing pending call 7:2
+www.pokemon.com: apis postLoad took 0.000s
+www.pokemon.com: requests postLoad took 0.000s
+www.pokemon.com: links postLoad took 0.000s
+www.pokemon.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.pokemon.com: gpp postLoad took 0.045s
+Scrolling to the top of the page
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+fortune.com:  (other) context initiated in 0.110s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.pokemon.com: getting apis data took 0.000s
+www.pokemon.com: ⚠️ failed to match 1 events
+www.pokemon.com: getting requests data took 0.002s
+Scrolling to the top of the page
+www.pokemon.com: Skipping same-page or fragment link: https://www.pokemon.com/us
+www.pokemon.com: Skipping same-page or fragment link: https://www.pokemon.com/us#
+www.pokemon.com: Skipping same-page or fragment link: https://www.pokemon.com/us
+www.pokemon.com: Will skip the external link: https://cookiepedia.co.uk/giving-consent-to-cookies
+www.pokemon.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.pokemon.com: Found 15 internal links
+www.pokemon.com: getting links data took 0.010s
+www.pokemon.com: getting cookies data took 0.003s
+www.pokemon.com: getting gpp data took 0.000s
+fortune.com:  (other) context initiated in 0.006s
+fortune.com:  (other) context initiated in 0.011s
+fortune.com: Unexpected existing pending call 7:2
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+fortune.com: Unexpected existing pending call 7:2
+www.lumen.com:  (other) context initiated in 0.015s
+fortune.com: Unexpected existing pending call 7:2
+fortune.com: Unexpected existing pending call 7:2
+fortune.com:  (other) context initiated in 0.056s
+fortune.com:  (other) context initiated in 0.016s
+fortune.com: Unexpected existing pending call 7:2
+Site 5 / 50 (10.0%)
+Processing "https://www.pokemon.com/us" took 46.271s.
+Processing entry #13 (https://www.foodnetwork.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.lumen.com:  (other) context initiated in 0.186s
+www.lumen.com:  (other) context initiated in 0.193s
+www.lumen.com:  (other) context initiated in 0.187s
+www.lumen.com:  (other) context initiated in 0.182s
+www.lumen.com:  (other) context initiated in 0.180s
+www.lumen.com:  (other) context initiated in 0.180s
+fortune.com:  (other) context initiated in 0.008s
+fortune.com: Unexpected existing pending call 7:2
+www.lumen.com:  (other) context initiated in 1.189s
+www.lumen.com:  (other) context initiated in 1.485s
+www.foodnetwork.com: apis init took 0.000s
+www.foodnetwork.com: requests init took 0.000s
+www.foodnetwork.com: links init took 0.000s
+www.foodnetwork.com: cookies init took 0.000s
+www.foodnetwork.com: gpp init took 0.000s
+www.lumen.com:  (other) context initiated in 0.211s
+www.lumen.com:  (other) context initiated in 0.031s
+www.lumen.com:  (other) context initiated in 0.030s
+www.foodnetwork.com: page context initiated in 0.036s
+fortune.com: Unexpected existing pending call 7:2
+fortune.com:  (other) context initiated in 0.026s
+www.lumen.com:  (other) context initiated in 0.009s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+fortune.com:  (other) context initiated in 0.033s
+www.lumen.com:  (other) context initiated in 0.023s
+www.scientificamerican.com: apis postLoad took 0.000s
+www.scientificamerican.com: requests postLoad took 0.000s
+www.scientificamerican.com: links postLoad took 0.000s
+www.scientificamerican.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+USP string retrieved: { version: 1, uspString: '1YN-' }
+No TCF object retrieved.
+www.scientificamerican.com: gpp postLoad took 0.181s
+Scrolling to the top of the page
+simpli.fi: apis postLoad took 0.000s
+simpli.fi: requests postLoad took 0.000s
+simpli.fi: links postLoad took 0.000s
+simpli.fi: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+simpli.fi: gpp postLoad took 0.319s
+Scrolling to the top of the page
+www.ntv.com.tr: apis postLoad took 0.000s
+www.ntv.com.tr: requests postLoad took 0.000s
+www.ntv.com.tr: links postLoad took 0.000s
+www.ntv.com.tr: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+TCF object retrieved.
+www.ntv.com.tr: gpp postLoad took 0.092s
+Scrolling to the top of the page
+www.scientificamerican.com:  (other) context initiated in 0.118s
+www.scientificamerican.com:  (other) context initiated in 0.013s
+saucelabs.com: apis postLoad took 0.000s
+saucelabs.com: requests postLoad took 0.000s
+saucelabs.com: links postLoad took 0.000s
+saucelabs.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+saucelabs.com: gpp postLoad took 0.066s
+Scrolling to the top of the page
+www.lumen.com:  (other) context initiated in 0.008s
+www.ntv.com.tr: getting apis data took 0.000s
+www.ntv.com.tr: getting requests data took 0.011s
+Scrolling to the top of the page
+www.ntv.com.tr: Will skip the external link: javascript:;
+www.ntv.com.tr: Will skip the external link: javascript:void(0);
+www.ntv.com.tr: Will skip the external link: http://www.dogusyayingrubu.com.tr
+www.ntv.com.tr: Will skip the external link: https://ik.dogusyayingrubu.com
+www.ntv.com.tr: Will skip the external link: https://www.startv.com.tr
+www.ntv.com.tr: Will skip the external link: http://www.eurostartv.com.tr
+www.ntv.com.tr: Will skip the external link: https://www.kralmuzik.com.tr/tv/kral-tv
+www.ntv.com.tr: Will skip the external link: https://www.kralmuzik.com.tr/tv/kral-pop-tv
+www.ntv.com.tr: Will skip the external link: https://www.ntvradyo.com.tr
+www.ntv.com.tr: Will skip the external link: https://www.kralmuzik.com.tr/radyo/kral-fm
+www.ntv.com.tr: Will skip the external link: https://www.kralmuzik.com.tr/radyo/kral-pop
+www.ntv.com.tr: Will skip the external link: https://radioeksen.com
+www.ntv.com.tr: Will skip the external link: http://radyovoyage.com
+www.ntv.com.tr: Will skip the external link: https://www.ntvspor.net
+www.ntv.com.tr: Will skip the external link: https://www.kralmuzik.com.tr
+www.ntv.com.tr: Will skip the external link: https://www.puhutv.com
+www.ntv.com.tr: Will skip the external link: https://x.com/ntv
+www.ntv.com.tr: Will skip the external link: https://www.facebook.com/ntv
+www.ntv.com.tr: Will skip the external link: https://www.instagram.com/ntv
+www.ntv.com.tr: Will skip the external link: https://www.youtube.com/ntv
+www.ntv.com.tr: Will skip the external link: https://www.linkedin.com/company/ntv
+www.ntv.com.tr: Will skip the external link: https://play.google.com/store/apps/details?id=com.dogus.ntv&hl=tr
+www.ntv.com.tr: Will skip the external link: https://apps.apple.com/us/app/ntv/id327359689
+www.ntv.com.tr: Will skip the external link: https://appgallery1.huawei.com/#/app/c101155275
+www.ntv.com.tr: Found 15 internal links
+www.ntv.com.tr: getting links data took 0.196s
+www.ntv.com.tr: getting cookies data took 0.002s
+www.ntv.com.tr: getting gpp data took 0.000s
+simpli.fi: getting apis data took 0.000s
+simpli.fi: getting requests data took 0.006s
+Scrolling to the top of the page
+simpli.fi: Skipping same-page or fragment link: https://simpli.fi/#main-content
+simpli.fi: Skipping same-page or fragment link: https://simpli.fi/#
+simpli.fi: Will skip the external link: tel:8008400768
+simpli.fi: Skipping mailto link: mailto:hi@simpli.fi
+simpli.fi: Will skip the external link: https://www.facebook.com/simplifiplatform
+simpli.fi: Will skip the external link: https://twitter.com/simpli_fi
+simpli.fi: Will skip the external link: https://www.linkedin.com/company/801567
+simpli.fi: Will skip the external link: https://www.instagram.com/simpli.fi
+simpli.fi: Will skip the external link: https://www.youtube.com/@simplifiplatform
+simpli.fi: Will skip the external link: https://cookiepedia.co.uk/giving-consent-to-cookies
+simpli.fi: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+simpli.fi: Found 15 internal links
+simpli.fi: getting links data took 0.004s
+simpli.fi: getting cookies data took 0.008s
+simpli.fi: getting gpp data took 0.000s
+www.foodnetwork.com:  (other) context initiated in 1.610s
+www.foodnetwork.com:  (other) context initiated in 0.033s
+www.foodnetwork.com:  (other) context initiated in 0.021s
+www.foodnetwork.com:  (other) context initiated in 0.017s
+www.scientificamerican.com: getting apis data took 0.000s
+www.scientificamerican.com: getting requests data took 0.009s
+Scrolling to the top of the page
+www.scientificamerican.com: Skipping same-page or fragment link: https://www.scientificamerican.com/#main
+www.scientificamerican.com: Skipping same-page or fragment link: https://www.scientificamerican.com/#
+www.scientificamerican.com: Will skip the external link: https://www.facebook.com/scientificamerican
+www.scientificamerican.com: Will skip the external link: https://www.instagram.com/scientific_american/?hl=en
+www.scientificamerican.com: Will skip the external link: https://www.linkedin.com/company/scientific-american
+www.scientificamerican.com: Will skip the external link: https://www.tiktok.com/@scientificamerican
+www.scientificamerican.com: Will skip the external link: https://www.youtube.com/user/sciamerican
+www.scientificamerican.com: Will skip the external link: https://www.reddit.com/r/scientificamerican
+www.scientificamerican.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.scientificamerican.com: Found 15 internal links
+www.scientificamerican.com: getting links data took 0.004s
+www.scientificamerican.com: getting cookies data took 0.002s
+www.scientificamerican.com: getting gpp data took 0.000s
+saucelabs.com: getting apis data took 0.000s
+saucelabs.com: getting requests data took 0.052s
+Scrolling to the top of the page
+saucelabs.com: Will skip the external link: https://twitter.com/saucelabs
+saucelabs.com: Will skip the external link: https://www.facebook.com/saucelabs
+saucelabs.com: Will skip the external link: https://www.linkedin.com/company/sauce-labs
+saucelabs.com: Will skip the external link: https://cookiepedia.co.uk/giving-consent-to-cookies
+saucelabs.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+saucelabs.com: Found 15 internal links
+saucelabs.com: getting links data took 0.063s
+saucelabs.com: getting cookies data took 0.021s
+saucelabs.com: getting gpp data took 0.000s
+www.foodnetwork.com:  (other) context initiated in 0.094s
+www.foodnetwork.com:  (other) context initiated in 0.531s
+www.foodnetwork.com:  (other) context initiated in 0.016s
+CMP Opt-out Flag:  false
+fortune.com:  (other) context initiated in 0.037s
+www.freshworks.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+fortune.com:  (other) context initiated in 0.061s
+fortune.com:  (other) context initiated in 0.058s
+fortune.com: apis postLoad took 0.000s
+fortune.com: requests postLoad took 0.000s
+fortune.com: links postLoad took 0.000s
+fortune.com: cookies postLoad took 0.000s
+www.foodnetwork.com:  (other) context initiated in 1.297s
+www.foodnetwork.com:  (other) context initiated in 0.358s
+www.foodnetwork.com:  (other) context initiated in 0.245s
+www.foodnetwork.com:  (other) context initiated in 0.233s
+www.foodnetwork.com:  (other) context initiated in 0.033s
+www.foodnetwork.com:  (other) context initiated in 0.032s
+www.foodnetwork.com:  (other) context initiated in 0.032s
+www.foodnetwork.com:  (other) context initiated in 0.031s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+No GPP object retrieved.
+Could not do GPP hasSections
+Site 6 / 50 (12.0%)
+Processing "https://simpli.fi/" took 142.245s.
+Processing entry #14 (https://www.nationwide.co.uk/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+No USP string retrieved.
+Site 7 / 50 (14.0%)
+Processing "https://www.ntv.com.tr/" took 142.322s.
+Processing entry #15 (https://www.klaviyo.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+No TCF object retrieved.
+fortune.com: gpp postLoad took 0.575s
+Scrolling to the top of the page
+fortune.com: Unexpected existing pending call 7:2
+www.foodnetwork.com:  (other) context initiated in 0.009s
+fortune.com: Unexpected existing pending call 7:2
+fortune.com: Unexpected existing pending call 7:2
+www.nationwide.co.uk: apis init took 0.000s
+www.nationwide.co.uk: requests init took 0.000s
+www.nationwide.co.uk: links init took 0.000s
+www.nationwide.co.uk: cookies init took 0.000s
+www.nationwide.co.uk: gpp init took 0.000s
+fortune.com: Unexpected existing pending call 7:2
+www.klaviyo.com: apis init took 0.000s
+www.klaviyo.com: requests init took 0.000s
+www.klaviyo.com: links init took 0.000s
+www.klaviyo.com: cookies init took 0.000s
+www.klaviyo.com: gpp init took 0.001s
+www.nationwide.co.uk: page context initiated in 0.106s
+www.foodnetwork.com:  (other) context initiated in 0.015s
+www.klaviyo.com: page context initiated in 0.031s
+www.foodnetwork.com:  (other) context initiated in 0.157s
+www.freshworks.com:  (other) context initiated in 0.322s
+www.freshworks.com:  (other) context initiated in 0.203s
+www.freshworks.com:  (other) context initiated in 0.034s
+www.freshworks.com:  (other) context initiated in 0.031s
+fortune.com:  (other) context initiated in 0.019s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.klaviyo.com:  (other) context initiated in 0.050s
+fortune.com: getting apis data took 0.001s
+fortune.com: getting requests data took 0.046s
+Scrolling to the top of the page
+fortune.com: Will skip the external link: https://www.fortunechina.com/fortune500/c/2023-07/25/content_436290.htm
+fortune.com: Skipping same-page or fragment link: https://fortune.com/#
+fortune.com: Will skip the external link: https://order.emags.com/fortune_single_issues
+fortune.com: Will skip the external link: https://boards.greenhouse.io/fortune
+fortune.com: Will skip the external link: javascript:optanon.toggleinfodisplay();
+fortune.com: Will skip the external link: https://www.facebook.com/fortunemagazine
+fortune.com: Will skip the external link: https://twitter.com/fortunemagazine
+fortune.com: Will skip the external link: https://www.linkedin.com/company/fortune-magazine
+fortune.com: Will skip the external link: https://www.instagram.com/fortunemag
+fortune.com: Will skip the external link: https://www.pinterest.com/fortunemagazine
+fortune.com: Will skip the external link: https://www.queryly.com
+fortune.com: Will skip the external link: https://privacyportal.onetrust.com/webform/3b051204-b749-4d0c-af62-3a0b6b3cfd00/7735fec7-6807-43a9-aeeb-6d7922c4968c
+fortune.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+fortune.com: Found 15 internal links
+fortune.com: getting links data took 0.015s
+fortune.com: getting cookies data took 0.003s
+fortune.com: getting gpp data took 0.000s
+www.klaviyo.com:  (other) context initiated in 0.011s
+CMP Opt-out Flag:  false
+Site 8 / 50 (16.0%)
+Processing "https://www.scientificamerican.com/" took 155.367s.
+Processing entry #16 (https://www.trustpilot.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+CMP Opt-out Flag:  false
+Site 9 / 50 (18.0%)
+Processing "https://fortune.com/" took 156.085s.
+Processing entry #17 (https://www.sardine.ai/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.trustpilot.com: apis init took 0.000s
+www.trustpilot.com: requests init took 0.000s
+www.trustpilot.com: links init took 0.000s
+www.trustpilot.com: cookies init took 0.000s
+www.trustpilot.com: gpp init took 0.000s
+www.trustpilot.com: page context initiated in 0.014s
+www.sardine.ai: apis init took 0.000s
+www.sardine.ai: requests init took 0.000s
+www.sardine.ai: links init took 0.000s
+www.sardine.ai: cookies init took 0.000s
+www.sardine.ai: gpp init took 0.000s
+www.foodnetwork.com:  (other) context initiated in 0.058s
+www.sardine.ai: page context initiated in 0.136s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.foodnetwork.com:  (other) context initiated in 0.006s
+Site 10 / 50 (20.0%)
+Processing "https://saucelabs.com/" took 160.784s.
+Processing entry #18 (https://www.adswizz.com/wp-content/endurance-page-cache/_index.html).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.lumen.com: apis postLoad took 0.000s
+www.lumen.com: requests postLoad took 0.000s
+www.lumen.com: links postLoad took 0.000s
+www.lumen.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.lumen.com: gpp postLoad took 0.191s
+Scrolling to the top of the page
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.adswizz.com: apis init took 0.000s
+www.adswizz.com: requests init took 0.000s
+www.adswizz.com: links init took 0.000s
+www.adswizz.com: cookies init took 0.000s
+www.adswizz.com: gpp init took 0.000s
+www.adswizz.com: page context initiated in 0.016s
+www.sardine.ai:  (other) context initiated in 0.013s
+www.sardine.ai:  (other) context initiated in 0.017s
+www.sardine.ai:  (other) context initiated in 0.008s
+www.lumen.com: getting apis data took 0.001s
+www.lumen.com: getting requests data took 0.010s
+Scrolling to the top of the page
+www.lumen.com: Skipping same-page or fragment link: https://www.lumen.com/en-us/home.html
+www.lumen.com: Will skip the external link: https://pages.lumentech.com/power-your-data-movement
+www.lumen.com: Will skip the external link: https://www.twitter.com/lumentechco
+www.lumen.com: Will skip the external link: https://www.linkedin.com/company/lumentechnologies
+www.lumen.com: Will skip the external link: https://www.facebook.com/lumentechnologies
+www.lumen.com: Will skip the external link: https://www.youtube.com/lumentechnologies
+www.lumen.com: Will skip the external link: https://www.linkedin.com/showcase/lumen-asia-pacific
+www.lumen.com: Will skip the external link: https://www.centurylink.com
+www.lumen.com: Will skip the external link: http://www.quantumfiber.com
+www.lumen.com: Will skip the external link: javascript:void(0);
+www.lumen.com: Will skip the external link: https://www.centurylinkbusinessreferral.com/#!/home
+www.lumen.com: Skipping mailto link: mailto:apac.mail@lumen.com
+www.lumen.com: Will skip the external link: https://www.centurylink.com/aboutus/legal/website-user-agreement.html
+www.lumen.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.lumen.com: Will skip the external link: javascript:closechatpopup();
+www.lumen.com: Will skip the external link: javascript:launchchat();
+www.lumen.com: Found 15 internal links
+www.lumen.com: getting links data took 0.005s
+www.lumen.com: getting cookies data took 0.002s
+www.lumen.com: getting gpp data took 0.000s
+www.freshworks.com: apis postLoad took 0.000s
+www.freshworks.com: requests postLoad took 0.000s
+www.freshworks.com: links postLoad took 0.000s
+www.freshworks.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.freshworks.com: gpp postLoad took 0.519s
+Scrolling to the top of the page
+www.trustpilot.com:  (other) context initiated in 0.012s
+www.adswizz.com: blob:https://www.adswizz.com/52e7aeee-760c-4e24-b4d4-1c81028eb6cb (other) context initiated in 6.525s
+www.adswizz.com: ⚠️ unmatched finished response {
+  requestId: '64608.107',
+  timestamp: 169609.723382,
+  encodedDataLength: -1
+}
+www.freshworks.com: getting apis data took 0.001s
+www.freshworks.com: getting requests data took 0.016s
+Scrolling to the top of the page
+www.klaviyo.com:  (other) context initiated in 0.011s
+www.freshworks.com: Skipping same-page or fragment link: https://www.freshworks.com/#main-content
+www.freshworks.com: Skipping mailto link: mailto:sales@freshworks.com
+www.freshworks.com: Will skip the external link: https://twitter.com/freshworksinc
+www.freshworks.com: Will skip the external link: https://linkedin.com/company/freshworks-inc
+www.freshworks.com: Will skip the external link: https://www.facebook.com/freshworksinc
+www.freshworks.com: Will skip the external link: https://www.youtube.com/c/freshworksinc
+www.freshworks.com: Will skip the external link: https://play.google.com/store/apps/developer?id=freshworks+inc
+www.freshworks.com: Will skip the external link: https://apps.apple.com/us/developer/freshworks-technologies-private-limited/id849713309
+www.freshworks.com: Will skip the external link: https://cookiepedia.co.uk/giving-consent-to-cookies
+www.freshworks.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.freshworks.com: Found 15 internal links
+www.freshworks.com: getting links data took 0.489s
+www.freshworks.com: getting cookies data took 0.776s
+www.freshworks.com: getting gpp data took 0.000s
+www.nationwide.co.uk: apis postLoad took 0.000s
+www.nationwide.co.uk: requests postLoad took 0.000s
+www.nationwide.co.uk: links postLoad took 0.000s
+www.nationwide.co.uk: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.nationwide.co.uk: gpp postLoad took 0.065s
+Scrolling to the top of the page
+CMP Opt-out Flag:  false
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.klaviyo.com:  (other) context initiated in 0.016s
+www.klaviyo.com: blob:https://www.klaviyo.com/88745eea-8844-4d74-b04a-752f4243f308 (other) context initiated in 0.034s
+www.foodnetwork.com: apis postLoad took 0.000s
+www.foodnetwork.com: requests postLoad took 0.000s
+www.foodnetwork.com: links postLoad took 0.000s
+www.foodnetwork.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+USP string retrieved: { version: 1, uspString: '1---' }
+No TCF object retrieved.
+www.foodnetwork.com: gpp postLoad took 0.199s
+Scrolling to the top of the page
+www.klaviyo.com:  (other) context initiated in 0.028s
+www.klaviyo.com:  (other) context initiated in 0.028s
+www.trustpilot.com:  (other) context initiated in 0.044s
+www.klaviyo.com:  (other) context initiated in 0.041s
+www.nationwide.co.uk: getting apis data took 0.000s
+www.nationwide.co.uk: getting requests data took 0.002s
+Scrolling to the top of the page
+www.nationwide.co.uk: Skipping same-page or fragment link: https://www.nationwide.co.uk/#main
+www.nationwide.co.uk: Will skip the external link: https://nationwide.aegon.co.uk/login
+www.nationwide.co.uk: Will skip the external link: https://www.nationwidehomeinsurance.co.uk/web/galaxy/account
+www.nationwide.co.uk: Will skip the external link: https://nationwide.myaccount.landg.com
+www.nationwide.co.uk: Will skip the external link: https://www.psr.org.uk/app-fraud-data
+www.nationwide.co.uk: Will skip the external link: https://www.nationwide-jobs.co.uk
+www.nationwide.co.uk: Will skip the external link: https://www.nationwidemediacentre.co.uk
+www.nationwide.co.uk: Will skip the external link: https://www.fca.org.uk
+www.nationwide.co.uk: Will skip the external link: https://www.facebook.com/nationwidebuildingsociety
+www.nationwide.co.uk: Will skip the external link: https://www.linkedin.com/company/nationwide-building-society
+www.nationwide.co.uk: Will skip the external link: https://twitter.com/asknationwide
+www.nationwide.co.uk: Will skip the external link: https://www.youtube.com/user/nationwidebsocietyuk
+www.nationwide.co.uk: Will skip the external link: https://www.instagram.com/nationwidebuildingsociety
+www.nationwide.co.uk: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.nationwide.co.uk: Found 15 internal links
+www.nationwide.co.uk: getting links data took 0.012s
+www.nationwide.co.uk: getting cookies data took 0.001s
+www.nationwide.co.uk: getting gpp data took 0.000s
+www.trustpilot.com:  (other) context initiated in 0.013s
+www.trustpilot.com:  (other) context initiated in 0.063s
+www.foodnetwork.com: getting apis data took 0.000s
+www.foodnetwork.com: getting requests data took 0.011s
+Scrolling to the top of the page
+www.foodnetwork.com: Will skip the external link: https://www.max.com/channel/food-network
+www.foodnetwork.com: Will skip the external link: https://www.facebook.com/foodnetwork
+www.foodnetwork.com: Will skip the external link: https://twitter.com/foodnetwork
+www.foodnetwork.com: Will skip the external link: https://instagram.com/foodnetwork
+www.foodnetwork.com: Will skip the external link: https://www.youtube.com/foodnetwork
+www.foodnetwork.com: Will skip the external link: https://www.pinterest.com/foodnetwork
+www.foodnetwork.com: Will skip the external link: https://www.snapchat.com/p/f3de2811-81bd-4170-9bc2-0a892b05e284/1092088635293696
+www.foodnetwork.com: Skipping same-page or fragment link: https://www.foodnetwork.com/#
+www.foodnetwork.com: Will skip the external link: https://corporate.discovery.com/visitor-agreement
+www.foodnetwork.com: Will skip the external link: https://www.wbdprivacy.com/policycenter/b2c
+www.foodnetwork.com: Will skip the external link: https://corporate.discovery.com/discovery-newsroom
+www.foodnetwork.com: Will skip the external link: https://corporate.discovery.com/contact/advertising
+www.foodnetwork.com: Will skip the external link: http://www.tvguidelines.org/ratings.html
+www.foodnetwork.com: Will skip the external link: https://corporate.discovery.com/online-closed-captioning
+www.foodnetwork.com: Will skip the external link: https://corporate.discovery.com/website-accessibility-statement
+www.foodnetwork.com: Will skip the external link: https://corporate.discovery.com
+www.foodnetwork.com: Will skip the external link: javascript:void(0);
+www.foodnetwork.com: Will skip the external link: http://www.asianfoodnetwork.com
+www.foodnetwork.com: Will skip the external link: http://www.foodnetwork.com.br
+www.foodnetwork.com: Will skip the external link: http://www.foodnetwork.ca
+www.foodnetwork.com: Will skip the external link: http://www.foodnetworktv.com
+www.foodnetwork.com: Will skip the external link: http://www.foodnetwork.co.uk
+www.foodnetwork.com: Will skip the external link: http://www.foodnetworklatam.com
+www.foodnetwork.com: Will skip the external link: https://www.hgtv.com/?xp=sistersite
+www.foodnetwork.com: Will skip the external link: https://www.food.com/?xp=sistersite
+www.foodnetwork.com: Will skip the external link: https://www.travelchannel.com/?xp=sistersite
+www.foodnetwork.com: Will skip the external link: https://www.tlc.com/?xp=sistersite
+www.foodnetwork.com: Will skip the external link: https://www.discovery.com/?xp=sistersite
+www.foodnetwork.com: Will skip the external link: https://www.cookingchanneltv.com/?xp=sistersite
+www.foodnetwork.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.foodnetwork.com: Found 15 internal links
+www.foodnetwork.com: getting links data took 0.007s
+www.foodnetwork.com: getting cookies data took 0.008s
+www.foodnetwork.com: getting gpp data took 0.000s
+www.trustpilot.com:  (other) context initiated in 0.011s
+www.klaviyo.com:  (other) context initiated in 0.345s
+www.klaviyo.com:  (other) context initiated in 0.016s
+Site 11 / 50 (22.0%)
+Processing "https://www.freshworks.com/" took 149.632s.
+Processing entry #19 (https://www.cbssports.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Site 12 / 50 (24.0%)
+Processing "https://www.foodnetwork.com/" took 82.711s.
+Processing entry #20 (https://www.newyorker.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.cbssports.com: apis init took 0.000s
+www.cbssports.com: requests init took 0.001s
+www.cbssports.com: links init took 0.001s
+www.cbssports.com: cookies init took 0.000s
+www.cbssports.com: gpp init took 0.000s
+www.newyorker.com: apis init took 0.000s
+www.newyorker.com: requests init took 0.000s
+www.newyorker.com: links init took 0.000s
+www.newyorker.com: cookies init took 0.000s
+www.newyorker.com: gpp init took 0.000s
+www.adswizz.com: apis postLoad took 0.000s
+www.adswizz.com: requests postLoad took 0.000s
+www.adswizz.com: links postLoad took 0.000s
+www.adswizz.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.adswizz.com: gpp postLoad took 0.056s
+Scrolling to the top of the page
+www.cbssports.com: page context initiated in 0.144s
+www.newyorker.com: page context initiated in 0.059s
+www.klaviyo.com:  (other) context initiated in 0.256s
+www.klaviyo.com:  (other) context initiated in 0.015s
+www.klaviyo.com:  (other) context initiated in 0.162s
+www.adswizz.com: getting apis data took 0.000s
+www.adswizz.com: ⚠️ failed to match 1 events
+www.adswizz.com: getting requests data took 0.002s
+Scrolling to the top of the page
+www.adswizz.com: Skipping same-page or fragment link: https://www.adswizz.com/wp-content/endurance-page-cache/_index.html#content
+www.adswizz.com: Will skip the external link: https://www.audiogo.com
+www.adswizz.com: Will skip the external link: https://adswizz.simplecast.com
+www.adswizz.com: Bad file extension, will skip: https://www.adswizz.com/wp-content/uploads/2024/11/adswizz-terms-of-use-2022.pdf
+www.adswizz.com: Bad file extension, will skip: https://www.adswizz.com/wp-content/uploads/2025/05/public_cbc_disclosure-v3.pdf
+www.adswizz.com: Bad file extension, will skip: https://www.adswizz.com/wp-content/uploads/2025/05/wb-public-notice_internal-posting-on-website.pdf
+www.adswizz.com: Will skip the external link: https://www.linkedin.com/company/adswizz-com
+www.adswizz.com: Will skip the external link: https://www.facebook.com/adswizz
+www.adswizz.com: Will skip the external link: https://twitter.com/adswizz
+www.adswizz.com: Skipping mailto link: mailto:%20info@www.adswizz.com
+www.adswizz.com: Skipping same-page or fragment link: https://www.adswizz.com/wp-content/endurance-page-cache/_index.html#
+www.adswizz.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.adswizz.com: Found 15 internal links
+www.adswizz.com: getting links data took 0.015s
+www.adswizz.com: getting cookies data took 0.003s
+www.adswizz.com: getting gpp data took 0.000s
+www.klaviyo.com:  (other) context initiated in 0.019s
+www.klaviyo.com:  (other) context initiated in 0.025s
+www.klaviyo.com: blob:https://www.klaviyo.com/25a5bea3-5c2f-4120-a657-d0ab7d1a52f7 (other) context initiated in 0.274s
+www.klaviyo.com: blob:https://www.klaviyo.com/d0bde2c4-c0df-44a3-b094-cffb0d076008 (other) context initiated in 0.052s
+www.cbssports.com:  (other) context initiated in 0.010s
+www.cbssports.com:  (other) context initiated in 0.166s
+www.cbssports.com: https://www.cbssports.com/service-workers/ua-push-worker.prod.js (service_worker) context initiated in 1.628s
+www.newyorker.com:  (other) context initiated in 0.016s
+www.klaviyo.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.cbssports.com:  (other) context initiated in 0.037s
+www.newyorker.com:  (other) context initiated in 0.160s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.cbssports.com:  (other) context initiated in 0.033s
+www.cbssports.com:  (other) context initiated in 0.060s
+www.trustpilot.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.newyorker.com: blob:https://www.newyorker.com/1d751be1-4d4d-45be-9cc4-64e4acfa7509 (other) context initiated in 1.853s
+www.newyorker.com: ⚠️ unmatched finished response {
+  requestId: '64680.208',
+  timestamp: 169682.310624,
+  encodedDataLength: -1
+}
+www.sardine.ai: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.cbssports.com:  (other) context initiated in 1.627s
+www.cbssports.com:  (other) context initiated in 0.023s
+www.cbssports.com:  (other) context initiated in 0.013s
+www.newyorker.com:  (other) context initiated in 0.014s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.cbssports.com:  (other) context initiated in 0.022s
+www.newyorker.com:  (other) context initiated in 0.021s
+www.cbssports.com:  (other) context initiated in 0.022s
+www.cbssports.com:  (other) context initiated in 0.020s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.cbssports.com:  (other) context initiated in 0.009s
+www.newyorker.com:  (other) context initiated in 0.008s
+www.cbssports.com:  (other) context initiated in 0.013s
+www.newyorker.com:  (other) context initiated in 0.019s
+www.newyorker.com:  (other) context initiated in 0.032s
+www.klaviyo.com: apis postLoad took 0.000s
+www.klaviyo.com: requests postLoad took 0.000s
+www.klaviyo.com: links postLoad took 0.000s
+www.klaviyo.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.klaviyo.com: gpp postLoad took 0.095s
+Scrolling to the top of the page
+www.cbssports.com:  (other) context initiated in 0.019s
+www.cbssports.com:  (other) context initiated in 0.016s
+www.newyorker.com:  (other) context initiated in 0.017s
+www.newyorker.com:  (other) context initiated in 0.016s
+www.newyorker.com:  (other) context initiated in 0.016s
+www.cbssports.com:  (other) context initiated in 0.017s
+Site 13 / 50 (26.0%)
+Processing "https://www.nationwide.co.uk/" took 127.230s.
+Processing entry #21 (https://www.eonline.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.klaviyo.com: getting apis data took 0.001s
+www.klaviyo.com: getting requests data took 0.054s
+Scrolling to the top of the page
+www.klaviyo.com: Skipping same-page or fragment link: https://www.klaviyo.com/#
+www.klaviyo.com: Skipping same-page or fragment link: https://www.klaviyo.com/#site-content
+www.klaviyo.com: Will skip the external link: https://www.facebook.com/klaviyo
+www.klaviyo.com: Will skip the external link: https://twitter.com/klaviyo
+www.klaviyo.com: Will skip the external link: https://www.linkedin.com/company/klaviyo
+www.klaviyo.com: Will skip the external link: https://www.instagram.com/klaviyo
+www.klaviyo.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.klaviyo.com: Found 15 internal links
+www.klaviyo.com: getting links data took 0.023s
+www.klaviyo.com: getting cookies data took 0.032s
+www.klaviyo.com: getting gpp data took 0.000s
+www.newyorker.com:  (other) context initiated in 0.009s
+www.trustpilot.com: apis postLoad took 0.000s
+www.trustpilot.com: requests postLoad took 0.000s
+www.trustpilot.com: links postLoad took 0.000s
+www.trustpilot.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.trustpilot.com: gpp postLoad took 0.184s
+Scrolling to the top of the page
+www.eonline.com: apis init took 0.000s
+www.eonline.com: requests init took 0.000s
+www.eonline.com: links init took 0.000s
+www.eonline.com: cookies init took 0.000s
+www.eonline.com: gpp init took 0.000s
+www.eonline.com: page context initiated in 0.011s
+www.sardine.ai: apis postLoad took 0.000s
+www.sardine.ai: requests postLoad took 0.000s
+www.sardine.ai: links postLoad took 0.000s
+www.sardine.ai: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.sardine.ai: gpp postLoad took 0.121s
+Scrolling to the top of the page
+www.trustpilot.com: getting apis data took 0.000s
+www.trustpilot.com: getting requests data took 0.014s
+Scrolling to the top of the page
+www.trustpilot.com: Bad file extension, will skip: https://www.trustpilot.com/review/www.debenhams.com
+www.trustpilot.com: Will skip the external link: https://apps.apple.com/app/trustpilot-reviews-ratings/id1608392803
+www.trustpilot.com: Will skip the external link: https://www.facebook.com/trustpilot
+www.trustpilot.com: Will skip the external link: https://x.com/trustpilot
+www.trustpilot.com: Will skip the external link: https://www.instagram.com/trustpilot
+www.trustpilot.com: Will skip the external link: https://www.linkedin.com/company/trustpilot
+www.trustpilot.com: Will skip the external link: https://www.youtube.com/c/trustpilotreviews
+www.trustpilot.com: Found 15 internal links
+www.trustpilot.com: getting links data took 0.012s
+www.trustpilot.com: getting cookies data took 0.002s
+www.trustpilot.com: getting gpp data took 0.000s
+www.newyorker.com:  (other) context initiated in 2.438s
+www.newyorker.com:  (other) context initiated in 0.141s
+www.newyorker.com:  (other) context initiated in 0.105s
+www.newyorker.com:  (other) context initiated in 0.105s
+www.newyorker.com:  (other) context initiated in 0.107s
+www.newyorker.com:  (other) context initiated in 0.094s
+www.newyorker.com:  (other) context initiated in 0.010s
+www.newyorker.com:  (other) context initiated in 0.060s
+www.cbssports.com:  (other) context initiated in 0.013s
+Site 14 / 50 (28.0%)
+Processing "https://www.klaviyo.com/" took 139.794s.
+Processing entry #22 (https://www.paloaltonetworks.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Site 15 / 50 (30.0%)
+Processing "https://www.trustpilot.com/" took 127.354s.
+Processing entry #23 (https://www.powerreviews.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.sardine.ai: getting apis data took 0.000s
+www.sardine.ai: getting requests data took 0.054s
+Scrolling to the top of the page
+www.sardine.ai: Will skip the external link: https://www.joinsonar.com
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-0
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-1
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-2
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-3
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-4
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-5
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-6
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-7
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-8
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-9
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-10
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-0-data-w-pane-11
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-1-data-w-pane-0
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-1-data-w-pane-1
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-1-data-w-pane-2
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-2-data-w-pane-0
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-2-data-w-pane-1
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-2-data-w-pane-2
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-2-data-w-pane-3
+www.sardine.ai: Skipping same-page or fragment link: https://www.sardine.ai/#w-tabs-2-data-w-pane-4
+www.sardine.ai: Will skip the external link: https://twitter.com/sardine
+www.sardine.ai: Will skip the external link: https://www.linkedin.com/company/sardineai
+www.sardine.ai: Will skip the external link: https://cookiepedia.co.uk/giving-consent-to-cookies
+www.sardine.ai: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.sardine.ai: Found 15 internal links
+www.sardine.ai: getting links data took 0.170s
+www.sardine.ai: getting cookies data took 0.004s
+www.sardine.ai: getting gpp data took 0.000s
+www.paloaltonetworks.com: apis init took 0.000s
+www.paloaltonetworks.com: requests init took 0.000s
+www.paloaltonetworks.com: links init took 0.000s
+www.paloaltonetworks.com: cookies init took 0.000s
+www.paloaltonetworks.com: gpp init took 0.000s
+www.cbssports.com:  (other) context initiated in 0.009s
+www.powerreviews.com: apis init took 0.000s
+www.powerreviews.com: requests init took 0.000s
+www.powerreviews.com: links init took 0.000s
+www.powerreviews.com: cookies init took 0.000s
+www.powerreviews.com: gpp init took 0.000s
+www.paloaltonetworks.com: page context initiated in 0.047s
+www.powerreviews.com: page context initiated in 0.014s
+www.cbssports.com:  (other) context initiated in 2.267s
+www.cbssports.com:  (other) context initiated in 0.031s
+www.cbssports.com:  (other) context initiated in 0.031s
+www.cbssports.com:  (other) context initiated in 0.025s
+www.cbssports.com:  (other) context initiated in 0.014s
+www.cbssports.com:  (other) context initiated in 0.014s
+www.powerreviews.com: ⚠️ unmatched finished response {
+  requestId: '64783.121',
+  timestamp: 169723.918632,
+  encodedDataLength: -1
+}
+www.powerreviews.com: blob:https://www.powerreviews.com/87963f3d-7d48-4a4d-9727-15d4c81e820e (other) context initiated in 0.314s
+www.cbssports.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.newyorker.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/95117f0d-fe4f-48ee-ac78-a2b9276704a6 (other) context initiated in 0.018s
+www.cbssports.com:  (other) context initiated in 0.013s
+www.cbssports.com:  (other) context initiated in 0.035s
+www.newyorker.com:  (other) context initiated in 0.011s
+www.eonline.com:  (other) context initiated in 0.014s
+www.eonline.com:  (other) context initiated in 0.007s
+www.cbssports.com:  (other) context initiated in 0.008s
+www.powerreviews.com:  (other) context initiated in 1.358s
+www.cbssports.com:  (other) context initiated in 0.032s
+www.cbssports.com:  (other) context initiated in 0.257s
+www.cbssports.com:  (other) context initiated in 0.257s
+www.cbssports.com:  (other) context initiated in 0.012s
+www.eonline.com: https://www.eonline.com/push-worker.js (service_worker) context initiated in 0.685s
+www.cbssports.com:  (other) context initiated in 0.011s
+www.eonline.com:  (other) context initiated in 0.032s
+www.eonline.com:  (other) context initiated in 0.016s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/055b96a2-3584-4997-aa69-d425e9c59930 (other) context initiated in 0.063s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/e9be21df-9ed1-4ef6-8418-194167e37825 (other) context initiated in 0.066s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/c9f49b2e-9212-4a17-936d-b917e9b0a413 (other) context initiated in 0.052s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/ff105d3e-d3e4-419d-a7a7-24d62924f196 (other) context initiated in 0.039s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/c7bd1acb-d1cd-4d2c-9dd6-65f42277ff35 (other) context initiated in 0.056s
+Site 16 / 50 (32.0%)
+Processing "https://www.sardine.ai/" took 148.210s.
+Processing entry #24 (https://www.splunk.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.powerreviews.com:  (other) context initiated in 0.041s
+www.powerreviews.com:  (other) context initiated in 0.041s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/36be3e81-9f37-4090-8c40-149f886f6c07 (other) context initiated in 0.020s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.eonline.com:  (other) context initiated in 0.013s
+CMP Opt-out Flag:  false
+www.splunk.com: apis init took 0.004s
+www.splunk.com: requests init took 0.000s
+www.splunk.com: links init took 0.000s
+www.splunk.com: cookies init took 0.000s
+www.splunk.com: gpp init took 0.000s
+www.splunk.com: page context initiated in 0.017s
+www.newyorker.com:  (other) context initiated in 0.029s
+www.newyorker.com:  (other) context initiated in 0.042s
+www.eonline.com:  (other) context initiated in 0.415s
+www.paloaltonetworks.com:  (other) context initiated in 0.301s
+www.paloaltonetworks.com:  (other) context initiated in 0.015s
+www.paloaltonetworks.com:  (other) context initiated in 0.012s
+www.paloaltonetworks.com:  (other) context initiated in 0.017s
+www.paloaltonetworks.com:  (other) context initiated in 0.031s
+www.eonline.com:  (other) context initiated in 0.828s
+www.eonline.com:  (other) context initiated in 0.828s
+www.eonline.com:  (other) context initiated in 0.444s
+www.eonline.com:  (other) context initiated in 0.035s
+www.eonline.com:  (other) context initiated in 0.028s
+www.eonline.com:  (other) context initiated in 0.028s
+www.splunk.com: ⚠️ duplicate scriptId 5
+www.splunk.com: ⚠️ duplicate scriptId 6
+www.splunk.com: ⚠️ duplicate scriptId 7
+www.splunk.com: ⚠️ duplicate scriptId 8
+www.splunk.com: ⚠️ duplicate scriptId 9
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.paloaltonetworks.com:  (other) context initiated in 1.429s
+www.paloaltonetworks.com:  (other) context initiated in 0.865s
+www.paloaltonetworks.com:  (other) context initiated in 0.024s
+www.cbssports.com:  (other) context initiated in 0.428s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/689961cd-4764-47a6-a33c-33c53864e060 (other) context initiated in 0.650s
+www.splunk.com:  (other) context initiated in 0.013s
+www.paloaltonetworks.com:  (other) context initiated in 0.514s
+www.paloaltonetworks.com:  (other) context initiated in 0.045s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/c64be261-4449-499c-8e9e-f89f33edbcc4 (other) context initiated in 0.046s
+www.paloaltonetworks.com: blob:https://www.paloaltonetworks.com/c5c56549-194a-4dfe-b831-14a5000a6bd3 (other) context initiated in 0.046s
+www.paloaltonetworks.com:  (other) context initiated in 0.430s
+www.paloaltonetworks.com:  (other) context initiated in 0.038s
+www.paloaltonetworks.com:  (other) context initiated in 0.013s
+www.eonline.com:  (other) context initiated in 0.020s
+www.eonline.com: ⚠️ unmatched finished response {
+  requestId: '64740.466',
+  timestamp: 169758.969073,
+  encodedDataLength: -1
+}
+www.eonline.com: blob:https://www.eonline.com/95b26e26-fff9-4e03-92b9-ec3f7485ffeb (other) context initiated in 0.230s
+www.cbssports.com: apis postLoad took 0.000s
+www.cbssports.com: requests postLoad took 0.000s
+www.cbssports.com: links postLoad took 0.000s
+www.cbssports.com: cookies postLoad took 0.000s
+GPP object retrieved: {
+  gppVersion: '1.1',
+  cmpStatus: 'loaded',
+  cmpDisplayStatus: 'disabled',
+  signalStatus: 'ready',
+  supportedAPIs: [
+    '8:usca',
+    '9:usva',
+    '7:usnat',
+    '10:usco',
+    '12:usct',
+    '11:usut',
+    '2:tcfeuv2'
+  ],
+  cmpId: 28,
+  sectionList: [ 7 ],
+  applicableSections: [ 7 ],
+  gppString: 'DBABLA~BVQqAAAAAgA.QA',
+  parsedSections: {
+    usnat: {
+      Version: 1,
+      SharingNotice: 1,
+      SaleOptOutNotice: 1,
+      SharingOptOutNotice: 1,
+      TargetedAdvertisingOptOutNotice: 1,
+      SensitiveDataProcessingOptOutNotice: 0,
+      SensitiveDataLimitUseNotice: 0,
+      SaleOptOut: 2,
+      SharingOptOut: 2,
+      TargetedAdvertisingOptOut: 2,
+      SensitiveDataProcessing: [Array],
+      KnownChildSensitiveDataConsents: [Array],
+      PersonalDataConsents: 0,
+      MspaCoveredTransaction: 2,
+      MspaOptOutOptionMode: 0,
+      MspaServiceProviderMode: 0,
+      GpcSegmentType: 1,
+      Gpc: false
+    }
+  }
+}
+USP string retrieved: { version: 1, uspString: '1YNN' }
+No TCF object retrieved.
+www.cbssports.com: gpp postLoad took 0.264s
+Scrolling to the top of the page
+www.splunk.com:  (other) context initiated in 0.375s
+www.splunk.com:  (other) context initiated in 0.375s
+www.splunk.com:  (other) context initiated in 0.375s
+www.splunk.com:  (other) context initiated in 0.035s
+www.splunk.com:  (other) context initiated in 0.009s
+CMP Opt-out Flag:  false
+www.splunk.com:  (other) context initiated in 0.505s
+www.splunk.com:  (other) context initiated in 0.507s
+www.splunk.com:  (other) context initiated in 0.015s
+www.splunk.com:  (other) context initiated in 0.014s
+www.splunk.com: https://www.splunk.com/akam-sw.js (service_worker) context initiated in 0.021s
+www.splunk.com:  (other) context initiated in 0.014s
+www.cbssports.com: getting apis data took 0.001s
+www.cbssports.com: getting requests data took 0.052s
+Scrolling to the top of the page
+www.cbssports.com: Skipping same-page or fragment link: https://www.cbssports.com/#page-content
+www.cbssports.com: Will skip the external link: https://www.americasbestracing.net
+www.cbssports.com: Will skip the external link: http://fanatics.ncw6.net/4e5bdz
+www.cbssports.com: Will skip the external link: http://www.pbr.com
+www.cbssports.com: Will skip the external link: https://provolleyball.com
+www.cbssports.com: Will skip the external link: https://www.3ice.com
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com
+www.cbssports.com: Will skip the external link: https://supremegolf.com/?utm_source=cbs_golf&utm_medium=drop_down&utm_campaign=website&utm_content=play_golf
+www.cbssports.com: Will skip the external link: https://www.paramountplus.com/account/signup/live-tv/?intcid=cia85fa358
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/zdbo5k
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/nfl-tickets/grouping/121
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/nba/odds
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/kjgekd
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/nba-tickets/grouping/115
+www.cbssports.com: Will skip the external link: https://supremegolf.com/?utm_source=cbs_sports&utm_medium=drop_down&utm_campaign=website&utm_content=book_tee_times
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/golf-tickets/category/111
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/15e0ym
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/mlb/odds
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/mlb-tickets/grouping/81
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/xxybag
+www.cbssports.com: Will skip the external link: https://stats.wnba.com
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/wnba-tickets/grouping/116
+www.cbssports.com: Will skip the external link: https://247sports.com/season/2024-football/transferportal
+www.cbssports.com: Will skip the external link: https://247sports.com/season/2025-football/recruitrankings/?institutiongroup=highschool
+www.cbssports.com: Will skip the external link: https://247sports.com/season/2025-football/compositeteamrankings
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/oer1km
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/ncaa-football-tickets/grouping/122
+www.cbssports.com: Will skip the external link: https://www.fanatics.com/soccer-gear/x-381605+z-94277330-4058512167?irclickid=ueo0iou2vxypruj3pzz6c22eukfstbxv2xnswe0&irgwc=1&_s=afl_impact&utm_source=impact&utm_medium=affiliates&ssaid=2341896
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/nhl/odds
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/wdxnkx
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/nhl-tickets/grouping/144
+www.cbssports.com: Will skip the external link: https://mml.app.link/cbs_watch
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/college-basketball/odds
+www.cbssports.com: Will skip the external link: https://www.ncaa.com/news/basketball-men/article/2025-03-16/2025-nit-bracket-schedule-tv-channels-mens-tournament
+www.cbssports.com: Will skip the external link: https://247sports.com/season/2025-basketball/compositerecruitrankings/?institutiongroup=highschool
+www.cbssports.com: Will skip the external link: https://247sports.com/season/2025-basketball/compositeteamrankings
+www.cbssports.com: Will skip the external link: https://www.cbssportsclassic.com
+www.cbssports.com: Will skip the external link: https://fanatics.ncw6.net/rn4zk3
+www.cbssports.com: Will skip the external link: https://prf.hn/click/camref:1101liuff/ar:cbssports/destination:https://www.stubhub.com/ncaa-basketball-tickets/grouping/333
+www.cbssports.com: Will skip the external link: https://247sports.com/podcast/the-247sports-college-basketball-show-11
+www.cbssports.com: Will skip the external link: https://www.sportsline.com
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/tools/betting-calculator
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/experts
+www.cbssports.com: Will skip the external link: https://www.sportsline.com/tools/parlay-calculator
+www.cbssports.com: Skipping same-page or fragment link: https://www.cbssports.com/#
+www.cbssports.com: Will skip the external link: https://www.247sports.com
+www.cbssports.com: Will skip the external link: https://247sports.com/article/elite-11-finals-2025-ranking-the-quarterbacks-after-two-days-of-competition-251064974
+www.cbssports.com: Will skip the external link: https://247sports.com/contentgallery/15-biggest-risers-in-2026-rankings-update-ethan-taylor-najai-hines-tarris-bouie-surge-251028843
+www.cbssports.com: Will skip the external link: https://247sports.com/article/recruiting-in-flux-transfer-portal-revenue-sharing-disrupt-2026-class-251004874
+www.cbssports.com: Will skip the external link: https://popup.taboola.com/en
+www.cbssports.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=cbsinteractive-cbssports&utm_medium=referral&utm_content=thumbnails-j:undefined-cbssports/other/media/home%20desktop-hybrid-main:
+www.cbssports.com: Will skip the external link: https://confantentedited.com/a2ca8342-645f-4cac-a9a2-ac5c7784e5d1
+www.cbssports.com: Will skip the external link: https://ooni.com/pages/fourth-of-july
+www.cbssports.com: Will skip the external link: https://ooni.com/blogs/ooni-insights/setting-up-your-outdoor-kitchen-pizza-oven-edition
+www.cbssports.com: Will skip the external link: https://247sports.com
+www.cbssports.com: Will skip the external link: https://www.paramountplus.com
+www.cbssports.com: Will skip the external link: https://www.viacomcbs.com/careers/experienced
+www.cbssports.com: Will skip the external link: https://www.paramount.com
+www.cbssports.com: Will skip the external link: https://www.cbs.com/?ftag=tve-24-10aag2f
+www.cbssports.com: Will skip the external link: https://legalterms.cbsinteractive.com/terms-of-use
+www.cbssports.com: Will skip the external link: https://privacy.paramount.com/policy
+www.cbssports.com: Will skip the external link: https://www.cbs.com/closed-captioning
+www.cbssports.com: Will skip the external link: https://privacy.paramount.com/en/policy#additional-information-us-states
+www.cbssports.com: Will skip the external link: https://privacy.paramount.com/en/cookies?r=privacy.paramount.com
+www.cbssports.com: Will skip the external link: https://www.youtube.com/cbssports
+www.cbssports.com: Will skip the external link: https://www.tiktok.com/@cbssports
+www.cbssports.com: Will skip the external link: https://instagram.com/cbssports
+www.cbssports.com: Will skip the external link: https://www.facebook.com/cbssports
+www.cbssports.com: Will skip the external link: https://twitter.com/cbssports
+www.cbssports.com: Will skip the external link: https://www.threads.net/@cbssports
+www.cbssports.com: Will skip the external link: https://flipboard.com/@cbssports/?utm_source=cbssports&utm_medium=follow&utm_campaign=tools
+www.cbssports.com: Will skip the external link: https://privacy.paramount.com/dns
+www.cbssports.com: Will skip the external link: https://globalprivacycontrol.org
+www.cbssports.com: Will skip the external link: https://privacy.paramount.com/privacyrightscenter#marketing-messages
+www.cbssports.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.cbssports.com: Found 15 internal links
+www.cbssports.com: getting links data took 0.043s
+www.cbssports.com: getting cookies data took 0.014s
+www.cbssports.com: getting gpp data took 0.000s
+www.splunk.com: https://sgtm.splunk.com/_/service_worker/5690/sw.js?origin=https%3A%2F%2Fwww.splunk.com (service_worker) context initiated in 0.022s
+www.powerreviews.com: apis postLoad took 0.000s
+www.powerreviews.com: requests postLoad took 0.000s
+www.powerreviews.com: links postLoad took 0.000s
+www.powerreviews.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.powerreviews.com: gpp postLoad took 0.037s
+Scrolling to the top of the page
+www.eonline.com:  (other) context initiated in 0.338s
+Site 17 / 50 (34.0%)
+Processing "https://www.adswizz.com/wp-content/endurance-page-cache/_index.html" took 178.678s.
+Processing entry #25 (https://www.sainsburys.co.uk/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.powerreviews.com: getting apis data took 0.000s
+www.powerreviews.com: ⚠️ failed to match 1 events
+www.powerreviews.com: getting requests data took 0.003s
+Scrolling to the top of the page
+www.powerreviews.com: Will skip the external link: https://www.g2.com/products/powerreviews/reviews/powerreviews-review-5314141
+www.powerreviews.com: Will skip the external link: https://www.g2.com/products/powerreviews/reviews/powerreviews-review-4955561
+www.powerreviews.com: Will skip the external link: https://www.g2.com/products/powerreviews/reviews/powerreviews-review-4686189
+www.powerreviews.com: Will skip the external link: https://www.g2.com/reports/4350f5aa-f80d-4e93-9147-7aa7ca884683/preview
+www.powerreviews.com: Will skip the external link: https://twitter.com/powerofreviews
+www.powerreviews.com: Will skip the external link: https://www.linkedin.com/company/powerreviews
+www.powerreviews.com: Will skip the external link: https://www.facebook.com/pages/powerreviews/1514801688740277
+www.powerreviews.com: Will skip the external link: https://vimeo.com/powerofreviews
+www.powerreviews.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.powerreviews.com: Found 15 internal links
+www.powerreviews.com: getting links data took 0.005s
+www.powerreviews.com: getting cookies data took 0.064s
+www.powerreviews.com: getting gpp data took 0.000s
+www.sainsburys.co.uk: apis init took 0.000s
+www.sainsburys.co.uk: requests init took 0.000s
+www.sainsburys.co.uk: links init took 0.000s
+www.sainsburys.co.uk: cookies init took 0.000s
+www.sainsburys.co.uk: gpp init took 0.000s
+www.sainsburys.co.uk: page context initiated in 0.087s
+www.eonline.com:  (other) context initiated in 0.021s
+www.eonline.com:  (other) context initiated in 0.021s
+www.eonline.com:  (other) context initiated in 0.015s
+Site 18 / 50 (36.0%)
+Processing "https://www.powerreviews.com/" took 62.628s.
+Processing entry #26 (https://www.contentstack.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Site 19 / 50 (38.0%)
+Processing "https://www.lumen.com/en-us/home.html" took 249.293s.
+Processing entry #27 (https://www.applovin.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.applovin.com: apis init took 0.000s
+www.applovin.com: requests init took 0.000s
+www.applovin.com: links init took 0.000s
+www.applovin.com: cookies init took 0.000s
+www.applovin.com: gpp init took 0.000s
+www.contentstack.com: apis init took 0.000s
+www.contentstack.com: requests init took 0.000s
+www.contentstack.com: links init took 0.000s
+www.contentstack.com: cookies init took 0.000s
+www.contentstack.com: gpp init took 0.000s
+www.applovin.com: page context initiated in 0.116s
+www.contentstack.com: page context initiated in 0.016s
+www.sainsburys.co.uk: ⚠️ unmatched failed response {
+  requestId: '89C016D20763FFAB540884C3DC355D5F',
+  timestamp: 169789.974344,
+  type: 'Document',
+  errorText: 'net::ERR_ABORTED',
+  canceled: true
+}
+www.eonline.com:  (other) context initiated in 0.018s
+www.eonline.com: apis postLoad took 0.000s
+www.eonline.com: requests postLoad took 0.000s
+www.eonline.com: links postLoad took 0.000s
+www.eonline.com: cookies postLoad took 0.000s
+CMP Opt-out Flag:  false
+CMP Opt-out Flag:  false
+GPP object retrieved: {
+  gppVersion: '1.1',
+  cmpStatus: 'loaded',
+  cmpDisplayStatus: 'disabled',
+  signalStatus: 'ready',
+  supportedAPIs: [
+    '8:uscav1',
+    '9:usvav1',
+    '7:usnatv1',
+    '10:uscov1',
+    '12:usctv1',
+    '11:usutv1',
+    '2:tcfeuv2'
+  ],
+  cmpId: 28,
+  sectionList: [ 7 ],
+  applicableSections: [ 7 ],
+  gppString: 'DBABLA~BVQqAAAAAgA.QA',
+  parsedSections: {
+    usnatv1: {
+      Version: 1,
+      SharingNotice: 1,
+      SaleOptOutNotice: 1,
+      SharingOptOutNotice: 1,
+      TargetedAdvertisingOptOutNotice: 1,
+      SensitiveDataProcessingOptOutNotice: 0,
+      SensitiveDataLimitUseNotice: 0,
+      SaleOptOut: 2,
+      SharingOptOut: 2,
+      TargetedAdvertisingOptOut: 2,
+      SensitiveDataProcessing: [Array],
+      KnownChildSensitiveDataConsents: [Array],
+      PersonalDataConsents: 0,
+      MspaCoveredTransaction: 2,
+      MspaOptOutOptionMode: 0,
+      MspaServiceProviderMode: 0,
+      GpcSegmentType: 1,
+      Gpc: false
+    }
+  }
+}
+USP string retrieved: { version: 1, uspString: '1YNN' }
+No TCF object retrieved.
+www.eonline.com: gpp postLoad took 3.082s
+Scrolling to the top of the page
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.eonline.com:  (other) context initiated in 0.025s
+www.eonline.com: getting apis data took 0.001s
+www.eonline.com: ⚠️ failed to match 1 events
+www.eonline.com: getting requests data took 0.058s
+Scrolling to the top of the page
+www.eonline.com:  (other) context initiated in 0.010s
+www.eonline.com: Will skip the external link: https://www.youtube.com/playlist?list=plgs3dyg7tbblukt2_5kpliybkk5dwgz2d
+www.eonline.com: Will skip the external link: https://clickserv.sitescout.com/clk/04a54fa8cc576765/1e39d17e8091f808/685971c60009e638054b0079/0
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=organic-video-reel-dvr:video%20reel%20above%20feed:
+www.eonline.com: Will skip the external link: https://mozarreraptions.com/b672bb30-287b-4093-af52-2899c88f9083
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-g:below%20front%20door%20thumbnails%20v2%20|%20card%201:
+www.eonline.com: Will skip the external link: https://zekear.com/products/original-book-shaped-decorative-vase
+www.eonline.com: Will skip the external link: https://go.simplyputnow.com/18/15866
+www.eonline.com: Will skip the external link: https://mozarreraptions.com/8d9a3b36-f2cb-4111-8141-64e3429af454
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-a:below%20front%20door%20thumbnails%20v2%20|%20card%202:
+www.eonline.com: Will skip the external link: https://cos-rd.com/18/14714
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-a:below%20front%20door%20thumbnails%20v2%20|%20card%204:
+www.eonline.com: Will skip the external link: https://www2.thehealthyfat.com/cid/701vo00000dynmria0
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-g:below%20front%20door%20thumbnails%20v2%20|%20card%206:
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=organic-thumbnails-feed-g:below%20front%20door%20thumbnails%20v2%20|%20card%207:
+www.eonline.com: Will skip the external link: https://rtb-use.mfadsrvr.com/click/tuczbi3hdj3sxjf3wo-eofqavj6uwgtzbwx1p7ld-iuwxsdtv6rhdqkbqe-6sarij2ohq0tbnb_ut1j2e_c_-fi_ge5qs2mccuaxnfgshwdhibiedo2xnttkjbg1c78r0pygufcbkhhdtcrad84j-e2iujaje1kgd0xwy_w3loqoj85x6hvi4upbpk2n3pcdcras-hmu4n1gwnkx0xjuj5yb_jxe2jro84xud8ie6uamc9cpbx26q2ppmosbgxgry-uoqyhhg7qgz9btarhm476bsk7i1wfxa1axm-k1zuot4p_ywbma3ojv1ojnet12qlchmqxjr0t90ybjd7c_u3mv95-qmola4acmigggfeiunl03n4v2ssta-htg5rpqe0btr4cc5yifd3nmky4ruc2wqvbjiqkgf7cyqvwkzfp8xtoeno9vp5mkeoh9q1hhtq1w_aiy6qy2em5e3vei0b2xgaw75ct3zqhyziweyeel4yi-ui2akic9ycg/
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-g:below%20front%20door%20thumbnails%20v2%20|%20card%208:
+www.eonline.com: Will skip the external link: https://searchpad.com/auto/suv/outlander/d
+www.eonline.com: Will skip the external link: https://premium.walletjump.com/article/american-senior-discounts
+www.eonline.com: Will skip the external link: https://www.nerdwallet.com/ur
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-a:below%20front%20door%20thumbnails%20v2%20|%20card%209:
+www.eonline.com: Will skip the external link: http://www.mnbasd77.com/aff_c
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-a:below%20front%20door%20thumbnails%20v2%20|%20card%2011:
+www.eonline.com: Will skip the external link: https://thequotegeneral.com/dropping-insurance
+www.eonline.com: Will skip the external link: https://light.bio/products/3-glowing-plants
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=thumbnails-feed-g:below%20front%20door%20thumbnails%20v2%20|%20card%2012:
+www.eonline.com: Will skip the external link: https://www.soundbright.com/pages/lp-prelander-1
+www.eonline.com: Will skip the external link: https://popup.taboola.com/en/?template=colorbox&utm_source=eonline-eonline&utm_medium=referral&utm_content=organic-thumbnails-feed-g:below%20front%20door%20thumbnails%20v2%20|%20card%2013:
+www.eonline.com: Will skip the external link: http://www.facebook.com/enews
+www.eonline.com: Will skip the external link: http://www.instagram.com/enews
+www.eonline.com: Will skip the external link: https://www.pinterest.com/e_news_
+www.eonline.com: Will skip the external link: http://www.twitter.com/intent/follow?screen_name=enews
+www.eonline.com: Will skip the external link: http://www.snapchat.com/add/e_news
+www.eonline.com: Will skip the external link: http://www.youtube.com/user/enews
+www.eonline.com: Will skip the external link: https://www.whatsapp.com/channel/0029vavwfvm9bb5xyafiw02u
+www.eonline.com: Skipping mailto link: mailto:appsupport@eentertainment.com
+www.eonline.com: Will skip the external link: http://www.nbcunicareers.com
+www.eonline.com: Will skip the external link: https://e.app.link/?mparticle%20id=anonymous&utm_term=enews&utm_content=all-shows&utm_medium=redirect-to-nbc&utm_campaign=enews_web_evergreen_redirect&utm_source=enews-dotcom&canonical%20url=https%3a%2f%2fwww.nbc.com%2fnetworks%2fe&$ios_deeplink_path=series%2f&$android_deeplink_path=series%2f&$desktop_url=https%3a%2f%2fwww.nbc.com%2fnetworks%2fe
+www.eonline.com: Will skip the external link: http://peopleschoice.com
+www.eonline.com: Will skip the external link: http://nbc.researchresults.com/?s=639
+www.eonline.com: Will skip the external link: https://www.nbcuniversal.com/privacy/cookies#accordionheader2
+www.eonline.com: Will skip the external link: https://www.nbcuniversal.com/privacy/?intake=e!_entertainment
+www.eonline.com: Will skip the external link: https://www.nbcuniversal.com/privacy/california-consumer-privacy-act?intake=e!_entertainment
+www.eonline.com: Will skip the external link: https://www.nbcuniversal.com/terms
+www.eonline.com: Will skip the external link: https://www.nbcuniversal.com/privacy
+www.eonline.com: Will skip the external link: https://www.nbcuniversal.com/privacy#accordionheader5
+www.eonline.com: Will skip the external link: https://privacyportal.onetrust.com/webform/17e5cb00-ad90-47f5-a58d-77597d9d2c16/cda09e33-f935-4960-87de-afa722cef3c2
+www.eonline.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.eonline.com: Found 15 internal links
+www.eonline.com: getting links data took 0.727s
+www.eonline.com: getting cookies data took 2.912s
+www.eonline.com: getting gpp data took 0.000s
+www.eonline.com: setting breakpoint failed Document.cookie getter TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed Document.cookie setter TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed CookieStore.prototype.get TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed CookieStore.prototype.getAll TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed CookieStore.prototype.set TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed Document.cookie getter TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed Document.cookie setter TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed CookieStore.prototype.get TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed CookieStore.prototype.getAll TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.eonline.com: setting breakpoint failed CookieStore.prototype.set TargetCloseError: Protocol error (Debugger.setBreakpointOnFunctionCall): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.paloaltonetworks.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.newyorker.com: Crawl failed Operation timed out Error: Operation timed out
+    at Timeout._onTimeout (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/helpers/wait.js:8:20)
+    at listOnTimeout (node:internal/timers:569:17)
+    at process.processTimers (node:internal/timers:512:7)
+www.newyorker.com: setting breakpoint failed Document.cookie getter TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed Document.cookie setter TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed CookieStore.prototype.get TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed CookieStore.prototype.getAll TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed CookieStore.prototype.set TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed Document.cookie getter TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed Document.cookie setter TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed CookieStore.prototype.get TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed CookieStore.prototype.getAll TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.newyorker.com: setting breakpoint failed CookieStore.prototype.set TargetCloseError: Protocol error (Runtime.evaluate): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+Unable to scroll to the bottom of the page
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+Site 20 / 50 (40.0%)
+Processing "https://www.cbssports.com/" took 189.010s.
+Processing entry #28 (https://supercell.com/en/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.sainsburys.co.uk: apis postLoad took 0.000s
+www.sainsburys.co.uk: requests postLoad took 0.000s
+www.sainsburys.co.uk: links postLoad took 0.000s
+www.sainsburys.co.uk: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.sainsburys.co.uk: gpp postLoad took 0.063s
+Scrolling to the top of the page
+www.applovin.com: apis postLoad took 0.000s
+www.applovin.com: requests postLoad took 0.000s
+www.applovin.com: links postLoad took 0.000s
+www.applovin.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.applovin.com: gpp postLoad took 0.034s
+Scrolling to the top of the page
+supercell.com: apis init took 0.000s
+supercell.com: requests init took 0.001s
+supercell.com: links init took 0.000s
+supercell.com: cookies init took 0.000s
+supercell.com: gpp init took 0.000s
+supercell.com: page context initiated in 0.015s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.sainsburys.co.uk: getting apis data took 0.000s
+www.sainsburys.co.uk: ⚠️ failed to match 1 events
+www.sainsburys.co.uk: getting requests data took 0.032s
+Scrolling to the top of the page
+www.sainsburys.co.uk: Skipping same-page or fragment link: https://www.sainsburys.co.uk/#main-content
+www.sainsburys.co.uk: Skipping same-page or fragment link: https://www.sainsburys.co.uk/#login
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbank.co.uk/login
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/account/login
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysenergy.com/dashboard/login
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/?cmpid=sb-gm-10
+www.sainsburys.co.uk: Will skip the external link: https://www.habitat.co.uk/?utm_source=sainsburys&utm_medium=referral&utm_campaign=banner&utm_campaign=homepage
+www.sainsburys.co.uk: Will skip the external link: https://www.nectar.com
+www.sainsburys.co.uk: Will skip the external link: https://smartcharge.co.uk
+www.sainsburys.co.uk: Will skip the external link: http://www.sainsburysbank.co.uk/?cid=ref_mul_acq_220904&qc_campaign=&qc_paid=&qc_medium=&qc_channel=
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbank.co.uk/pet-insurance?cid=dsp_pet_acq_240901&qc_campaign=dsp_pet_acq_2409&qc_medium=display&qc_channel=native
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbank.co.uk/travel-money?cid=ref_trm_acq_000101&qc_campaign=ref_trm_acq_0001&qc_medium=referringdomain&qc_channel=native
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbank.co.uk/life-insurance?cid=ref_lif_acq_250202&qc_campaign=ref_lif_acq_2502&qc_medium=referringdomain&qc_channel=native
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/?cmpid=sb-gm-5
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/features/new-in?cmpid=sb-ar-hp-dd-ev-new-in
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/events/toys-offers/?cmpid=sb-ar-hp-dd-ev-toy-offers
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/events/clearance?cmpid=sb-ar-hp-dd-ev-clearance
+www.sainsburys.co.uk: Will skip the external link: http://www.habitat.co.uk/?utm_source=sainsburys&utm_medium=referral&utm_campaign=banner&utm_campaign=globalnav&_%24ja=tsid:77091%7ccgn:globalnav
+www.sainsburys.co.uk: Will skip the external link: https://www.habitat.co.uk/inspiration/celebrating-60-years
+www.sainsburys.co.uk: Will skip the external link: https://www.habitat.co.uk/list/the-spring-home-edit
+www.sainsburys.co.uk: Will skip the external link: https://www.habitat.co.uk/list/new-in-habitat
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysenergy.com/?utm_medium=website&utm_source=sainsburys&utm_campaign=april2021_dropdownbanner
+www.sainsburys.co.uk: Will skip the external link: https://chopchopapp.co.uk
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/events/sale
+www.sainsburys.co.uk: Will skip the external link: https://www.nectar.com
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbank.co.uk/pet-insurance/choose-your-reward?cid=ref_pet_acq_250401
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysenergy.com/?utm_medium=website&utm_source=sainsburys&utm_campaign=mar2024_dontmissbanner
+www.sainsburys.co.uk: Will skip the external link: https://itunes.apple.com/gb/developer/sainsburys/id976550044
+www.sainsburys.co.uk: Will skip the external link: https://play.google.com/store/apps/developer?id=sainsbury%27s+supermarkets+ltd
+www.sainsburys.co.uk: Will skip the external link: https://itunes.apple.com/gb/app/argos/id370371087
+www.sainsburys.co.uk: Will skip the external link: https://play.google.com/store/apps/details?id=com.homeretailgroup.argos.android
+www.sainsburys.co.uk: Will skip the external link: https://lettuce-know.com
+www.sainsburys.co.uk: Will skip the external link: https://lettuce-know-online.com
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysgiftcard.co.uk
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbusinessdirect.co.uk
+www.sainsburys.co.uk: Will skip the external link: https://sainsburys.jobs
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysbank.co.uk/?cid=ref_all_091512
+www.sainsburys.co.uk: Will skip the external link: https://www.argos.co.uk/static/home.htm?cmpid=sb-gm-12
+www.sainsburys.co.uk: Will skip the external link: https://www.habitat.co.uk/?utm_source=sainsburys&utm_medium=referral&utm_campaign=banner&utm_campaign=footer&_%24ja=tsid:77091%7ccgn:footer
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysenergy.com/#utm_source=sainsburys&utm_medium=website&utm_campaign=homepage_footer_link_shopwithus
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburysenergy.com/#utm_source=sainsburys&utm_medium=website&utm_campaign=homepage_footer_link_getmore
+www.sainsburys.co.uk: Will skip the external link: https://www.sainsburyarchive.org.uk
+www.sainsburys.co.uk: Will skip the external link: https://www.nectar.com
+www.sainsburys.co.uk: Will skip the external link: https://www.facebook.com/sainsburys
+www.sainsburys.co.uk: Will skip the external link: https://twitter.com/sainsburys
+www.sainsburys.co.uk: Will skip the external link: https://www.youtube.com/user/sainsburys
+www.sainsburys.co.uk: Will skip the external link: https://www.instagram.com/sainsburys
+www.sainsburys.co.uk: Will skip the external link: https://www.pinterest.co.uk/sainsburys
+www.sainsburys.co.uk: Skipping same-page or fragment link: https://www.sainsburys.co.uk/#
+www.sainsburys.co.uk: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.sainsburys.co.uk: Found 15 internal links
+www.sainsburys.co.uk: getting links data took 2.398s
+www.applovin.com: getting apis data took 0.000s
+www.applovin.com: getting requests data took 0.002s
+Scrolling to the top of the page
+www.applovin.com: Skipping same-page or fragment link: https://www.applovin.com/#
+www.applovin.com: Will skip the external link: https://twitter.com/applovin
+www.applovin.com: Will skip the external link: https://www.linkedin.com/company/applovin
+www.applovin.com: Will skip the external link: https://www.instagram.com/applovin
+www.applovin.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.applovin.com: Found 15 internal links
+www.applovin.com: getting links data took 0.285s
+www.sainsburys.co.uk: getting cookies data took 1.115s
+www.sainsburys.co.uk: getting gpp data took 0.000s
+www.applovin.com: getting cookies data took 2.395s
+www.applovin.com: getting gpp data took 0.000s
+www.splunk.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+CMP Opt-out Flag:  false
+www.newyorker.com: apis postLoad took 0.000s
+www.newyorker.com: requests postLoad took 0.000s
+www.newyorker.com: links postLoad took 0.000s
+www.newyorker.com: cookies postLoad took 0.000s
+www.newyorker.com: gpp postLoad took 0.000s
+Scrolling to the top of the page
+Failed to scroll to top of the page.
+www.contentstack.com:  (other) context initiated in 6.915s
+www.contentstack.com: blob:https://www.contentstack.com/f0b3fa06-5b80-4c0a-9d3b-935eac1d7c21 (other) context initiated in 5.712s
+www.contentstack.com:  (other) context initiated in 2.917s
+www.contentstack.com:  (other) context initiated in 2.917s
+www.contentstack.com:  (other) context initiated in 2.918s
+www.contentstack.com:  (other) context initiated in 2.914s
+www.contentstack.com:  (other) context initiated in 1.148s
+www.contentstack.com:  (other) context initiated in 0.058s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.newyorker.com: getting apis data took 0.001s
+www.newyorker.com: ⚠️ failed to match 1 events
+www.newyorker.com: getting requests data took 0.033s
+Scrolling to the top of the page
+www.newyorker.com: getting links data failed Protocol error (Runtime.evaluate): Session closed. Most likely the page has been closed. TargetCloseError: Protocol error (Runtime.evaluate): Session closed. Most likely the page has been closed.
+    at CDPSessionImpl.send (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:412:35)
+    at #evaluate (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/ExecutionContext.js:213:18)
+    at ExecutionContext.evaluate (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/ExecutionContext.js:149:36)
+    at IsolatedWorld.evaluate (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/IsolatedWorld.js:96:24)
+    at async LinkCollector.getData (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/collectors/LinkCollector.js:115:46)
+    at async getSiteData (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/crawler.js:343:35)
+www.newyorker.com: getting cookies data failed Protocol error (Page.enable): Session closed. Most likely the page has been closed. TargetCloseError: Protocol error (Page.enable): Session closed. Most likely the page has been closed.
+    at CDPSessionImpl.send (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:412:35)
+    at CookieCollector.getData (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/collectors/CookieCollector.js:36:31)
+    at getSiteData (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/crawler.js:343:51)
+www.newyorker.com: getting gpp data took 0.000s
+www.paloaltonetworks.com: apis postLoad took 0.000s
+www.paloaltonetworks.com: requests postLoad took 0.000s
+www.paloaltonetworks.com: links postLoad took 0.000s
+www.paloaltonetworks.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.paloaltonetworks.com: gpp postLoad took 0.075s
+Scrolling to the top of the page
+www.paloaltonetworks.com: getting apis data took 0.001s
+www.paloaltonetworks.com: getting requests data took 0.016s
+Scrolling to the top of the page
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.com.au
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.com.br
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.ca
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.cn
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.fr
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.de
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.in
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.it
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.jp
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.co.kr
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.lat
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.com.mx
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.sg
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.es
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.tw
+www.paloaltonetworks.com: Will skip the external link: https://www.paloaltonetworks.co.uk
+www.paloaltonetworks.com: Will skip the external link: https://paloaltonetworks.my.site.com/nextwavepartnerprogram/s/partnerregistration?type=becomepartner
+www.paloaltonetworks.com: Will skip the external link: https://paloaltonetworks.my.site.com/nextwavepartnerprogram/s/partnerregistration?type=requestaccess
+www.paloaltonetworks.com: Will skip the external link: https://paloaltonetworks.my.site.com/nextwavepartnerprogram/s/partnerlocator
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#why
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#platforms
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#solutions
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#success
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#next
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219070-f288-4090-9de8-712050453862_0_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219070-f288-4090-9de8-712050453862_1_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219070-f288-4090-9de8-712050453862_2_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a-9de8-712050453862_0_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a0-fa4090-9de8-7120504538_0_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a0-fa4090-9de8-7120504538_1_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a0-fa4090-9de8-7120504538_2_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a0-fa4090-9de8-7120504538_3_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a0-fa4090-9de8-7120504538_4_tab
+www.paloaltonetworks.com: Skipping same-page or fragment link: https://www.paloaltonetworks.com/#id_07219a0-fa4090-9de8-7120504538_5_tab
+www.paloaltonetworks.com: Will skip the external link: https://players.brightcove.net/1050259881001/default_default/index.html?videoid=6360711021112
+www.paloaltonetworks.com: Will skip the external link: https://panwedd.exterro.net/portal/dsar.htm?target=panwedd
+www.paloaltonetworks.com: Will skip the external link: https://www.youtube.com/user/paloaltonetworks
+www.paloaltonetworks.com: Will skip the external link: https://www.facebook.com/paloaltonetworks
+www.paloaltonetworks.com: Will skip the external link: https://www.linkedin.com/company/palo-alto-networks
+www.paloaltonetworks.com: Will skip the external link: https://twitter.com/paloaltontwks
+www.paloaltonetworks.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.paloaltonetworks.com: Found 15 internal links
+www.paloaltonetworks.com: getting links data took 0.043s
+www.paloaltonetworks.com: getting cookies data took 0.006s
+www.paloaltonetworks.com: getting gpp data took 0.000s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+Site 21 / 50 (42.0%)
+Processing "https://www.eonline.com/" took 151.453s.
+Processing entry #29 (https://www.angi.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Site 22 / 50 (44.0%)
+Processing "https://www.paloaltonetworks.com/" took 139.460s.
+Processing entry #30 (https://www.monster.es/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+Site 23 / 50 (46.0%)
+Processing "https://www.applovin.com/" took 76.680s.
+Processing entry #31 (https://www.gsp.ro/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.splunk.com: apis postLoad took 0.000s
+www.splunk.com: requests postLoad took 0.000s
+www.splunk.com: links postLoad took 0.000s
+www.splunk.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.splunk.com: gpp postLoad took 0.719s
+Scrolling to the top of the page
+www.monster.es: apis init took 0.000s
+www.monster.es: requests init took 0.000s
+www.monster.es: links init took 0.000s
+www.monster.es: cookies init took 0.000s
+www.monster.es: gpp init took 0.000s
+www.angi.com: apis init took 0.000s
+www.angi.com: requests init took 0.000s
+www.angi.com: links init took 0.000s
+www.angi.com: cookies init took 0.000s
+www.angi.com: gpp init took 0.000s
+www.newyorker.com: apis init took 0.016s
+www.newyorker.com: requests init took 0.000s
+www.newyorker.com: links init took 0.011s
+www.newyorker.com: cookies init took 0.000s
+www.newyorker.com: gpp init took 0.002s
+www.gsp.ro: apis init took 0.000s
+www.gsp.ro: requests init took 0.000s
+www.gsp.ro: links init took 0.000s
+www.gsp.ro: cookies init took 0.000s
+www.gsp.ro: gpp init took 0.000s
+www.monster.es: page context initiated in 0.145s
+www.angi.com: page context initiated in 0.015s
+www.gsp.ro: page context initiated in 0.041s
+www.newyorker.com: page context initiated in 0.067s
+www.splunk.com: getting apis data took 0.000s
+www.splunk.com: getting requests data took 0.109s
+Scrolling to the top of the page
+www.splunk.com: Skipping same-page or fragment link: https://www.splunk.com/#splunk-main-content
+www.splunk.com: Skipping same-page or fragment link: https://www.splunk.com/#
+www.splunk.com: Will skip the external link: https://splunk.my.site.com/customer/s
+www.splunk.com: Will skip the external link: https://www.cisco.com/c/en/us/support/index.html
+www.splunk.com: Will skip the external link: https://www.cisco.com/site/us/en/about/corporate-strategy-office/acquisitions/splunk/index.html
+www.splunk.com: Will skip the external link: https://merchandise.cisco.com/splunk.html
+www.splunk.com: Will skip the external link: https://www.gartner.com/reviews/market/security-information-event-management/vendor/splunk
+www.splunk.com: Will skip the external link: https://www.peerspot.com/vendors/splunk
+www.splunk.com: Will skip the external link: https://www.trustradius.com/vendors/cisco/g/cisco-splunk/products
+www.splunk.com: Will skip the external link: https://twitter.com/splunk
+www.splunk.com: Will skip the external link: https://www.facebook.com/splunk
+www.splunk.com: Will skip the external link: https://www.linkedin.com/company/splunk
+www.splunk.com: Will skip the external link: https://www.youtube.com/user/splunkvideos
+www.splunk.com: Will skip the external link: https://www.instagram.com/splunk
+www.splunk.com: Will skip the external link: https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies
+www.splunk.com: Bad file extension, will skip: https://www.splunk.com/content/dam/splunk2/en_us/pdfs/legal/splunk-modern-slavery-act-transparancy-statement.pdf
+www.splunk.com: Will skip the external link: https://www.cisco.com/c/en/us/about/legal/privacy-full.html
+www.splunk.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.splunk.com: Found 15 internal links
+www.splunk.com: getting links data took 0.790s
+www.splunk.com: getting cookies data took 0.353s
+www.splunk.com: getting gpp data took 0.000s
+supercell.com: apis postLoad took 0.000s
+supercell.com: requests postLoad took 0.000s
+supercell.com: links postLoad took 0.000s
+supercell.com: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+supercell.com: gpp postLoad took 0.189s
+Scrolling to the top of the page
+www.gsp.ro:  (other) context initiated in 0.037s
+www.contentstack.com: Navigation timeout exceeded.
+CMP Opt-out Flag:  false
+www.angi.com: blob:https://www.angi.com/808d46f7-75f9-4e0c-b5a3-a8ee723242d6 (other) context initiated in 1.233s
+www.angi.com:  (other) context initiated in 0.014s
+CMP Opt-out Flag:  false
+supercell.com: getting apis data took 0.000s
+supercell.com: getting requests data took 0.005s
+Scrolling to the top of the page
+supercell.com: Skipping same-page or fragment link: https://supercell.com/en/#main
+supercell.com: Will skip the external link: https://mo.co
+supercell.com: Will skip the external link: https://gamesfirsthelsinki.com
+supercell.com: Will skip the external link: https://supr.cl/2fyb6q2
+supercell.com: Will skip the external link: https://supr.cl/353ihil
+supercell.com: Will skip the external link: https://supr.cl/3j8f2ai
+supercell.com: Will skip the external link: https://supr.cl/2pzzisf
+supercell.com: Will skip the external link: https://supr.cl/2t3yyjs
+supercell.com: Will skip the external link: https://supr.cl/2h81f5r
+supercell.com: Will skip the external link: https://supr.cl/appstorescgames
+supercell.com: Will skip the external link: https://play.google.com/store/apps/dev?id=6715068722362591614&hl=en
+supercell.com: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+supercell.com: Found 15 internal links
+supercell.com: getting links data took 0.009s
+supercell.com: getting cookies data took 0.002s
+supercell.com: getting gpp data took 0.000s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.newyorker.com:  (other) context initiated in 0.018s
+www.monster.es: apis failed to attach to "blob:https://www.monster.es/c18f1bf0-5973-4529-b2cd-e9cac008e413" Protocol error (Runtime.addBinding): Target closed TargetCloseError: Protocol error (Runtime.addBinding): Target closed
+    at CallbackRegistry.clear (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:138:36)
+    at CDPSessionImpl._onClosed (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:451:25)
+    at Connection.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:248:25)
+    at WebSocket.<anonymous> (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/NodeWebSocketTransport.js:52:32)
+    at callListener (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:290:14)
+    at WebSocket.onMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/event-target.js:209:9)
+    at WebSocket.emit (node:events:514:28)
+    at Receiver.receiverOnMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/websocket.js:1184:20)
+    at Receiver.emit (node:events:514:28)
+    at Receiver.dataMessage (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/ws/lib/receiver.js:541:14)
+www.monster.es: requests failed to attach to "blob:https://www.monster.es/c18f1bf0-5973-4529-b2cd-e9cac008e413" Protocol error (Runtime.enable): Session closed. Most likely the worker has been closed. TargetCloseError: Protocol error (Runtime.enable): Session closed. Most likely the worker has been closed.
+    at CDPSessionImpl.send (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:412:35)
+    at RequestCollector.addTarget (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/collectors/RequestCollector.js:52:25)
+    at /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/crawler.js:182:33
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+www.monster.es: Failed to resume target "blob:https://www.monster.es/c18f1bf0-5973-4529-b2cd-e9cac008e413" Protocol error (Runtime.enable): Session closed. Most likely the worker has been closed. TargetCloseError: Protocol error (Runtime.enable): Session closed. Most likely the worker has been closed.
+    at CDPSessionImpl.send (/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/node_modules/puppeteer-core/lib/cjs/puppeteer/common/Connection.js:412:35)
+    at /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/crawler.js:190:29
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+www.newyorker.com:  (other) context initiated in 0.127s
+CMP Opt-out Flag:  false
+www.gsp.ro:  (other) context initiated in 0.019s
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+Site 24 / 50 (48.0%)
+Processing "https://supercell.com/en/" took 75.860s.
+Processing entry #32 (https://www.nexon.com/main/en).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.newyorker.com: blob:https://www.newyorker.com/761e13b6-33e7-4302-98ab-521901eb662d (other) context initiated in 1.037s
+www.newyorker.com: ⚠️ unmatched finished response {
+  requestId: '65014.213',
+  timestamp: 169897.469684,
+  encodedDataLength: -1
+}
+www.nexon.com: apis init took 0.000s
+www.nexon.com: requests init took 0.000s
+www.nexon.com: links init took 0.000s
+www.nexon.com: cookies init took 0.000s
+www.nexon.com: gpp init took 0.000s
+www.nexon.com: page context initiated in 0.019s
+www.newyorker.com:  (other) context initiated in 0.025s
+www.angi.com: blob:https://www.angi.com/b8dd6a1f-0e1b-4b64-8425-efdbe5730d1a (other) context initiated in 0.014s
+www.newyorker.com:  (other) context initiated in 0.019s
+www.angi.com:  (other) context initiated in 0.070s
+www.angi.com:  (other) context initiated in 0.066s
+www.newyorker.com:  (other) context initiated in 0.014s
+www.contentstack.com: apis postLoad took 0.000s
+www.contentstack.com: requests postLoad took 0.000s
+www.contentstack.com: links postLoad took 0.000s
+www.contentstack.com: cookies postLoad took 0.000s
+www.angi.com:  (other) context initiated in 0.009s
+www.angi.com:  (other) context initiated in 0.010s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.contentstack.com: gpp postLoad took 1.904s
+Scrolling to the top of the page
+www.nexon.com:  (other) context initiated in 0.587s
+CMP Opt-out Flag:  false
+www.newyorker.com:  (other) context initiated in 0.320s
+www.newyorker.com:  (other) context initiated in 0.031s
+Site 25 / 50 (50.0%)
+Processing "https://www.splunk.com/" took 174.381s.
+Processing entry #33 (https://umbrella.cisco.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+www.newyorker.com:  (other) context initiated in 0.008s
+www.gsp.ro: apis postLoad took 0.000s
+www.gsp.ro: requests postLoad took 0.000s
+www.gsp.ro: links postLoad took 0.000s
+www.gsp.ro: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+TCF object retrieved.
+www.gsp.ro: gpp postLoad took 0.066s
+Scrolling to the top of the page
+www.monster.es: apis postLoad took 0.000s
+www.monster.es: requests postLoad took 0.000s
+www.monster.es: links postLoad took 0.000s
+www.monster.es: cookies postLoad took 0.000s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.monster.es: gpp postLoad took 0.059s
+Scrolling to the top of the page
+Done scrolling to the bottom of the page
+Waiting for timeout before calling GPP postload
+www.newyorker.com:  (other) context initiated in 0.048s
+www.newyorker.com:  (other) context initiated in 0.042s
+umbrella.cisco.com: apis init took 0.001s
+umbrella.cisco.com: requests init took 0.000s
+umbrella.cisco.com: links init took 0.000s
+umbrella.cisco.com: cookies init took 0.000s
+umbrella.cisco.com: gpp init took 0.000s
+Site 26 / 50 (52.0%)
+Processing "https://www.sainsburys.co.uk/" took 143.204s.
+Processing entry #34 (https://www.cars.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+umbrella.cisco.com: page context initiated in 0.164s
+umbrella.cisco.com: blob:https://umbrella.cisco.com/c3804e21-2d90-4be2-baea-9df295ed0283 (other) context initiated in 0.699s
+www.monster.es: getting apis data took 0.000s
+www.monster.es: getting requests data took 0.010s
+Scrolling to the top of the page
+www.contentstack.com: getting apis data took 0.001s
+www.contentstack.com: getting requests data took 0.042s
+Scrolling to the top of the page
+www.contentstack.com: Skipping same-page or fragment link: https://www.contentstack.com/#
+www.contentstack.com: Will skip the external link: https://contentstack.channeltivity.com/login
+www.contentstack.com: Will skip the external link: https://discord.com/invite/nywj68gddw
+www.contentstack.com: Will skip the external link: https://www.facebook.com/contentstack
+www.contentstack.com: Will skip the external link: https://www.linkedin.com/company/contentstack
+www.contentstack.com: Will skip the external link: https://twitter.com/contentstack
+www.contentstack.com: Will skip the external link: https://www.instagram.com/contentstack
+www.contentstack.com: Will skip the external link: https://github.com/contentstack
+www.contentstack.com: Will skip the external link: https://www.youtube.com/contentstack
+www.contentstack.com: Will skip the external link: https://www.cookiepro.com/products/cookie-consent
+www.contentstack.com: Found 15 internal links
+www.contentstack.com: getting links data took 0.142s
+www.monster.es: Skipping same-page or fragment link: https://www.monster.es/#skipnav
+www.monster.es: Will skip the external link: https://www.tumaster.com/tuscursos/?monster=nav
+www.monster.es: Will skip the external link: https://www.tumaster.com/tuscursos/?monster=hp
+www.monster.es: Will skip the external link: https://apps.apple.com/es/app/monster-job-search/id870221491
+www.monster.es: Will skip the external link: https://play.google.com/store/apps/details?id=com.jobrapp.jobr&gl=es&hl=es
+www.monster.es: Will skip the external link: https://www.monster.be/en
+www.monster.es: Will skip the external link: https://www.monster.be/fr
+www.monster.es: Will skip the external link: https://www.monster.be/nl
+www.monster.es: Will skip the external link: https://www.monster.ca
+www.monster.es: Will skip the external link: https://www.monster.ca/fr
+www.monster.es: Will skip the external link: https://www.monster.de
+www.monster.es: Will skip the external link: https://www.monster.fr
+www.monster.es: Will skip the external link: https://www.monster.ie
+www.monster.es: Will skip the external link: https://www.monster.it
+www.monster.es: Will skip the external link: https://www.monster.lu/de
+www.monster.es: Will skip the external link: https://www.monster.lu/en
+www.monster.es: Will skip the external link: https://www.monster.lu/fr
+www.monster.es: Will skip the external link: https://www.monsterboard.nl
+www.monster.es: Will skip the external link: https://www.monster.at
+www.monster.es: Will skip the external link: https://www.monster.ch/de
+www.monster.es: Will skip the external link: https://www.monster.ch/fr
+www.monster.es: Will skip the external link: https://www.monster.se
+www.monster.es: Will skip the external link: https://www.monster.co.uk
+www.monster.es: Will skip the external link: https://www.monster.com
+www.monster.es: Will skip the external link: https://www.tumaster.com/tuscursos/?monster=footer
+www.monster.es: Will skip the external link: https://preferences-mgr.truste.com/?pid=monster01&aid=monster_eu_publishersolution&type=monsteruk&locale=es
+www.monster.es: Will skip the external link: https://www.facebook.com/monster
+www.monster.es: Will skip the external link: https://twitter.com/monster
+www.monster.es: Will skip the external link: https://www.instagram.com/monster
+www.monster.es: Will skip the external link: https://www.youtube.com/monsterempleo
+www.monster.es: Will skip the external link: https://in.pinterest.com/monsterdotcom
+www.monster.es: Will skip the external link: https://privacy.truste.com/privacy-seal/validation?rid=7755a61d-50ea-4706-b2df-4725ebc394f3&lang=es-la
+www.monster.es: Will skip the external link: https://www.onetrust.com/products/cookie-consent
+www.monster.es: Found 15 internal links
+www.monster.es: getting links data took 0.297s
+www.cars.com: apis init took 0.000s
+www.cars.com: requests init took 0.000s
+www.cars.com: links init took 0.000s
+www.cars.com: cookies init took 0.000s
+www.cars.com: gpp init took 0.000s
+www.monster.es: getting cookies data took 0.022s
+www.monster.es: getting gpp data took 0.000s
+www.contentstack.com: getting cookies data took 0.099s
+www.contentstack.com: getting gpp data took 0.000s
+www.newyorker.com:  (other) context initiated in 0.368s
+www.newyorker.com:  (other) context initiated in 0.364s
+www.newyorker.com:  (other) context initiated in 0.354s
+www.newyorker.com:  (other) context initiated in 0.353s
+www.newyorker.com:  (other) context initiated in 0.347s
+www.newyorker.com:  (other) context initiated in 0.367s
+www.cars.com: page context initiated in 0.184s
+www.newyorker.com:  (other) context initiated in 0.011s
+www.gsp.ro: getting apis data took 0.000s
+www.gsp.ro: getting requests data took 0.002s
+Scrolling to the top of the page
+www.gsp.ro: Will skip the external link: javascript:void(0)
+www.gsp.ro: Will skip the external link: https://www.imopedia.ro
+www.gsp.ro: Skipping same-page or fragment link: https://www.gsp.ro/#test
+www.gsp.ro: Will skip the external link: https://www.libertatea.ro/stiri/tudor-chirila-atac-guvern-ilie-bolos-romania-stat-capturat-5354567
+www.gsp.ro: Will skip the external link: https://www.libertatea.ro/stiri/trei-tineri-incendiu-aprins-bricheta-masina-regretat-instant-filmat-camere-supraveghere-5354881
+www.gsp.ro: Will skip the external link: https://adevarul.ro/sport/s-a-impus-in-strainatate-fara-sa-stie-o-boaba-de-2452589.html?utm_source=site&utm_medium=gsphome&utm_campaign=crossextern
+www.gsp.ro: Will skip the external link: https://superbet.ro/stiri/romania-vrea-sa-continue-contra-olandei-visul-frumos-de-la-europeanul-sub19-0d066bf9-8656-4606-a621-327bc0e13aee
+www.gsp.ro: Will skip the external link: https://www.fanatik.ro/dupa-jason-kodor-fcsb-a-pus-ochii-pe-ronaldo-de-la-nationala-u19-gigi-becali-are-concurenta-acerba-exclusiv-21177811
+www.gsp.ro: Will skip the external link: https://observatornews.ro/educatie/evaluarea-nationala-2025-capcane-pentru-elevi-la-proba-scrisa-de-romana-623234.html
+www.gsp.ro: Will skip the external link: https://www.libertatea.ro/entertainment/cum-a-aparut-diana-munteanu-la-plaja-dupa-ce-multi-au-criticat-o-ca-a-slabit-5354315
+www.gsp.ro: Will skip the external link: https://www.libertatea.ro/educatie/barem-evaluare-nationala-2025-romana-5352477
+www.gsp.ro: Will skip the external link: https://www.antena3.ro/externe/mapamond/vedeta-onlyfans-atacata-dupa-ce-a-petrecut-o-vacanta-cu-starul-minor-al-barcelonei-lamine-yamal-se-scuza-nu-am-30-de-ani-am-doar-29-750274.html?utm_source=gsp.ro&utm_medium=referral&utm_campaign=gsp%20carusel
+www.gsp.ro: Will skip the external link: http://pubads.g.doubleclick.net/gampad/clk?id=6205025954&iu=/1011785
+www.gsp.ro: Will skip the external link: https://www.viva.ro/vedete-si-evenimente/cine-este-si-cum-arata-fiica-cea-mare-a-lui-ilie-bolojan-lucia-maria-3588331
+www.gsp.ro: Will skip the external link: https://www.unica.ro/vedete/fiul-lui-theo-rose-si-al-lui-anghel-damian-a-implinit-2-ani-imagini-adorabile-cu-sasha-745854
+www.gsp.ro: Will skip the external link: https://www.tvmania.ro/lora-si-a-decorat-casa-conform-atmosferei-din-bali-497540
+www.gsp.ro: Will skip the external link: https://www.libertateapentrufemei.ro/stiri/cine-este-oana-toiu-420308
+www.gsp.ro: Will skip the external link: https://www.ringier.com/location/europe
+www.gsp.ro: Will skip the external link: https://www.libertatea.ro
+www.gsp.ro: Will skip the external link: https://www.libertateapentrufemei.ro
+www.gsp.ro: Will skip the external link: https://www.unica.ro
+www.gsp.ro: Will skip the external link: https://www.elle.ro
+www.gsp.ro: Will skip the external link: https://www.viva.ro
+www.gsp.ro: Will skip the external link: https://www.avantaje.ro
+www.gsp.ro: Will skip the external link: https://www.retetepractice.ro
+www.gsp.ro: Will skip the external link: https://tvmania.ro
+www.gsp.ro: Will skip the external link: https://www.imobiliare.ro
+www.gsp.ro: Will skip the external link: https://www.imoradar24.ro
+www.gsp.ro: Will skip the external link: https://www.ejobs.ro/locuri-de-munca
+www.gsp.ro: Will skip the external link: https://www.ajutacopiii.ro
+www.gsp.ro: Will skip the external link: https://www.jobradar24.ro
+www.gsp.ro: Will skip the external link: https://sportal365.com
+www.gsp.ro: Will skip the external link: https://www.facebook.com/gazetasporturilor
+www.gsp.ro: Will skip the external link: https://www.instagram.com/gsp.ro
+www.gsp.ro: Will skip the external link: https://x.com/gspro
+www.gsp.ro: Will skip the external link: https://www.youtube.com/@gazetagsp
+www.gsp.ro: Will skip the external link: https://www.tiktok.com/@gsp.ro
+www.gsp.ro: Will skip the external link: https://whatsapp.com/channel/0029va70yyf8kyyubuohgm3j
+www.gsp.ro: Skipping mailto link: mailto:publicitate@gsp.ro
+www.gsp.ro: Skipping mailto link: mailto:gazeta@gsp.ro
+www.gsp.ro: Will skip the external link: javascript:optanon.toggleinfodisplay();
+www.gsp.ro: Will skip the external link: https://anpc.ro/ce-este-sal
+www.gsp.ro: Will skip the external link: https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home.chooselanguage
+www.gsp.ro: Found 15 internal links
+www.gsp.ro: getting links data took 0.014s
+www.gsp.ro: getting cookies data took 0.002s
+www.gsp.ro: getting gpp data took 0.000s
+www.newyorker.com:  (other) context initiated in 0.022s
+www.newyorker.com:  (other) context initiated in 0.013s
+www.cars.com:  (other) context initiated in 0.034s
+Site 27 / 50 (54.0%)
+Processing "https://www.gsp.ro/" took 72.524s.
+Processing entry #35 (https://www.booking.com/).
+Executable path:  /Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary
+umbrella.cisco.com:  (other) context initiated in 0.028s
+umbrella.cisco.com:  (other) context initiated in 0.022s
+www.booking.com: apis init took 0.000s
+www.booking.com: requests init took 0.000s
+www.booking.com: links init took 0.000s
+www.booking.com: cookies init took 0.000s
+www.booking.com: gpp init took 0.000s
+umbrella.cisco.com:  (other) context initiated in 0.045s
+www.cars.com: ⚠️ unmatched failed response {
+  requestId: '7626FDB941024D33F2038DA5F17963D0',
+  timestamp: 169933.261981,
+  type: 'Document',
+  errorText: 'net::ERR_ABORTED',
+  canceled: true
+}
+www.nexon.com: apis postLoad took 0.000s
+www.nexon.com: requests postLoad took 0.000s
+www.nexon.com: links postLoad took 0.000s
+www.nexon.com: cookies postLoad took 0.000s
+www.booking.com: page context initiated in 0.183s
+No GPP object retrieved.
+Could not do GPP hasSections
+No USP string retrieved.
+No TCF object retrieved.
+www.nexon.com: gpp postLoad took 0.816s
+Scrolling to the top of the page
+umbrella.cisco.com:  (other) context initiated in 0.136s
+umbrella.cisco.com:  (other) context initiated in 0.190s
