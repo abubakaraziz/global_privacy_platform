@@ -1,7 +1,7 @@
 
 {	
-    "output": "../opt_out_gpp/data/tests/opt-out-cmp/",
-    "logPath": "../opt-out-gpp/logs/tests/opt-out-cmp/",
+    "output": "../opt_out_gpp/data/tests/1-website/",
+    "logPath": "../opt-out-gpp/logs/tests/1-website/",
     "crawlers": 8,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
@@ -21,7 +21,8 @@
     "reporters": [
         "cli"
     ],  
-    "headless": true,
+    "headless": false,
     "optOut": true,
-    "urls": "configs/URLS/cmp-opt-out-testing/random_50_onetrust_urls.txt"
+    "delayAfterScrollingMs": 15000,
+    "urls": "configs/URLS/cmp-opt-out-testing/1-website.txt"
 }

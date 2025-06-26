@@ -186,4 +186,5 @@ module.exports = {
  * @property {boolean} headless
  * @property {string} cookieJarPath
  * @property {number} extraExecutionTimeMs
+ * @property {number} delayAfterScrollingMs
  */

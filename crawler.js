@@ -100,7 +100,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -117,10 +117,11 @@ async function getSiteData(context, url, {
     saveCookies,
     loadCookies,
     cookieJarPath,
+    delayAfterScrollingMs,
     collectorFlags,
 }) {
     const testStarted = Date.now();
-
+    const delayTime = delayAfterScrollingMs || 20000; // Default to 20 seconds if not configured
     /**
      * @type {{cdpClient: import('puppeteer').CDPSession, type: string, url: string}[]}
      */
@@ -285,7 +286,9 @@ async function getSiteData(context, url, {
     console.log("CMP Opt-out Flag: ", optOut);
 
     if (optOut) {
-        console.log("Opting out of CMPs");
+        console.log("Wait for 5 more seconds before opting out of CMPs");
+        await sleep(5000);
+        console.log("Opting out of CMPs ");
         cmpOptOutResults = await optOutFromCMPs(page);
     }
 
@@ -302,8 +305,8 @@ async function getSiteData(context, url, {
 
     console.log("Done scrolling to the bottom of the page");
     
-    console.log("Waiting for timeout before calling GPP postload");
-    await sleep(20000);
+    console.log(`Waiting for configurable delay ${delayTime} milliseconds before calling consent API`);  
+    await sleep(delayTime);
 
     for (let collector of collectors) {
         const postLoadTimer = createTimer();
@@ -414,7 +417,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -445,6 +448,7 @@ module.exports = async (url, options, browserContext) => {
             saveCookies: options.saveCookies,
             loadCookies: options.loadCookies,
             cookieJarPath: options.cookieJarPath,
+            delayAfterScrollingMs: options.delayAfterScrollingMs,
             collectorFlags: options.collectorFlags
         }), maxTotalTimeMs);
     } catch(e) {
