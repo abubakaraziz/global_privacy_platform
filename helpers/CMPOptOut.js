@@ -19,13 +19,13 @@ const optOutFromCMPs = async page => {
     
     const qcResult = await optOutQuantcast(page);
     cmpResults.push(qcResult);
-       
+/* 
     const ucResult = await optOutUserCentrics(page);
     cmpResults.push(ucResult);
 
     const osanoResult = await optOutOsano(page);
     cmpResults.push(osanoResult);
-
+*/
     return cmpResults;
 };
 
