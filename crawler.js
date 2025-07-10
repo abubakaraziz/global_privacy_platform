@@ -208,9 +208,9 @@ async function getSiteData(context, url, {
         try {
             if (fs.existsSync(cookieJarPath)) {
                 const cookies = JSON.parse(fs.readFileSync(cookieJarPath, 'utf-8'));
-                // console.log("Cookies loaded from file: ", cookies);
+                console.log("Cookies loaded from file: ", cookieJarPath);
                 await page.setCookie(...cookies);
-                console.log("Cookies set in page context");
+                console.log("Cookies set via page.setCookie for browser context");
             } else {
                 console.error("Cookie Jar file not found.");
             }

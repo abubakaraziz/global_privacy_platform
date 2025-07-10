@@ -1,27 +1,28 @@
 {	
-	"output": "test_stateful",
+	"output": "../opt_out_gpp/data/tests/stateful/",
 	"logPath": "../opt-out-gpp/logs/tests/default/",
-    "crawlers": 2,
+    "crawlers": 1,
     "maxLoadTimeMs": 90000,
     "extraExecutionTimeMs": 5000,
     "verbose": true,
-    "forceOverwrite": true,
+    "forceOverwrite": false,
     "filterOutFirstParty": false,
     "emulateMobile": false,
-    "disableAntiBot": true,
-    "optOut": false,
-    "saveCookies": false,
-    "loadCookies": true,
-    "cookieJarPath": "cookie_jar/cookies.json",
-    "statefulCrawl": false,
-    
+    "disableAntiBot": false,
+    "optOut": true,
+    "saveCookies":true,
+    "loadCookies": false,
+    "statefulCrawl": true,
+    "cookieJarPath": "../opt_out_gpp/data/tests/stateful/cookies.json",
     "dataCollectors": [
         "cookies"
     ],  
-	"executablePath": "/Users/raahemnabeel/Downloads/chrome-mac-arm64-3/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
+	"executablePath": "/Users/aziz/Research/Privacy/opt-out-gpp/global_privacy_platform/chrome-mac-x64/chrome-for-testing.app/Contents/MacOS/chrome-binary",
     "reporters": [
         "cli"
     ],  
-    "urls": "testing/urls.txt"
+    "headless": false,
+    "delayAfterScrollingMs": 5000,
+    "urls": "configs/URLS/stateful/1-website.txt"
 }
 
