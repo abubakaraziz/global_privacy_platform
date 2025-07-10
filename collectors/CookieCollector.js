@@ -38,7 +38,7 @@ class CookieCollector extends BaseCollector {
          * @type {{cookies: CDPCookie[]}}
          */
         // @ts-ignore oversimplified .send signature
-        const result = await this._cdpClient.send('Network.getAllCookies');
+        const result = await this._cdpClient.send('Storage.getCookies');
 
         return result.cookies
             .map(cookie => ({
@@ -48,7 +48,9 @@ class CookieCollector extends BaseCollector {
                 path: cookie.path,
                 expires: this.normalizeDate(cookie.expires),
                 session: cookie.session,
-                sameSite: cookie.sameSite
+                sameSite: cookie.sameSite,
+                secure: cookie.secure || false,
+                httpOnly: cookie.httpOnly || false
             }));
     }
 }
