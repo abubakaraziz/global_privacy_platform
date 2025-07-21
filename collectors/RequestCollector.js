@@ -57,6 +57,7 @@ class RequestCollector extends BaseCollector {
         await Promise.all([
             cdpClient.on('Network.requestWillBeSent', r => this.handleRequest(r, cdpClient)),
             cdpClient.on('Network.webSocketCreated', r => this.handleWebSocket(r)),
+            cdpClient.on('Network.webSocketFrameSent', r => this.handleWebSocketFrameSent(r)),
             cdpClient.on('Network.responseReceived', r => this.handleResponse(r)),
             cdpClient.on('Network.responseReceivedExtraInfo', r => this.handleResponseExtraInfo(r)),
             cdpClient.on('Network.loadingFailed', r => this.handleFailedRequest(r, cdpClient)),
@@ -190,6 +191,21 @@ class RequestCollector extends BaseCollector {
             url: request.url,
             type: 'WebSocket',
             initiator: request.initiator
+        });
+    }
+
+    /**
+     * @param {{requestId: RequestId, timestamp: number, response: {opcode: number,  mask: boolean, payloadData: string}}} request
+     */
+    handleWebSocketFrameSent(request) {
+        const previousRequest = this.findLastRequestWithId(request.requestId);
+
+        this._requests.push({
+            id: request.requestId,
+            startTime: request.timestamp,
+            url: previousRequest ? previousRequest.url : "",
+            type: 'WebSocket',
+            postData: request.response.payloadData
         });
     }
 
