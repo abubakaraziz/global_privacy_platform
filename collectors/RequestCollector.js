@@ -42,6 +42,7 @@ class RequestCollector extends BaseCollector {
          * @type {Map<string, InternalRequestData>}
          */
         this._unmatched = new Map();
+        this._headersFromRequestWillBeSentExtraInfo = new Map();
         this._log = log;
     }
 
@@ -56,6 +57,7 @@ class RequestCollector extends BaseCollector {
 
         await Promise.all([
             cdpClient.on('Network.requestWillBeSent', r => this.handleRequest(r, cdpClient)),
+            cdpClient.on('Network.requestWillBeSentExtraInfo', r => this.handleRequestWillBeSentExtraInfo(r)),
             cdpClient.on('Network.webSocketCreated', r => this.handleWebSocket(r)),
             cdpClient.on('Network.webSocketFrameSent', r => this.handleWebSocketFrameSent(r)),
             cdpClient.on('Network.responseReceived', r => this.handleResponse(r)),
@@ -178,6 +180,8 @@ class RequestCollector extends BaseCollector {
                 }
             });
         }
+        const extraInfoHeaders = this._headersFromRequestWillBeSentExtraInfo.get(id);
+        requestData.requestHeaders = normalizeHeaders(extraInfoHeaders ? extraInfoHeaders : request.headers);
 
         this._requests.push(requestData);
     }
@@ -207,6 +211,27 @@ class RequestCollector extends BaseCollector {
             type: 'WebSocket',
             postData: request.response.payloadData
         });
+    }
+
+    /**
+    * Network.requestWillBeSentExtraInfo
+    * @param {{requestId: RequestId, associatedCookies: object, headers: Object<string, string>}} data
+    */
+    handleRequestWillBeSentExtraInfo(data) {
+        const {
+            requestId: id,
+            headers
+        } = data;
+        // check if there's a matching request
+        const request = this.findLastRequestWithId(id);
+        if (!request) {
+            // store the headers if no request is found
+            this._headersFromRequestWillBeSentExtraInfo.set(id, headers);
+            return;
+        }
+        // set the headers directly if a matching request is found
+        // handleRequestWillBeSentExtraInfo provides most details
+        request.requestHeaders = normalizeHeaders(headers);
     }
 
     /**
@@ -350,6 +375,7 @@ class RequestCollector extends BaseCollector {
                 status: request.status,
                 size: request.size,
                 remoteIPAddress: request.remoteIPAddress,
+                requestHeaders: request.requestHeaders,
                 postData: request.postData,
                 responseHeaders: request.responseHeaders && filterHeaders(request.responseHeaders, this._saveHeaders),
                 responseBodyHash: request.responseBodyHash,
@@ -392,6 +418,7 @@ module.exports = RequestCollector;
  * @property {string=} redirectedTo
  * @property {number=} status
  * @property {string=} remoteIPAddress
+ * @property {Object<string,string>=} requestHeaders
  * @property {Object<string,string>=} responseHeaders
  * @property {string=} failureReason
  * @property {number=} size
