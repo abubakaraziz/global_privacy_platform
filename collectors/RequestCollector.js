@@ -114,6 +114,7 @@ class RequestCollector extends BaseCollector {
         let initiator = data.initiator;
         const url = request.url;
         const method = request.method;
+        let postData = (method === "POST" || method === "PUT" || method === "PATCH") ? request.postData : "";
 
         // for CORS requests initiator is set incorrectly to 'parser', thankfully we can get proper initiator
         // from the corresponding OPTIONS request
@@ -131,7 +132,7 @@ class RequestCollector extends BaseCollector {
         /**
          * @type {InternalRequestData}
          */
-        const requestData = {id, url, method, type, initiator, startTime};
+        const requestData = {id, url, method, type, initiator, startTime, postData};
 
         // if request A gets redirected to B which gets redirected to C chrome will produce 4 events:
         // requestWillBeSent(A) requestWillBeSent(B) requestWillBeSent(C) responseReceived()
@@ -333,6 +334,7 @@ class RequestCollector extends BaseCollector {
                 status: request.status,
                 size: request.size,
                 remoteIPAddress: request.remoteIPAddress,
+                postData: request.postData,
                 responseHeaders: request.responseHeaders && filterHeaders(request.responseHeaders, this._saveHeaders),
                 responseBodyHash: request.responseBodyHash,
                 failureReason: request.failureReason,
@@ -380,6 +382,7 @@ module.exports = RequestCollector;
  * @property {Timestamp=} startTime
  * @property {Timestamp=} endTime
  * @property {string=} responseBodyHash
+ * @property {string=} postData
  */
 
 /**
@@ -404,6 +407,7 @@ module.exports = RequestCollector;
  * @property {HttpMethod} method
  * @property {object} headers
  * @property {'VeryLow'|'Low'|'Medium'|'High'|'VeryHigh'} initialPriority
+ * @property {string} postData
  */
 
 /**
