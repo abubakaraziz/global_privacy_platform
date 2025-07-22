@@ -102,7 +102,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean, httpHeaders?: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -117,6 +117,7 @@ async function getSiteData(context, url, {
     extraExecutionTimeMs,
     optOut,
     injectAPIs,
+    httpHeaders,
     saveCookies,
     loadCookies,
     cookieJarPath,
@@ -231,9 +232,14 @@ async function getSiteData(context, url, {
 
     // Overwrite __gpp API to capture GPP data
     if (injectAPIs) {
-        
         await page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
         await page.evaluateOnNewDocument(overWriteUSPAPI); //Inject our own USP API implementation
+    }
+    console.log("here", httpHeaders)
+    if (Object.keys(httpHeaders).length >= 1) {
+            // Injecting the headers
+        console.log("Setting HTTP headers: ", httpHeaders);
+        await page.setExtraHTTPHeaders(httpHeaders);
     }
 
     // We are creating CDP connection before page target is created, if we create it only after
@@ -427,7 +433,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean, httpHeaders?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -460,7 +466,8 @@ module.exports = async (url, options, browserContext) => {
             cookieJarPath: options.cookieJarPath,
             delayAfterScrollingMs: options.delayAfterScrollingMs,
             collectorFlags: options.collectorFlags,
-            injectAPIs: options.injectAPIs
+            injectAPIs: options.injectAPIs,
+            httpHeaders: options.httpHeaders
         }), maxTotalTimeMs);
     } catch(e) {
         log(chalk.red('Crawl failed'), e.message, chalk.gray(e.stack));
