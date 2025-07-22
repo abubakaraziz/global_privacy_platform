@@ -31,6 +31,7 @@ program
     .option('-p, --proxy-config <host>', 'use an optional proxy configuration')
     .option('-r, --region-code <region>', 'optional 2 letter region code. Used for metadata only.')
     .option('-a, --disable-anti-bot', 'disable anti bot detection protections injected to every frame')
+    .option('--inject-apis', 'inject API overrides (e.g., GPP API)')
     .option('--config <path>', 'crawl configuration file')
     .option('--autoconsent-action <action>', 'dismiss cookie popups. Possible values: optout, optin')
     .option('--chromium-version <version_number>', 'use custom version of chromium')
@@ -55,6 +56,7 @@ program
  * @param {number} maxLoadTimeMs
  * @param {number} extraExecutionTimeMs
  * @param {boolean} optOut
+ * @param {boolean} injectAPIs
  * @param {boolean} statefulCrawl
  * @param {boolean} saveCookies
  * @param {boolean} loadCookies
@@ -63,7 +65,7 @@ program
  * @param {number} delayAfterScrollingMs
  * @param {Object.<string, boolean>} collectorFlags
  */
-async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, statefulCrawl, saveCookies, loadCookies, headless, cookieJarPath, delayAfterScrollingMs, collectorFlags) {
+async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, injectAPIs, statefulCrawl, saveCookies, loadCookies, headless, cookieJarPath, delayAfterScrollingMs, collectorFlags) {
     const startTime = new Date();
 
     reporters.forEach(reporter => {
@@ -183,6 +185,7 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
             maxLoadTimeMs,
             extraExecutionTimeMs,
             optOut,
+            injectAPIs,
             statefulCrawl,
             saveCookies,
             loadCookies,
@@ -273,5 +276,5 @@ if (!config.urls || !config.output) {
         return item;
     });
 
-    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.statefulCrawl, config.saveCookies, config.loadCookies, config.headless, config.cookieJarPath, config.delayAfterScrollingMs, collectorFlags);
+    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.injectAPIs, config.statefulCrawl, config.saveCookies, config.loadCookies, config.headless, config.cookieJarPath, config.delayAfterScrollingMs, collectorFlags);
 }

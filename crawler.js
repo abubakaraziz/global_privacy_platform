@@ -9,6 +9,8 @@ const {TimeoutError} = require('puppeteer').errors;
 const optOutFromCMPs = require('./helpers/CMPOptOut');
 const fs = require('fs');
 const path = require('path');
+const {overWriteGPP, overWriteUSPAPI} = require("./helpers/injectGpp");
+
 
 const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.6834.159 Safari/537.36';
 const MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; Pixel 2 XL) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Mobile Safari/537.36';
@@ -100,7 +102,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -114,6 +116,7 @@ async function getSiteData(context, url, {
     maxLoadTimeMs,
     extraExecutionTimeMs,
     optOut,
+    injectAPIs,
     saveCookies,
     loadCookies,
     cookieJarPath,
@@ -224,6 +227,13 @@ async function getSiteData(context, url, {
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
         page.evaluateOnNewDocument(runInEveryFrame);
+    }
+
+    // Overwrite __gpp API to capture GPP data
+    if (injectAPIs) {
+        
+        await page.evaluateOnNewDocument(overWriteGPP); // Inject our own GPP implementation
+        await page.evaluateOnNewDocument(overWriteUSPAPI); //Inject our own USP API implementation
     }
 
     // We are creating CDP connection before page target is created, if we create it only after
@@ -417,7 +427,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -449,7 +459,8 @@ module.exports = async (url, options, browserContext) => {
             loadCookies: options.loadCookies,
             cookieJarPath: options.cookieJarPath,
             delayAfterScrollingMs: options.delayAfterScrollingMs,
-            collectorFlags: options.collectorFlags
+            collectorFlags: options.collectorFlags,
+            injectAPIs: options.injectAPIs
         }), maxTotalTimeMs);
     } catch(e) {
         log(chalk.red('Crawl failed'), e.message, chalk.gray(e.stack));
