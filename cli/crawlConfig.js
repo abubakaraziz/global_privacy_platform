@@ -28,7 +28,7 @@ function getUrlsFromConfig(urlConfig) {
 /**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
  * 
- * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, statefulCrawl?:boolean, optOut?: boolean, injectAPIs?: boolean, httpHeaders?: Object.<string, string>, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
+ * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, statefulCrawl?:boolean, optOut?: boolean, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
  * @returns {CrawlConfig}
  */
 function figureOut(flags) {
@@ -67,6 +67,11 @@ function figureOut(flags) {
     // Adding injectAPIs flag to the config
     if (crawlConfig.injectAPIs === undefined || flags.injectAPIs !== undefined) {
         crawlConfig.injectAPIs = Boolean(flags.injectAPIs);
+    }
+    
+    // Adding injectgpcnav flag to the config
+    if (crawlConfig.injectgpcnav === undefined || flags.injectgpcnav !== undefined) {
+        crawlConfig.injectgpcnav = Boolean(flags.injectgpcnav);
     }
 
      //Adding headless flag to the config
@@ -189,6 +194,7 @@ module.exports = {
  * @property {number} maxLoadTimeMs
  * @property {boolean} optOut
  * @property {boolean} injectAPIs
+ * @property {boolean} injectgpcnav
  * @property {Object.<string, string>} httpHeaders
  * @property {boolean} statefulCrawl
  * @property {boolean} saveCookies
