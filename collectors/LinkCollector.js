@@ -68,7 +68,7 @@ class LinkCollector extends BaseCollector {
         }
 
         // Ignore links with disallowed extensions
-        if (EXCLUDED_EXTS.some(fileExt => linkUrlStripped.includes(fileExt))) {
+        if (EXCLUDED_EXTS.some(fileExt => linkUrlStripped.endsWith(fileExt))) {
             this._log(`Bad file extension, will skip: ${linkUrlStripped}`);
             return false;
         }
@@ -90,13 +90,18 @@ class LinkCollector extends BaseCollector {
     controlLinks(links, pageUrl, pageDomain) {
         const returnLinks = [];
         for (let link of links) {
-            // Convert to absolute URL
-            link = new URL(link, pageUrl).href.toLowerCase();
-
-            // Strip fragment and trailing slash
-            const linkUrlStripped = link.replace(/\/$/, '');
-            if (this.shouldIncludeLink(linkUrlStripped, pageDomain, pageUrl)) {
-                returnLinks.push(linkUrlStripped);
+            try {
+                // Convert to absolute URL
+                link = new URL(link, pageUrl).href.toLowerCase();
+                
+                // Strip fragment and trailing slash
+                const linkUrlStripped = link.replace(/\/$/, '');
+                if (this.shouldIncludeLink(linkUrlStripped, pageDomain, pageUrl)) {
+                    returnLinks.push(linkUrlStripped);
+                }
+            } catch (error) {
+                this._log(`Skipping invalid URL: "${link}" - ${error.message}`);
+                continue;
             }
         }
         return [...new Set(returnLinks)]; // Ensure uniqueness
@@ -106,7 +111,7 @@ class LinkCollector extends BaseCollector {
      * @param {{ finalUrl?: string; urlFilter?: any; page?: any; }} [options]
      */
     async getData(options) {
-        console.log("Scrolling to the top of the page");
+     
         const page = options.page;
         const pageUrl = page.url().toLowerCase();
         const pageDomain = tld.getDomain(pageUrl);
