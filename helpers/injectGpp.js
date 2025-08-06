@@ -2,6 +2,9 @@ const overWriteGPP = `
 (function() {
   
   function customGPP(command, callback, parameter) {
+      // Log every GPP command execution with stack trace
+      console.log("gpp_command_executed:", command, "parameter:", parameter, "stack:", new Error().stack);
+      
       let registeredListeners = {}; // Stores registered listeners with their listenerId
       let nextListenerId = 1;       //Maintain a counter for the listenerId to keep them unique
 
@@ -9,7 +12,7 @@ const overWriteGPP = `
       let gppData = {
           "gppVersion": "1.1",
           "cmpStatus": "loaded",
-          "cmpDisplayStatus": "hidden",
+          "cmpDisplayStatus": "visible",
           "signalStatus": "ready",
           "supportedAPIs": [
               "6:uspv1",
@@ -25,7 +28,7 @@ const overWriteGPP = `
               9
           ],
           "applicableSections": [6, 7, 8, 9], 
-          "gppString": "DBABzMA~1YYN~BVVVVVVVVmA.YA~BVVVVVWY.YA~BVVVVWY",
+          "gppString": "DBABzMA~1YYN~BVVVVVVVVVWA.QA~BVVVVVWA.QA~BVVVVWA",
           "parsedSections": {
               "uspv1": "1YYN",
               "usnat": {
@@ -142,33 +145,53 @@ const overWriteGPP = `
     configurable: false,
 
     get() {
-      //Every time code accesses window.__gpp, we log the stack trace and return our custom implementation
-      console.log("[Intercept] Reading window.__gpp", new Error().stack);
+      //Every time code accesses window.__gpp, we return our custom implementation
       return customGPP;
     },
     set(newValue) {
       //If any code tries to overwrite __gpp, log and do nothing
-      console.log("[Intercept] Attempt to overwrite __gpp with:", newValue, new Error().stack);
+      console.log("overwrite_gpp:", newValue);
+      console.log("overwrite_gpp_stack:",new Error().stack);
     }
   });
 })();
 `;
 
 
-const overWriteUSPAPI = `Object.defineProperty(window, "__uspapi", {
-    value: function(command, version, callback) {
+const overWriteUSPAPI = `
+(function() {
+    function customUSPAPI(command, version, callback) {
         let uspData = {
             "version": 1,
             "uspString": "1YYN"
         };
         let success = true;
         let stack = new Error().stack;
-        console.log("web_uspapi_called: ", arguments[2].name, ", Arguments: ", arguments, ", full stack: ", stack);
+        console.log("web_uspapi_called: ", arguments[2] ? arguments[2].name : 'anonymous', ", Arguments: ", arguments, ", full_stack: ", stack);
         callback(uspData, success);
         return 100;
-    },
-    writable: false,
-    configurable: false
-});`;
+    }
+
+    // Define a property that intercepts reads/writes using getter/setter pattern:
+    // - get(): Called every time code accesses window.__uspapi (e.g., var api = window.__uspapi)
+    // - set(): Called every time code tries to assign to window.__uspapi (e.g., window.__uspapi = newFunction)
+    // - configurable: false prevents deletion or modification of this property descriptor
+    Object.defineProperty(window, "__uspapi", {
+        configurable: false,
+
+        get() {
+            // Every time code accesses window.__uspapi, we log the stack trace and return our custom implementation
+            // This captures all read attempts including: var api = window.__uspapi, window.__uspapi(), etc.
+            console.log("reading_window._uspapi_stack:", new Error().stack);
+            return customUSPAPI;
+        },
+        set(newValue) {
+            // If any code tries to overwrite __uspapi, log the attempt but don't actually change anything
+            // This captures all write attempts including: window.__uspapi = newFunction, window.__uspapi = null, etc.
+            console.log("overwrite_uspapi with:", newValue);
+            console.log("ovewrite_uspapi_stack:", new Error().stack);
+        }
+    });
+})();`;
 
 module.exports = {overWriteGPP, overWriteUSPAPI};
