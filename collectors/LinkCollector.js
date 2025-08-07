@@ -88,6 +88,7 @@ class LinkCollector extends BaseCollector {
      * @param {string} pageDomain
      */
     controlLinks(links, pageUrl, pageDomain) {
+		console.log(links);
         const returnLinks = [];
         for (let link of links) {
             try {
@@ -120,7 +121,7 @@ class LinkCollector extends BaseCollector {
         const innerLinks = this.controlLinks(await page.evaluate(INNER_LINKS_QUERY), pageUrl, pageDomain);
 
         // Set the collected internal links
-        this._links = innerLinks.slice(0, 15); // Collect only up to 15 links
+        this._links = innerLinks.slice(0, 10); // Collect only up to 10 links
         
         // Checking how many links are being returned following the crawl
         this._log(`Found ${this._links.length} internal links`);
