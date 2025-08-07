@@ -25,11 +25,6 @@ const gppPing = async page => {
                 }
             });
         }));
-        if (gppObject) {
-            console.log('GPP object retrieved:', gppObject);
-        } else {
-            console.log('No GPP object retrieved.');
-        }
         return gppObject; // Return the retrieved object
     } catch{
         console.log('Error calling GPP function in Ping');

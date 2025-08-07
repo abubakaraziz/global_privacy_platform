@@ -25,11 +25,6 @@ const uspPing = async page => {
                 }
             });
         }));
-        if (uspString) {
-            console.log('USP string retrieved:', uspString);
-        } else {
-            console.log('No USP string retrieved.');
-        }
         return uspString; // Return the retrieved object
     } catch{
         console.log('Error calling USP function in Ping');
