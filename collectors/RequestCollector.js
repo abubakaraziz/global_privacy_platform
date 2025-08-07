@@ -434,7 +434,7 @@ class RequestCollector extends BaseCollector {
                 remoteIPAddress: request.remoteIPAddress,
                 requestHeaders: request.requestHeaders,
                 postData: request.postData,
-                responseHeaders: request.responseHeaders && filterHeaders(request.responseHeaders, this._saveHeaders),
+                responseHeaders: request.responseHeaders,
                 responseBodyHash: request.responseBodyHash,
                 failureReason: request.failureReason,
                 redirectedTo: request.redirectedTo,
