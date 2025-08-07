@@ -346,7 +346,7 @@ async function getSiteData(context, url, {
         console.log("Scrolling to the top of the page");
         await scrollPageToTop(page, {
             size: 700 + getRandomUpTo(200),
-            delay: 150 + getRandomUpTo(100),
+            delay: 500 + getRandomUpTo(100),
         });
     } catch {
         console.log("Failed to scroll to top of the page.");
