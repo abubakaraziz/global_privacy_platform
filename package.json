@@ -46,6 +46,7 @@
     "chalk": "^2.4.1",
     "clickhouse": "^2.6.0",
     "commander": "^2.19.0",
+    "image-size": "^2.0.2",
     "progress": "^2.0.3",
     "puppeteer": "^20.1.0",
     "tldts": "^4.0.3"

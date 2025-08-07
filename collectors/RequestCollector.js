@@ -6,6 +6,7 @@ const BaseCollector = require('./BaseCollector');
 const URL = require('url').URL;
 const crypto = require('crypto');
 const {Buffer} = require('buffer');
+const imageSize = require('image-size').imageSize;
 
 const DEFAULT_SAVE_HEADERS = ['etag', 'set-cookie', 'cache-control', 'expires', 'pragma', 'p3p', 'timing-allow-origin', 'access-control-allow-origin', 'accept-ch'];
 
@@ -16,7 +17,7 @@ class RequestCollector extends BaseCollector {
      */
     constructor(additionalOptions = {saveResponseHash: true, saveHeaders: DEFAULT_SAVE_HEADERS}) {
         super();
-        this._saveResponseHash = (additionalOptions.saveResponseHash === true);
+         = (additionalOptions.saveResponseHash === true);
         this._saveHeaders = DEFAULT_SAVE_HEADERS;
 
         if (additionalOptions.saveHeaders) {
@@ -83,6 +84,20 @@ class RequestCollector extends BaseCollector {
     }
 
     /**
+     * Parse image dimensions using image-size library
+     * @param {Buffer} buffer 
+     * @returns {{width: number, height: number} | null}
+     */
+    parseImageDimensions(buffer) {
+        try {
+            const result = imageSize(buffer);
+            return result;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    /**
      * @param {RequestId} id 
      * @param {import('puppeteer').CDPSession} cdp
      */
@@ -98,6 +113,43 @@ class RequestCollector extends BaseCollector {
             return crypto.createHash('sha256').update(body).digest('hex');
         } catch {
             return null;
+        }
+    }
+
+    /**
+     * Get both response body hash and image dimensions if applicable
+     * @param {RequestId} id 
+     * @param {import('puppeteer').CDPSession} cdp
+     * @param {string} type
+     */
+    async getResponseBodyData(id, cdp, type) {
+        try {
+            // @ts-ignore oversimplified .send signature
+            let {body, base64Encoded} = await cdp.send('Network.getResponseBody', {requestId: id});
+
+            let bodyBuffer;
+            let bodyForHash;
+
+            if (base64Encoded) {
+                bodyBuffer = Buffer.from(body, 'base64');
+                bodyForHash = bodyBuffer; // Use binary data for hash
+            } else {
+                bodyBuffer = Buffer.from(body, 'utf-8');
+                bodyForHash = body; // Use string data for hash
+            }
+
+            const hash = crypto.createHash('sha256').update(bodyForHash).digest('hex');
+            
+            let dimensions = null;
+            if (type === 'Image' && bodyBuffer.length > 0) {
+                //console.log(`Trying to parse image dimensions for ${type}, base64: ${base64Encoded}, buffer length: ${bodyBuffer.length}`);
+                dimensions = this.parseImageDimensions(bodyBuffer);
+                //console.log(`Parsed dimensions:`, dimensions);
+            }
+
+            return {hash, dimensions};
+        } catch {
+            return {hash: null, dimensions: null};
         }
     }
 
@@ -338,7 +390,12 @@ class RequestCollector extends BaseCollector {
         request.size = data.encodedDataLength;
 
         if (this._saveResponseHash) {
-            request.responseBodyHash = await this.getResponseBodyHash(data.requestId, cdp);
+
+            const bodyData = await this.getResponseBodyData(data.requestId, cdp, request.type);
+            request.responseBodyHash = bodyData.hash;
+            if (bodyData.dimensions) {
+                request.imageDimensions = bodyData.dimensions;
+            }
         }
     }
 
@@ -383,7 +440,8 @@ class RequestCollector extends BaseCollector {
                 redirectedTo: request.redirectedTo,
                 redirectedFrom: request.redirectedFrom,
                 initiators: Array.from(getAllInitiators(request.initiator)),
-                time: (request.startTime && request.endTime) ? (request.endTime - request.startTime) : undefined
+                time: (request.startTime && request.endTime) ? (request.endTime - request.startTime) : undefined,
+                imageDimensions: request.imageDimensions
             }));
     }
 }
