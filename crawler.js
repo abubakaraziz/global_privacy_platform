@@ -243,7 +243,7 @@ async function getSiteData(context, url, {
     }
     
     if (Object.keys(httpHeaders).length >= 1) {
-            // Injecting the headers
+        //Injecting the headers
         console.log("Setting HTTP headers: ", httpHeaders);
         await page.setExtraHTTPHeaders(httpHeaders);
     }
@@ -305,7 +305,7 @@ async function getSiteData(context, url, {
     }
 
     let cmpOptOutResults;
-    console.log("CMP Opt-out Flag: ", optOut);
+    //console.log("CMP Opt-out Flag: ", optOut);
 
     if (optOut) {
         console.log("Wait for 5 more seconds before opting out of CMPs");
@@ -343,7 +343,7 @@ async function getSiteData(context, url, {
     }
 
     try {
-        console.log("Scrolling to the top of the page");
+        //console.log("Scrolling to the top of the page");
         await scrollPageToTop(page, {
             size: 700 + getRandomUpTo(200),
             delay: 500 + getRandomUpTo(100),
