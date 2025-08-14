@@ -25,11 +25,7 @@ const tcfPing = async page => {
                 }
             });
         }));
-        if (tcfObject) {
-            console.log('TCF object retrieved.');
-        } else {
-            console.log('No TCF object retrieved.');
-        }
+        
         return tcfObject; // Return the retrieved object
     } catch{
         console.log('Error calling TCF function');
