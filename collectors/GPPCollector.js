@@ -9,7 +9,7 @@ const gppPing = require("../helpers/gppPing");
 const callGPPhasSections = require("../helpers/gppHasSections");
 const callGPPgetSections = require("../helpers/gppGetSections");
 const tcfPing = require("../helpers/tcfPing");
-const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
+const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
 
 /**
  * @typedef {Object} ScanResult
@@ -125,9 +125,6 @@ class GPPCollector extends BaseCollector {
             const cookieBotConsentObject = await cookieBotConsent(page);
             this.scanResult.cmpConsentObject.push(cookieBotConsentObject);
             
-            // Checking for the Usercentrics CMP and retrieving the consent object
-            const usercentricsConsentObject = await usercentricsConsent(page);
-            this.scanResult.cmpConsentObject.push(usercentricsConsentObject);
             
             // Checking for the Quantcast CMP and retrieving the consent object
             const quantCastPresent = await quantcastPresence(page);
