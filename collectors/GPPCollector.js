@@ -18,8 +18,6 @@ const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsCon
  * @property {{ api: any; getSection: any; }[]} getSections
  * @property {string[]} uspString
  * @property {string[]} tcfString
- * @property {string[]} tcfEventListenerData
- * @property {string[]} gppEventListenerData
  * @property {any} cmpConsentObject
  */
 
@@ -49,8 +47,6 @@ class GPPCollector extends BaseCollector {
             getSections: [],
             uspString: [],
             tcfString: [],
-            tcfEventListenerData: [],
-            gppEventListenerData: [],
             cmpConsentObject: [],
         };
     }
@@ -182,8 +178,6 @@ class GPPCollector extends BaseCollector {
             getSections,
             uspString: this.scanResult.uspString,
             tcfString: this.scanResult.tcfString,
-            tcfEventListenerData: this.scanResult.tcfEventListenerData,
-            gppEventListenerData: this.scanResult.gppEventListenerData,
             cmpConsentObject: this.scanResult.cmpConsentObject,
         };
     }
