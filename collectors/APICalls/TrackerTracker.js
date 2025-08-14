@@ -166,7 +166,7 @@ class TrackerTracker {
                 !error.includes('Cannot find context with specified id') &&
                 !error.includes('API unavailable in given context.') // some APIs are unavailable on HTTP or in a worker
             ) {
-                this._log('setting breakpoint failed', description, e);
+                //this._log('setting breakpoint failed', description, e);
             }
         }
     }
@@ -254,12 +254,12 @@ class TrackerTracker {
             const urlObj = new URL(script, this._mainURL);
             script = urlObj.href;
         } catch {
-            this._log('⚠️ invalid source, assuming global', script);
+            //this._log('⚠️ invalid source, assuming global', script);
             script = this._mainURL;
         }
 
         if (!script) {
-            this._log('⚠️ unknown source, assuming global');
+            //this._log('⚠️ unknown source, assuming global');
             script = this._mainURL;
         }
 
@@ -280,7 +280,7 @@ class TrackerTracker {
      */
     processScriptParsed(params) {
         if (this._scriptIdToUrl.has(params.scriptId)) {
-            this._log('⚠️ duplicate scriptId', params.scriptId);
+            //this._log('⚠️ duplicate scriptId', params.scriptId);
         }
         this._scriptIdToUrl.set(params.scriptId, params.embedderName);
     }
@@ -295,13 +295,13 @@ class TrackerTracker {
         try {
             payload = JSON.parse(params.payload);
         } catch {
-            this._log('🚩 invalid breakpoint payload', params.payload);
+            //this._log('🚩 invalid breakpoint payload', params.payload);
             return null;
         }
 
         const breakpoint = this._getBreakpointByDescription(payload.description);
         if (!breakpoint) {
-            this._log('️⚠️ unknown breakpoint', params);
+            //this._log('️⚠️ unknown breakpoint', params);
             return null;
         }
 
@@ -309,7 +309,7 @@ class TrackerTracker {
             if (breakpoint.saveArguments) {
                 // just save the arguments, the stack will be analyzed with CDP later
                 if (!this._pendingCalls.has(breakpoint.cdpId)) {
-                    this._log('Unexpected existing pending call', breakpoint.cdpId);
+                    //this._log('Unexpected existing pending call', breakpoint.cdpId);
                 }
                 this._pendingCalls.set(breakpoint.cdpId, {
                     arguments: payload.args,
@@ -336,7 +336,7 @@ class TrackerTracker {
         const breakpointId = params.hitBreakpoints[0];
         const breakpoint = this._getBreakpointById(breakpointId);
         if (!breakpoint) {
-            this._log('️⚠️ unknown breakpoint', params);
+            //this._log('️⚠️ unknown breakpoint', params);
             return null;
         }
 
