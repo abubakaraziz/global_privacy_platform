@@ -27,14 +27,10 @@ const callGPPgetField = async(page, fieldName) => {
             }, field);
         }), fieldName);  // Pass fieldName as an argument here
         
-        if (getField) {
-            console.log('GPP field retrieved:', getField);
-        } else {
-            console.log('No GPP field retrieved.');
-        }
+
         return getField; // Return the retrieved object
     } catch{
-        console.log('Error calling GPP function in getField');
+        //console.log('Error calling GPP function in getField');
         return null;
     }
 };

@@ -45,7 +45,7 @@ const GPPgetSections = async(page, gppObject) => {
         }
         return getSections; // Return the array of sections
     } catch{
-        console.error('Could not do GPP getSections');
+        //console.error('Could not do GPP getSections');
         return null;
     }
 };
