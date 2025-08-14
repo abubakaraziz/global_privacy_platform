@@ -10,7 +10,7 @@ const callGPPhasSections = require("../helpers/gppHasSections");
 const callGPPgetSections = require("../helpers/gppGetSections");
 const tcfPing = require("../helpers/tcfPing");
 const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, usercentricsConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
-const {getGTMObject, getDataLayer} = require("../helpers/gtmHelper");
+
 /**
  * @typedef {Object} ScanResult
  * @property {string[]} gppObjects
@@ -21,8 +21,6 @@ const {getGTMObject, getDataLayer} = require("../helpers/gtmHelper");
  * @property {string[]} tcfEventListenerData
  * @property {string[]} gppEventListenerData
  * @property {any} cmpConsentObject
- * @property {any} googleTagData
- * @property {any} dataLayer
  */
 
 /**
@@ -54,8 +52,6 @@ class GPPCollector extends BaseCollector {
             tcfEventListenerData: [],
             gppEventListenerData: [],
             cmpConsentObject: [],
-            googleTagData: [],
-            dataLayer: [],
         };
     }
 
@@ -142,12 +138,8 @@ class GPPCollector extends BaseCollector {
             this.scanResult.cmpConsentObject.push(quantCastPresent);
            
             
-            //Get Google Tag Manager Object and data layer object
-            const googleTagData = await getGTMObject(page);
-            const dataLayer = await getDataLayer(page);
+            
 
-            this.scanResult.googleTagData.push(googleTagData);
-            this.scanResult.dataLayer.push(dataLayer);
 
             //get GPP ping 
             const gppObject = await gppPing(page);
@@ -193,8 +185,6 @@ class GPPCollector extends BaseCollector {
             tcfEventListenerData: this.scanResult.tcfEventListenerData,
             gppEventListenerData: this.scanResult.gppEventListenerData,
             cmpConsentObject: this.scanResult.cmpConsentObject,
-            googleTagData: this.scanResult.googleTagData,
-            dataLayer: this.scanResult.dataLayer,
         };
     }
 
