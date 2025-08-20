@@ -119,9 +119,9 @@ class LinkCollector extends BaseCollector {
 
         // Get internal page links, filtering out login and signup links
         const innerLinks = this.controlLinks(await page.evaluate(INNER_LINKS_QUERY), pageUrl, pageDomain);
-
+    
         // Set the collected internal links
-        this._links = innerLinks.slice(0, 10); // Collect only up to 10 links
+        this._links = innerLinks.slice(0, 5); // Collect only 5 links
         
         // Checking how many links are being returned following the crawl
         this._log(`Found ${this._links.length} internal links`);
