@@ -52,7 +52,7 @@ class LinkCollector extends BaseCollector {
      */
     shouldIncludeLink(linkUrlStripped, pageDomain, pageUrl) {
         // Remove fragments from both linkUrlStripped and pageUrl for comparison
-        const linkUrlNoFragment = linkUrlStripped.split('#')[0];
+        const linkUrlNoFragment = linkUrlStripped.split('#')[0].replace(/\/$/, '');
         const pageUrlNoFragment = pageUrl.split('#')[0].replace(/\/$/, '');
 
         // Exclude mailto links
