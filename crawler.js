@@ -66,7 +66,8 @@ function openBrowser(log, proxyHost, executablePath, headless) {
             '--ignore-certificate-errors',
             '--start-maximized',
             '--disable-infobars',
-            '--no-first-run'
+            '--no-first-run',
+	    '--disable-blink-features=AutomationControlled',
         ],
         headless: 'new'
     };
@@ -92,7 +93,6 @@ function openBrowser(log, proxyHost, executablePath, headless) {
     if (executablePath) {
         // @ts-ignore there is no single object that encapsulates properties of both BrowserLaunchArgumentOptions and LaunchOptions that are allowed here
         args.executablePath = executablePath;
-        console.log("Executable path: ", executablePath);
     }
 
     // @ts-ignore
@@ -229,6 +229,7 @@ async function getSiteData(context, url, {
     // optional function that should be run on every page (and subframe) in the browser context
     if (runInEveryFrame) {
         page.evaluateOnNewDocument(runInEveryFrame);
+
     }
 
     // Overwrite __gpp API to capture GPP data
