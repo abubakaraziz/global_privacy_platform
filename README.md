@@ -1,11 +1,26 @@
-# DuckDuckGo Tracker Radar Collector
-🕸 Modular, multithreaded, [puppeteer](https://github.com/GoogleChrome/puppeteer)-based crawler used to generate third party request data for the [Tracker Radar](https://github.com/duckduckgo/tracker-radar).
+# Global Privacy Platform Opt-Out Research Crawler
+🕸 Privacy research crawler based on DuckDuckGo's [Tracker Radar Collector](https://github.com/duckduckgo/tracker-radar-collector), modified to investigate the effectiveness of different opt-out mechanisms and analyze Global Privacy Platform (GPP) implementations across websites.
+
+## Research Focus
+
+This crawler is designed to analyze:
+- **Opt-out mechanism effectiveness** across different privacy frameworks
+- **Global Privacy Platform (GPP)** compliance and implementation patterns  
+- **Cross-website privacy behavior** variations
+- **Request patterns** and **tracking behaviors** before/after opt-out signals
+
+## Key Enhancements
+
+- **Enhanced RequestCollector**: Added image dimension detection for tracking pixel analysis
+- **LinkCollector**: Systematic internal link discovery for comprehensive website coverage
+- **GPP Integration**: Support for Global Privacy Platform signal injection and analysis
+- **Opt-out Testing**: Configurable opt-out mechanisms (GPC, GPP, cookie preferences)
 
 ## How do I use it?
 
 ### Use it from the command line
 
-1. Clone this project locally (`git clone git@github.com:duckduckgo/tracker-radar-collector.git`)
+1. Clone this project locally
 2. Install all dependencies (`npm i`)
 3. Run the command line tool:
 
