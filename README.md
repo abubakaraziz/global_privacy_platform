@@ -16,6 +16,10 @@ This crawler is designed to analyze:
 - **GPP Integration**: Support for Global Privacy Platform signal injection and analysis
 - **Opt-out Testing**: Configurable opt-out mechanisms (GPC, GPP, cookie preferences)
 
+## Ongoing Research
+
+⚠️ **This is an active research project.** The codebase is under continuous development as we investigate privacy opt-out mechanisms across the web.
+
 ## How do I use it?
 
 ### Use it from the command line
