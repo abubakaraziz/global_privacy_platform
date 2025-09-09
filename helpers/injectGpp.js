@@ -20,7 +20,7 @@ const overWriteGPP = `
               "8:usca",
               "9:usva"
           ],
-          "cmpId": 10,
+          "cmpId": 28,
           "sectionList": [
               6,
               7,
@@ -43,15 +43,15 @@ const overWriteGPP = `
                   "SharingOptOut": 1,
                   "TargetedAdvertisingOptOut": 1,
                   "SensitiveDataProcessing": [
-                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
                   ],
                   "KnownChildSensitiveDataConsents": [1, 1],
                   "PersonalDataConsents": 1,
                   "MspaCoveredTransaction": 2,
-                  "MspaOptOutOptionMode": 1,
-                  "MspaServiceProviderMode": 2,
+                  "MspaOptOutOptionMode": 0,
+                  "MspaServiceProviderMode": 0,
                   "GpcSegmentType": 1,
-                  "Gpc": true
+                  "Gpc": false
               },
               "usca": {
                   "Version": 1,
@@ -66,10 +66,10 @@ const overWriteGPP = `
                   "KnownChildSensitiveDataConsents": [1, 1],
                   "PersonalDataConsents": 1,
                   "MspaCoveredTransaction": 2,
-                  "MspaOptOutOptionMode": 1,
-                  "MspaServiceProviderMode": 2,
+                  "MspaOptOutOptionMode": 0,
+                  "MspaServiceProviderMode": 0,
                   "GpcSegmentType": 1,
-                  "Gpc": true
+                  "Gpc": false 
               },
               "usva": {
                   "Version": 1,
@@ -83,8 +83,8 @@ const overWriteGPP = `
                   ],
                   "KnownChildSensitiveDataConsents": 1,
                   "MspaCoveredTransaction": 2,
-                  "MspaOptOutOptionMode": 1,
-                  "MspaServiceProviderMode": 2
+                  "MspaOptOutOptionMode": 0,
+                  "MspaServiceProviderMode": 0
               }
           }
       };
