@@ -88,7 +88,7 @@ class LinkCollector extends BaseCollector {
      * @param {string} pageDomain
      */
     controlLinks(links, pageUrl, pageDomain) {
-		console.log(links);
+		
         const returnLinks = [];
         for (let link of links) {
             try {
