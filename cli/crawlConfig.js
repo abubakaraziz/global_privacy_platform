@@ -27,8 +27,8 @@ function getUrlsFromConfig(urlConfig) {
 
 /**
  * Looks at CLI flags, JSON config etc. to figure out the final crawl config
- * 
- * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, statefulCrawl?:boolean, optOut?: boolean, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags 
+ *
+ * @param {{config?: string, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, statefulCrawl?:boolean, optOut?: boolean, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>, verbose?: boolean, forceOverwrite?: boolean, only3p?: boolean, mobile?: boolean, disableAntiBot?: boolean, output?: string, logPath?: string, crawlers?: string, proxyConfig?: string, regionCode?: string, chromiumVersion?: string, executablePath?:string, dataCollectors?: string, reporters?: string, url?: string, inputList?: string}} flags
  * @returns {CrawlConfig}
  */
 function figureOut(flags) {
@@ -112,6 +112,12 @@ function figureOut(flags) {
     }
     if (flags.cookieJarPath) {
         crawlConfig.cookieJarPath = flags.cookieJarPath;
+    }
+    if (flags.loaddomainCookie) {
+        crawlConfig.loaddomainCookie = flags.loaddomainCookie;
+    }
+    if (flags.loaddomainCookiePath) {
+        crawlConfig.loaddomainCookiePath = flags.loaddomainCookiePath;
     }
     if (crawlConfig.httpHeaders === undefined || flags.httpHeaders !== undefined) {
         crawlConfig.httpHeaders = flags.httpHeaders || crawlConfig.httpHeaders || {};
@@ -201,6 +207,8 @@ module.exports = {
  * @property {boolean} loadCookies
  * @property {boolean} headless
  * @property {string} cookieJarPath
+ * @property {boolean} loaddomainCookie
+ * @property {string} loaddomainCookiePath
  * @property {number} extraExecutionTimeMs
  * @property {number} delayAfterScrollingMs
  */

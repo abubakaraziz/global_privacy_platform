@@ -102,7 +102,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -122,6 +122,8 @@ async function getSiteData(context, url, {
     saveCookies,
     loadCookies,
     cookieJarPath,
+    loaddomainCookie,
+    loaddomainCookiePath,
     delayAfterScrollingMs,
     collectorFlags,
 }) {
@@ -209,7 +211,6 @@ async function getSiteData(context, url, {
     //Load cookies if needed
     if (loadCookies) {
         console.log("Loading cookies from cookie jar: ", cookieJarPath);
-        
         try {
             if (fs.existsSync(cookieJarPath)) {
                 const cookies = JSON.parse(fs.readFileSync(cookieJarPath, 'utf-8'));
@@ -219,11 +220,48 @@ async function getSiteData(context, url, {
             } else {
                 console.error("Cookie Jar file not found.");
             }
-     
         }   catch(error) {
             console.log("Error loading cookies: ", error);
         }
+
+    }
+
+    //Load domain-specific cookies if needed
+    if (loaddomainCookie && loaddomainCookiePath) {
+        try {
+            // Extract the effective second level domain (eTLD+1)
+            let domain = tldts.getDomain(url.toString());
+            if (domain) {
+                // Create domain-safe filename by replacing dots with underscores
+                let domainSafe = domain.replace(/\./g, '_');
+                let domainCookiePath = path.join(loaddomainCookiePath, `${domainSafe}.json`);
  
+                // Check if cookie file exists
+                if (!fs.existsSync(domainCookiePath)) {
+                    // Try to load domain redirect mapping as fallback
+                    const mappingPath = '/net/data/service-providers/opt-out-gpp/opt_out_gpp/data/URLS/domain_redirect_mapping.json';
+                    const domainMapping = JSON.parse(fs.readFileSync(mappingPath, 'utf-8'));
+                    if (domainMapping[domain]) {
+                        const mappedDomain = domainMapping[domain];
+                        //console.log(`Using domain mapping: ${domain} → ${mappedDomain}`);
+                        const mappedDomainSafe = mappedDomain.replace(/\./g, '_');
+                        domainCookiePath = path.join(loaddomainCookiePath, `${mappedDomainSafe}.json`);
+                        console.log("Trying mapped domain cookie path: ", domainCookiePath);
+                        } 
+                }
+
+                if (fs.existsSync(domainCookiePath)) {
+                    const cookies = JSON.parse(fs.readFileSync(domainCookiePath, 'utf-8'));
+                    console.log("Domain cookies loaded from file: ", domainCookiePath);
+                    await page.setCookie(...cookies);
+                    console.log("Domain cookies set via page.setCookie for browser context");
+                } else {
+                    console.log("Cookie file still not found after mapping lookup: ", domainCookiePath);
+                }
+            } 
+        } catch(error) {
+            console.log("Error loading domain cookies: ", error);
+        }
     }
 
     // optional function that should be run on every page (and subframe) in the browser context
@@ -440,7 +478,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -471,6 +509,8 @@ module.exports = async (url, options, browserContext) => {
             saveCookies: options.saveCookies,
             loadCookies: options.loadCookies,
             cookieJarPath: options.cookieJarPath,
+            loaddomainCookie: options.loaddomainCookie,
+            loaddomainCookiePath: options.loaddomainCookiePath,
             delayAfterScrollingMs: options.delayAfterScrollingMs,
             collectorFlags: options.collectorFlags,
             injectAPIs: options.injectAPIs,

@@ -21,11 +21,11 @@ const MAX_NUMBER_OF_RETRIES = 2;
 
 
 /**
- * @param {string} urlString 
+ * @param {string} urlString
  * @param {BaseCollector[]} dataCollectors
- * @param {function} log 
+ * @param {function} log
  * @param {boolean} filterOutFirstParty
- * @param {function(URL, import('./crawler').CollectResult): void} dataCallback 
+ * @param {function(URL, import('./crawler').CollectResult): void} dataCallback
  * @param {boolean} emulateMobile
  * @param {string} proxyHost
  * @param {boolean} antiBotDetection
@@ -41,11 +41,13 @@ const MAX_NUMBER_OF_RETRIES = 2;
  * @param {boolean} loadCookies
  * @param {boolean} headless
  * @param {string} cookieJarPath
+ * @param {boolean} loaddomainCookie
+ * @param {string} loaddomainCookiePath
  * @param {number} delayAfterScrollingMs
  * @param {puppeteer.BrowserContext} browserContext
  * @param {Object.<string, string>} collectorFlags
  */
-async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, injectAPIs, injectgpcnav, httpHeaders, statefulCrawl, saveCookies, loadCookies, headless, cookieJarPath, delayAfterScrollingMs, collectorFlags, browserContext) {
+async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstParty, dataCallback, emulateMobile, proxyHost, antiBotDetection, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, injectAPIs, injectgpcnav, httpHeaders, statefulCrawl, saveCookies, loadCookies, headless, cookieJarPath, loaddomainCookie, loaddomainCookiePath, delayAfterScrollingMs, collectorFlags, browserContext) {
     const url = new URL(urlString);
     /**
      * @type {function(...any):void} 
@@ -73,6 +75,8 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
      loadCookies,
      headless,
      cookieJarPath,
+     loaddomainCookie,
+     loaddomainCookiePath,
      delayAfterScrollingMs,
      collectorFlags,
  },
@@ -84,7 +88,7 @@ async function crawlAndSaveData(urlString, dataCollectors, log, filterOutFirstPa
 
 
 /**
- * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>, statefulCrawl?:boolean, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, delayAfterScrollingMs?:number, collectorFlags?: Object.<string, boolean>}} options
+ * @param {{urls: Array<string|{url:string,dataCollectors?:BaseCollector[]}>, dataCallback: function(URL, import('./crawler').CollectResult): void, dataCollectors?: BaseCollector[], failureCallback?: function(string, Error): void, numberOfCrawlers?: number, logFunction?: function, filterOutFirstParty: boolean, emulateMobile: boolean, proxyHost: string, antiBotDetection?: boolean, chromiumVersion?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, executablePath?: string , optOut?: boolean, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>, statefulCrawl?:boolean, saveCookies?:boolean, loadCookies?:boolean, headless?:boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, delayAfterScrollingMs?:number, collectorFlags?: Object.<string, boolean>}} options
  */
 module.exports = async options => {
     const deferred = createDeferred();
@@ -135,7 +139,7 @@ module.exports = async options => {
         log(chalk.cyan(`Processing entry #${Number(idx) + 1} (${urlString}).`));
         const timer = createTimer();
 
-        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.optOut, options.injectAPIs, options.injectgpcnav, options.httpHeaders, options.statefulCrawl, options.saveCookies, options.loadCookies, options.headless, options.cookieJarPath, options.delayAfterScrollingMs, options.collectorFlags, browserContext);
+        const task = crawlAndSaveData.bind(null, urlString, dataCollectors, log, options.filterOutFirstParty, options.dataCallback, options.emulateMobile, options.proxyHost, (options.antiBotDetection !== false), executablePath, options.maxLoadTimeMs, options.extraExecutionTimeMs, options.optOut, options.injectAPIs, options.injectgpcnav, options.httpHeaders, options.statefulCrawl, options.saveCookies, options.loadCookies, options.headless, options.cookieJarPath, options.loaddomainCookie, options.loaddomainCookiePath, options.delayAfterScrollingMs, options.collectorFlags, browserContext);
 
         async.retry(MAX_NUMBER_OF_RETRIES, task, err => {
             if (err) {

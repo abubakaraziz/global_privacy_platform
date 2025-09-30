@@ -65,10 +65,12 @@ program
  * @param {boolean} loadCookies
  * @param {boolean} headless
  * @param {string} cookieJarPath
+ * @param {boolean} loaddomainCookie
+ * @param {string} loaddomainCookiePath
  * @param {number} delayAfterScrollingMs
  * @param {Object.<string, boolean>} collectorFlags
  */
-async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, injectAPIs, injectgpcnav, httpHeaders, statefulCrawl, saveCookies, loadCookies, headless, cookieJarPath, delayAfterScrollingMs, collectorFlags) {
+async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, dataCollectors, reporters, forceOverwrite, filterOutFirstParty, emulateMobile, proxyHost, regionCode, antiBotDetection, chromiumVersion, executablePath, maxLoadTimeMs, extraExecutionTimeMs, optOut, injectAPIs, injectgpcnav, httpHeaders, statefulCrawl, saveCookies, loadCookies, headless, cookieJarPath, loaddomainCookie, loaddomainCookiePath, delayAfterScrollingMs, collectorFlags) {
     const startTime = new Date();
 
     reporters.forEach(reporter => {
@@ -196,6 +198,8 @@ async function run(inputUrls, outputPath, verbose, logPath, numberOfCrawlers, da
             loadCookies,
             headless,
             cookieJarPath,
+            loaddomainCookie,
+            loaddomainCookiePath,
             delayAfterScrollingMs,
             collectorFlags,
         });
@@ -281,5 +285,5 @@ if (!config.urls || !config.output) {
         return item;
     });
 
-    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.injectAPIs, config.injectgpcnav, config.httpHeaders, config.statefulCrawl, config.saveCookies, config.loadCookies, config.headless, config.cookieJarPath, config.delayAfterScrollingMs, collectorFlags);
+    run(urls, config.output, config.verbose, config.logPath, config.crawlers || null, dataCollectors, reporters, config.forceOverwrite, config.filterOutFirstParty, config.emulateMobile, config.proxyConfig, config.regionCode, !config.disableAntiBot, config.chromiumVersion, config.executablePath, config.maxLoadTimeMs, config.extraExecutionTimeMs, config.optOut, config.injectAPIs, config.injectgpcnav, config.httpHeaders, config.statefulCrawl, config.saveCookies, config.loadCookies, config.headless, config.cookieJarPath, config.loaddomainCookie, config.loaddomainCookiePath, config.delayAfterScrollingMs, collectorFlags);
 }
