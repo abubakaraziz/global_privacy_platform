@@ -102,7 +102,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
 /**
  * @param {import('puppeteer').BrowserContext} context
  * @param {URL} url
- * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} data
+ * @param {{collectors: import('./collectors/BaseCollector')[], log: function(...any):void, urlFilter: function(string, string):boolean, emulateMobile: boolean, emulateUserAgent: boolean, optOut: boolean, runInEveryFrame: string | function():void, maxLoadTimeMs: number, extraExecutionTimeMs: number, saveCookies?:boolean, loadCookies?:boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, domainMappingPath?:string, delayAfterScrollingMs?:number, collectorFlags: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} data
  *
  * @returns {Promise<CollectResult>}
 */
@@ -124,6 +124,7 @@ async function getSiteData(context, url, {
     cookieJarPath,
     loaddomainCookie,
     loaddomainCookiePath,
+    domainMappingPath,
     delayAfterScrollingMs,
     collectorFlags,
 }) {
@@ -239,15 +240,16 @@ async function getSiteData(context, url, {
                 // Check if cookie file exists
                 if (!fs.existsSync(domainCookiePath)) {
                     // Try to load domain redirect mapping as fallback
-                    const mappingPath = '/net/data/service-providers/opt-out-gpp/opt_out_gpp/data/URLS/domain_redirect_mapping.json';
-                    const domainMapping = JSON.parse(fs.readFileSync(mappingPath, 'utf-8'));
-                    if (domainMapping[domain]) {
-                        const mappedDomain = domainMapping[domain];
-                        //console.log(`Using domain mapping: ${domain} → ${mappedDomain}`);
-                        const mappedDomainSafe = mappedDomain.replace(/\./g, '_');
-                        domainCookiePath = path.join(loaddomainCookiePath, `${mappedDomainSafe}.json`);
-                        console.log("Trying mapped domain cookie path: ", domainCookiePath);
-                        } 
+                    if (domainMappingPath && fs.existsSync(domainMappingPath)) {
+                        const domainMapping = JSON.parse(fs.readFileSync(domainMappingPath, 'utf-8'));
+                        if (domainMapping[domain]) {
+                            const mappedDomain = domainMapping[domain];
+                            //console.log(`Using domain mapping: ${domain} → ${mappedDomain}`);
+                            const mappedDomainSafe = mappedDomain.replace(/\./g, '_');
+                            domainCookiePath = path.join(loaddomainCookiePath, `${mappedDomainSafe}.json`);
+                            console.log("Trying mapped domain cookie path: ", domainCookiePath);
+                        }
+                    }
                 }
 
                 if (fs.existsSync(domainCookiePath)) {
@@ -478,7 +480,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 
 /**
  * @param {URL} url
- * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} options
+ * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, domainMappingPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} options
  * @param {import('puppeteer').BrowserContext} browserContext
  * @returns {Promise<CollectResult>}
  */
@@ -511,6 +513,7 @@ module.exports = async (url, options, browserContext) => {
             cookieJarPath: options.cookieJarPath,
             loaddomainCookie: options.loaddomainCookie,
             loaddomainCookiePath: options.loaddomainCookiePath,
+            domainMappingPath: options.domainMappingPath,
             delayAfterScrollingMs: options.delayAfterScrollingMs,
             collectorFlags: options.collectorFlags,
             injectAPIs: options.injectAPIs,
