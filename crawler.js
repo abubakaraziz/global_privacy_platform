@@ -177,8 +177,8 @@ async function getSiteData(context, url, {
         targets.push(simpleTarget);
 
         try {
-            // we have to pause new targets and attach to them as soon as they are created not to miss any data
-            await cdpClient.send('Target.setAutoAttach', {autoAttach: true, waitForDebuggerOnStart: true});
+                // we have to pause new targets and attach to them as soon as they are created not to miss any data
+                await cdpClient.send('Target.setAutoAttach', {autoAttach: true, waitForDebuggerOnStart: true});
         } catch (e) {
             log(chalk.yellow(`Failed to set "${target.url()}" up.`), chalk.gray(e.message), chalk.gray(e.stack));
             return;
@@ -196,7 +196,7 @@ async function getSiteData(context, url, {
         try {
             // resume target when all collectors are ready
             await cdpClient.send('Runtime.enable');
-            await cdpClient.send('Runtime.runIfWaitingForDebugger');
+                await cdpClient.send('Runtime.runIfWaitingForDebugger');
         } catch (e) {
             log(chalk.yellow(`Failed to resume target "${target.url()}"`), chalk.gray(e.message), chalk.gray(e.stack));
             return;

@@ -22,7 +22,7 @@ const optOutFromCMPs = async page => {
 /* 
     const ucResult = await optOutUserCentrics(page);
     cmpResults.push(ucResult);
-
+/*
     const osanoResult = await optOutOsano(page);
     cmpResults.push(osanoResult);
 */

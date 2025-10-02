@@ -14,11 +14,21 @@ async function optOutDidomi(page) {
     const didomiResultPromise = page.evaluate(async () => {
         let result = {};
         result.isDidomi = false;
+        result.didomiBannerVisible = false;
         result.optedOut = false;
        
         // @ts-ignore
         if (window.Didomi) {
             result.isDidomi = true;
+            
+            // Check if banner is visible
+            try {
+                // @ts-ignore
+                result.didomiBannerVisible = window.Didomi.notice.isVisible();
+            } catch {
+                // Silent error handling
+            }
+            
             console.log("Didomi banner visible, opting out");
 
             try {
@@ -35,6 +45,7 @@ async function optOutDidomi(page) {
 
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isDidomi: false,
+        didomiBannerVisible: false,
         optedOut: false,
         timeout: true,
     }), 5000));
@@ -290,11 +301,14 @@ async function optOutCookieBot(page) {
         let result = {};
         result.isCookiebot = false;
         result.optedOut = false;
+        result.cookiebotButtonClicked = false;
 
         // @ts-ignore
         if (window.CookieConsent) {
             result.isCookiebot = true;
             console.log("Cookiebot CMP detected, opting out");
+            
+            // First method: Programmatic opt-out
             try {
                 // @ts-ignore
                 await window.CookieConsent.submitCustomConsent(false, false, false, false); //parameters: optInPreferences, optInStatistics, optInMarketing, isImpliedConsent
@@ -303,13 +317,26 @@ async function optOutCookieBot(page) {
             } catch (error) {
                 console.error("Error getting Cookiebot data:", error);
             }
+            
+            // Second method: DOM traversal to click decline button
+            try {
+                const declineButton = document.getElementById('CybotCookiebotDialogBodyButtonDecline');
+                if (declineButton) {
+                    declineButton.click();
+                    result.cookiebotButtonClicked = true;
+                }
+            } catch {
+                // Silent error handling
+            }
         }
+        
         return result;
     });
 
     const timeoutPromise = new Promise(resolve => setTimeout(() => resolve({
         isCookiebot: false,
         optedOut: false,
+        cookiebotButtonClicked: false,
         timeout: true,
     }), 5000));
 
@@ -336,9 +363,9 @@ async function optOutUserCentrics(page) {
             console.log("UserCentrics CMP detected, opting out");
 
             try {
-                // @ts-ignore
-                await window.UC_UI.denyAllConsents();
-                result.optedOut = true;
+                    // @ts-ignore
+                    await window.UC_UI.denyAllConsents();
+                    result.optedOut = true;
             } catch {
                 console.log("Error opting out of UserCentrics.");
             }
