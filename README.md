@@ -22,6 +22,10 @@ This crawler is designed to analyze:
 
 ⚠️ **This is an active research project.** The codebase is under continuous development as we investigate privacy opt-out mechanisms across the web.
 
+### Research Collaboration Notice
+
+If you plan to use this code for research purposes, please contact me at **aziz.muh@northeastern.edu** to discuss your research questions. My current paper is in the submission process, and I'd appreciate coordinating to avoid overlapping work.
+
 ## How do I use it?
 
 ### Use it from the command line
