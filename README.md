@@ -1,26 +1,4 @@
 # Global Privacy Platform Opt-Out Research Crawler
-🕸 Privacy research crawler based on DuckDuckGo's [Tracker Radar Collector](https://github.com/duckduckgo/tracker-radar-collector), modified to investigate the effectiveness of different opt-out mechanisms and analyze Global Privacy Platform (GPP) implementations across websites.
-
-This work builds upon our previous research in ["Johnny Still Can't Opt-out: Assessing the IAB CCPA Compliance Framework"](https://abubakaraziz.com/assets/pdf/iab-ccpa-compliance.pdf), extending the analysis to newer privacy frameworks and opt-out mechanisms.
-
-## Research Focus
-
-This crawler is designed to analyze:
-- **Opt-out mechanism effectiveness** across different privacy frameworks
-- **Global Privacy Platform (GPP)** compliance and implementation patterns  
-- **Cross-website privacy behavior** variations
-- **Request patterns** and **tracking behaviors** before/after opt-out signals
-
-## Key Enhancements
-
-- **Enhanced RequestCollector**: Added image dimension detection for tracking pixel analysis
-- **LinkCollector**: Systematic internal link discovery for comprehensive website coverage
-- **GPP Integration**: Support for Global Privacy Platform signal injection and analysis
-- **Opt-out Testing**: Configurable opt-out mechanisms (GPC, GPP, cookie preferences)
-
-## Ongoing Research
-
-⚠️ **This is an active research project.** The codebase is under continuous development as we investigate privacy opt-out mechanisms across the web.
 
 ## How do I use it?
 
