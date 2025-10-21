@@ -1,7 +1,3 @@
-# Global Privacy Platform Opt-Out Research Crawler
-
-## How do I use it?
-
 ### Use it from the command line
 
 1. Clone this project locally
