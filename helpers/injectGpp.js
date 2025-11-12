@@ -37,7 +37,12 @@ const overWriteGPP = `
         "applicableSections": [6, 7, 8],
         "gppString": "DBABzYA~1YYN~BVVVVVVVVVWA.QA~BVVVVVWA.QA",
         "parsedSections": {
-          "uspv1": "1YYN",
+          "uspv1": {
+            "Version": 1,
+            "Notice": "Y",
+            "OptOutSale": "Y",
+            "LspaCovered": "N"
+          },
           "usnat": {
             "Version": 1,
             "SharingNotice": 1,
@@ -52,7 +57,7 @@ const overWriteGPP = `
             "SensitiveDataProcessing": [
               1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
             ],
-            "KnownChildSensitiveDataConsents": [1, 1],
+            "KnownChildSensitiveDataConsents": [1, 1, 1],
             "PersonalDataConsents": 1,
             "MspaCoveredTransaction": 2,
             "MspaOptOutOptionMode": 0,
