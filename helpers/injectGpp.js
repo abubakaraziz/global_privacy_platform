@@ -34,15 +34,10 @@ const overWriteGPP = `
           7,
           8
         ],
-        "applicableSections": [6, 7, 8],
+        "applicableSections": [8],
         "gppString": "DBABzYA~1YYN~BVVVVVVVVVWA.QA~BVVVVVWA.QA",
         "parsedSections": {
-          "uspv1": {
-            "Version": 1,
-            "Notice": "Y",
-            "OptOutSale": "Y",
-            "LspaCovered": "N"
-          },
+          "uspv1": "1YYN",
           "usnat": {
             "Version": 1,
             "SharingNotice": 1,
