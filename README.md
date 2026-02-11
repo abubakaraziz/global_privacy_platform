@@ -18,6 +18,16 @@ This crawler is designed to analyze:
 - **GPP Integration**: Support for Global Privacy Platform signal injection and analysis
 - **Opt-out Testing**: Configurable opt-out mechanisms (GPC, GPP, cookie preferences)
 
+## New Data Collectors
+
+- **GPP Collector** (`gpp`): Detects Global Privacy Platform implementations on websites. Collects GPP API objects, section data, addEventListener events, USP strings, TCF data, and CMP consent objects (OneTrust, Didomi, CookieBot, Quantcast).
+- **Console Collector** (`console`): Captures all browser console output (log, error, warning, info) via CDP, recording the message, level, timestamp, and source URL.
+
+Add them to your config via the `dataCollectors` array:
+```json
+"dataCollectors": ["requests", "cookies", "gpp", "console"]
+```
+
 ## Ongoing Research
 
 ⚠️ **This is an active research project.** The codebase is under continuous development as we investigate privacy opt-out mechanisms across the web.
@@ -57,6 +67,15 @@ Available options:
 - `--chromium-version <version_number>` - use custom version of Chromium (e.g. "843427") instead of using the default
 - `--config <path>` - path to a config file that allows to set all the above settings (and more). Note that CLI flags have a higher priority than settings passed via config. You can find a sample config file in `tests/cli/sampleConfig.json`.
 - `--autoconsent-action <action>` - automatic autoconsent action (requires the `cmps` collector). Possible values: optIn, optOut
+- `--load-cookies` - load cookies from a cookie jar file before crawling
+- `--cookie-jar-path <path>` - path to the cookie jar JSON file to load
+- `--save-cookies` - save collected cookies to the cookie jar after crawling
+- `--delay-after-scrolling-ms <number>` - delay in milliseconds after scrolling interactions before collecting data
+- `--opt-out` - enable CMP opt-out mechanism interaction
+- `--http-headers <json>` - custom HTTP headers to send with requests (e.g. `'{"Sec-GPC": "1"}'`)
+- `--inject-gpc-nav` - inject `navigator.globalPrivacyControl = true` into pages to signal GPC support
+- `--inject-apis` - inject privacy API overrides into page context, including the GPP API (`__gpp`) and USP API (`__uspapi`)
+- `--headless` - run the browser in headless mode (enabled by default in config files)
 
 ### Use it as a module
 
