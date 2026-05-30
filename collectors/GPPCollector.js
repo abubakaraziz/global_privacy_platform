@@ -132,9 +132,6 @@ class GPPCollector extends BaseCollector {
             // Checking for the Quantcast CMP and retrieving the consent object
             const quantCastPresent = await quantcastPresence(page);
             this.scanResult.cmpConsentObject.push(quantCastPresent);
-           
-            
-            
 
 
             //get GPP ping 

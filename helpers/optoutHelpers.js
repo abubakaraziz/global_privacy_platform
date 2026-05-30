@@ -364,8 +364,8 @@ async function optOutUserCentrics(page) {
 
             try {
                     // @ts-ignore
-                    await window.UC_UI.denyAllConsents();
-                    result.optedOut = true;
+                await window.UC_UI.denyAllConsents();
+                result.optedOut = true;
             } catch {
                 console.log("Error opting out of UserCentrics.");
             }
