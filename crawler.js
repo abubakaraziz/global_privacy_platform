@@ -67,7 +67,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
             '--start-maximized',
             '--disable-infobars',
             '--no-first-run',
-	        '--disable-blink-features=AutomationControlled' 
+            '--disable-blink-features=AutomationControlled'
         ],
         headless: 'new'
     };
@@ -179,7 +179,7 @@ async function getSiteData(context, url, {
 
         try {
                 // we have to pause new targets and attach to them as soon as they are created not to miss any data
-                await cdpClient.send('Target.setAutoAttach', {autoAttach: true, waitForDebuggerOnStart: true});
+            await cdpClient.send('Target.setAutoAttach', {autoAttach: true, waitForDebuggerOnStart: true});
         } catch (e) {
             log(chalk.yellow(`Failed to set "${target.url()}" up.`), chalk.gray(e.message), chalk.gray(e.stack));
             return;
@@ -197,7 +197,7 @@ async function getSiteData(context, url, {
         try {
             // resume target when all collectors are ready
             await cdpClient.send('Runtime.enable');
-                await cdpClient.send('Runtime.runIfWaitingForDebugger');
+            await cdpClient.send('Runtime.runIfWaitingForDebugger');
         } catch (e) {
             log(chalk.yellow(`Failed to resume target "${target.url()}"`), chalk.gray(e.message), chalk.gray(e.stack));
             return;
@@ -240,9 +240,11 @@ async function getSiteData(context, url, {
                 // Check if cookie file exists
                 if (!fs.existsSync(domainCookiePath)) {
                     // Try to load domain redirect mapping as fallback
-                    if (domainMappingPath && fs.existsSync(domainMappingPath)) {
+                    if (domainMappingPath && fs.existsSync(domainMappingPath)) { // eslint-disable-line max-depth
                         const domainMapping = JSON.parse(fs.readFileSync(domainMappingPath, 'utf-8'));
+                        // eslint-disable-next-line max-depth
                         if (domainMapping[domain]) {
+                            // eslint-disable-next-line max-depth
                             const mappedDomain = domainMapping[domain];
                             //console.log(`Using domain mapping: ${domain} → ${mappedDomain}`);
                             const mappedDomainSafe = mappedDomain.replace(/\./g, '_');
@@ -260,7 +262,7 @@ async function getSiteData(context, url, {
                 } else {
                     console.log("Cookie file still not found after mapping lookup: ", domainCookiePath);
                 }
-            } 
+            }
         } catch(error) {
             console.log("Error loading domain cookies: ", error);
         }
@@ -278,7 +280,7 @@ async function getSiteData(context, url, {
         await page.evaluateOnNewDocument(overWriteUSPAPI); //Inject our own USP API implementation
     }
 
-    if (injectgpcnav){
+    if (injectgpcnav) {
         console.log("Injecting GPC navigation signal");
         await page.evaluateOnNewDocument(GPCDomSignal); // Inject GPC navigation signal
     }
@@ -368,7 +370,7 @@ async function getSiteData(context, url, {
 
     console.log("Done scrolling to the bottom of the page");
     
-    console.log(`Waiting for configurable delay ${delayTime} milliseconds before calling consent API`);  
+    console.log(`Waiting for configurable delay ${delayTime} milliseconds before calling consent API`);
     await sleep(delayTime);
 
     for (let collector of collectors) {

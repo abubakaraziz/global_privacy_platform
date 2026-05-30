@@ -23,10 +23,10 @@ const gppAddEventListener = async page => {
 
         if (eventData) {
             return eventData;
-        } else {
-            return null;
         }
-    } catch (error) {
+        return null;
+        
+    } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
         return null;
     }
 };
