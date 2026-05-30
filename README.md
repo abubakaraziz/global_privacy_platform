@@ -51,6 +51,18 @@ npm run crawl -- --config configs/default.json
 
 Output is written to `./data/default/`. The URL list is in `configs/default_urls.txt` — edit it to use your own sites.
 
+### GPC (Global Privacy Control)
+
+Crawls with the GPC signal active: sets the `Sec-GPC: 1` HTTP header on every request and injects `navigator.globalPrivacyControl = true` into every page context.
+
+```sh
+npm run crawl -- --config configs/gpc.json
+```
+
+Output is written to `./data/gpc/`.
+
+> **Proxy note:** The original experiments used a California-based SOCKS5 proxy (`"proxyConfig": "socks5://localhost:11000"`) to simulate CCPA jurisdiction. The config here omits the proxy — add `"proxyConfig"` to the JSON if you need geolocation.
+
 > **Chrome binary:** This tool was tested with Chrome for Testing `132.0.6834.110`. The binary is already included in the repo at:
 > ```
 > ./chrome/chrome-linux64-chromefortesting-132.0.6834.110/chrome
