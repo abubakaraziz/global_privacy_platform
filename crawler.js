@@ -483,7 +483,7 @@ function isThirdPartyRequest(documentUrl, requestUrl) {
 /**
  * @param {URL} url
  * @param {{collectors?: import('./collectors/BaseCollector')[], log?: function(...any):void, filterOutFirstParty?: boolean, emulateMobile?: boolean, emulateUserAgent?: boolean, proxyHost?: string, browserContext?: import('puppeteer').BrowserContext, runInEveryFrame?: string | function():void, executablePath?: string, maxLoadTimeMs?: number, extraExecutionTimeMs?: number, optOut?: boolean, saveCookies?:boolean, loadCookies?:boolean, headless?: boolean, cookieJarPath?:string, loaddomainCookie?:boolean, loaddomainCookiePath?:string, domainMappingPath?:string, delayAfterScrollingMs?: number, collectorFlags?: Object.<string, string>, injectAPIs?: boolean, injectgpcnav?: boolean, httpHeaders?: Object.<string, string>}} options
- * @param {import('puppeteer').BrowserContext} browserContext
+ * @param {import('puppeteer').BrowserContext=} browserContext
  * @returns {Promise<CollectResult>}
  */
 module.exports = async (url, options, browserContext) => {

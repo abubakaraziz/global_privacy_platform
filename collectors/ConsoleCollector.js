@@ -36,13 +36,13 @@ class ConsoleCollector extends BaseCollector {
 
         await cdpClient.send('Runtime.enable');
         
-        cdpClient.on('Runtime.consoleAPICalled', (event) => {
-            const message = event.args.map(arg => arg.value || arg.description || '').join(' ');
+        cdpClient.on('Runtime.consoleAPICalled', event => {
+            const message = event.args.map((/** @type {{value?: string, description?: string}} */ arg) => arg.value || arg.description || '').join(' ');
             this.capturedLogs.push({
                 level: event.type,
-                message: message,
+                message,
                 timestamp: event.timestamp,
-                url: url
+                url
             });
         });
 

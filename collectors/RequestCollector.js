@@ -484,6 +484,7 @@ module.exports = RequestCollector;
  * @property {Timestamp=} endTime
  * @property {string=} responseBodyHash
  * @property {string=} postData
+ * @property {{width: number, height: number}=} imageDimensions
  */
 
 /**

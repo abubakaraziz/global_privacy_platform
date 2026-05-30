@@ -94,16 +94,20 @@ async function testDefaultSettings() {
         status: 200,
         size: 666,
         remoteIPAddress: '123.123.123.123',
+        requestHeaders: {},
+        postData: '',
         responseHeaders: {
             etag: 'uniqueidhiddenhere',
-            'set-cookie': 'cookie monster approves'
+            'set-cookie': 'cookie monster approves',
+            'x-client-data': 'evil'
         },
         responseBodyHash: undefined,
         failureReason: undefined,
         redirectedTo: undefined,
         redirectedFrom: undefined,
         initiators: [],
-        time: 100000
+        time: 100000,
+        imageDimensions: undefined
     }]);
 
     /**
@@ -137,13 +141,16 @@ async function testDefaultSettings() {
         status: undefined,
         size: undefined,
         remoteIPAddress: undefined,
+        requestHeaders: {},
+        postData: '',
         responseHeaders: undefined,
         responseBodyHash: undefined,
         failureReason: 'You are in a simulation',
         redirectedTo: undefined,
         redirectedFrom: undefined,
         initiators: [],
-        time: 1
+        time: 1,
+        imageDimensions: undefined
     });
 
     /**
@@ -207,6 +214,8 @@ async function testDefaultSettings() {
         status: 301,
         size: undefined,
         remoteIPAddress: '123.123.123.234',
+        requestHeaders: {},
+        postData: '',
         responseHeaders: {
             etag: 'redirect-etag'
         },
@@ -215,7 +224,8 @@ async function testDefaultSettings() {
         redirectedTo: 'https://example.com/other_script.js',
         redirectedFrom: undefined,
         initiators: [],
-        time: 1
+        time: 1,
+        imageDimensions: undefined
     });
 
     assert.deepStrictEqual(data3[3], {
@@ -225,6 +235,8 @@ async function testDefaultSettings() {
         status: 200,
         size: 777,
         remoteIPAddress: '123.123.123.345',
+        requestHeaders: {},
+        postData: '',
         responseHeaders: {
             etag: 'other-script-etag'
         },
@@ -233,7 +245,8 @@ async function testDefaultSettings() {
         redirectedTo: undefined,
         redirectedFrom: 'https://example.com/redirect.js',
         initiators: [],
-        time: 1
+        time: 1,
+        imageDimensions: undefined
     });
 
     /**
@@ -255,13 +268,16 @@ async function testDefaultSettings() {
         status: undefined,
         size: undefined,
         remoteIPAddress: undefined,
+        requestHeaders: undefined,
+        postData: undefined,
         responseHeaders: undefined,
         responseBodyHash: undefined,
         failureReason: undefined,
         redirectedTo: undefined,
         redirectedFrom: undefined,
         initiators: [],
-        time: undefined
+        time: undefined,
+        imageDimensions: undefined
     });
 }
 
@@ -332,13 +348,16 @@ async function testResponseHashSetting() {
         status: 200,
         size: 666,
         remoteIPAddress: '123.123.123.123',
+        requestHeaders: {},
+        postData: '',
         responseHeaders: {},
         responseBodyHash: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
         failureReason: undefined,
         redirectedTo: undefined,
         redirectedFrom: undefined,
         initiators: [],
-        time: 100000
+        time: 100000,
+        imageDimensions: undefined
     }]);
 }
 
@@ -405,7 +424,12 @@ async function testCustomHeadersSetting() {
         status: 200,
         size: 666,
         remoteIPAddress: '123.123.123.123',
+        requestHeaders: {},
+        postData: '',
         responseHeaders: {
+            etag: 'oh-no',
+            expires: '1y',
+            'timing-allow-origin': '*',
             'x-client-data': 'tracking',
             'test-header': 'hello'
         },
@@ -414,7 +438,8 @@ async function testCustomHeadersSetting() {
         redirectedTo: undefined,
         redirectedFrom: undefined,
         initiators: [],
-        time: 100000
+        time: 100000,
+        imageDimensions: undefined
     }]);
 }
 

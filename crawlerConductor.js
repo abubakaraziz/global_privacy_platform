@@ -113,6 +113,7 @@ module.exports = async options => {
     // if (options.chromiumVersion) {
     //     executablePath = await downloadCustomChromium(log, options.chromiumVersion);
     // }
+    /** @type {import('puppeteer').BrowserContext|null} */
     let browserContext = null;
     let browser = null;
 
