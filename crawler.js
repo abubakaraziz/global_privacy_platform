@@ -67,7 +67,7 @@ function openBrowser(log, proxyHost, executablePath, headless) {
             '--start-maximized',
             '--disable-infobars',
             '--no-first-run',
-	    '--disable-blink-features=AutomationControlled',
+	        '--disable-blink-features=AutomationControlled' 
         ],
         headless: 'new'
     };

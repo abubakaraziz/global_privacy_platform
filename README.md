@@ -38,6 +38,31 @@ If you plan to use this code for research purposes, please contact me at **aziz.
 
 ## How do I use it?
 
+### Quick start: run the default baseline crawl
+
+The default config crawls 20 representative websites with no opt-out signal (the control condition). It collects APIs, cookies, network requests, and IAB consent strings (GPP/USP) if present on the page.
+
+From the repo root:
+
+```sh
+cd global_privacy_platform
+npm run crawl -- --config configs/default.json
+```
+
+Output is written to `./data/default/`. The URL list is in `configs/default_urls.txt` — edit it to use your own sites.
+
+> **Chrome binary:** This tool was tested with Chrome for Testing `132.0.6834.110`. The binary is already included in the repo at:
+> ```
+> ./chrome/chrome-linux64-chromefortesting-132.0.6834.110/chrome
+> ```
+> All config files point to this path via `executablePath` — no setup needed. If for any reason the binary is missing, download it with:
+> ```sh
+> wget https://storage.googleapis.com/chrome-for-testing-public/132.0.6834.110/linux64/chrome-linux64.zip
+> unzip chrome-linux64.zip
+> mv chrome-linux64 chrome/chrome-linux64-chromefortesting-132.0.6834.110
+> ```
+> It may work with a newer Chrome version, but that has not been fully tested — update `executablePath` in the config if you use a different binary.
+
 ### Use it from the command line
 
 1. Clone this project locally
@@ -65,7 +90,7 @@ Available options:
 - `-r, --region-code <region>` - optional 2 letter region code. For metadata only
 - `-a, --disable-anti-bot` - disable simple build-in anti bot detection script injected to every frame
 - `--chromium-version <version_number>` - use custom version of Chromium (e.g. "843427") instead of using the default
-- `--config <path>` - path to a config file that allows to set all the above settings (and more). Note that CLI flags have a higher priority than settings passed via config. You can find a sample config file in `tests/cli/sampleConfig.json`.
+- `--config <path>` - path to a config file that allows to set all the above settings (and more). Note that CLI flags have a higher priority than settings passed via config. See `configs/default.json` for a working example.
 - `--autoconsent-action <action>` - automatic autoconsent action (requires the `cmps` collector). Possible values: optIn, optOut
 - `--load-cookies` - load cookies from a cookie jar file before crawling
 - `--cookie-jar-path <path>` - path to the cookie jar JSON file to load
