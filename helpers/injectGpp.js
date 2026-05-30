@@ -1,96 +1,88 @@
 const overWriteGPP = `
 (function() {
-  
-  function customGPP(command, callback, parameter) {
-      // Log every GPP command execution with stack trace
-      console.log("gpp_command_executed:", command, "parameter:", parameter, "stack:", new Error().stack);
-      
-      let registeredListeners = {}; // Stores registered listeners with their listenerId
-      let nextListenerId = 1;       //Maintain a counter for the listenerId to keep them unique
+
+  // These must be outside the function so they persist across calls
+  let registeredListeners = {}; // Stores registered listeners with their listenerId
+  let nextListenerId = 1;       //Maintain a counter for the listenerId to keep them unique
+
+  function customGPP(command, callback,parameter) {
+     if (!window.frames['__gppLocator']) {
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'display:none';
+    iframe.name = '__gppLocator';
+    // body might not yet exist — fall back to documentElement
+    (document.body || document.documentElement).appendChild(iframe);
+  }
+     
+        console.log("gpp_command_executed:", command, "parameter:", parameter, "stack:", new Error().stack);
+
 
       //Define the GPP data object
       let gppData = {
-          "gppVersion": "1.1",
-          "cmpStatus": "loaded",
-          "cmpDisplayStatus": "visible",
-          "signalStatus": "ready",
-          "supportedAPIs": [
-              "6:uspv1",
-              "7:usnat",
-              "8:usca",
-              "9:usva"
-          ],
-          "cmpId": 28,
-          "sectionList": [
-              6,
-              7,
-              8,
-              9
-          ],
-          "applicableSections": [6, 7, 8, 9], 
-          "gppString": "DBABzMA~1YYN~BVVVVVVVVVWA.QA~BVVVVVWA.QA~BVVVVWA",
-          "parsedSections": {
-              "uspv1": "1YYN",
-              "usnat": {
-                  "Version": 1,
-                  "SharingNotice": 1,
-                  "SaleOptOutNotice": 1,
-                  "SharingOptOutNotice": 1,
-                  "TargetedAdvertisingOptOutNotice": 1,
-                  "SensitiveDataProcessingOptOutNotice": 1,
-                  "SensitiveDataLimitUseNotice": 1,
-                  "SaleOptOut": 1,
-                  "SharingOptOut": 1,
-                  "TargetedAdvertisingOptOut": 1,
-                  "SensitiveDataProcessing": [
-                      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-                  ],
-                  "KnownChildSensitiveDataConsents": [1, 1],
-                  "PersonalDataConsents": 1,
-                  "MspaCoveredTransaction": 2,
-                  "MspaOptOutOptionMode": 0,
-                  "MspaServiceProviderMode": 0,
-                  "GpcSegmentType": 1,
-                  "Gpc": false
-              },
-              "usca": {
-                  "Version": 1,
-                  "SaleOptOutNotice": 1,
-                  "SharingOptOutNotice": 1,
-                  "SensitiveDataLimitUseNotice": 1,
-                  "SaleOptOut": 1,
-                  "SharingOptOut": 1,
-                  "SensitiveDataProcessing": [
-                      1, 1, 1, 1, 1, 1, 1, 1, 1
-                  ],
-                  "KnownChildSensitiveDataConsents": [1, 1],
-                  "PersonalDataConsents": 1,
-                  "MspaCoveredTransaction": 2,
-                  "MspaOptOutOptionMode": 0,
-                  "MspaServiceProviderMode": 0,
-                  "GpcSegmentType": 1,
-                  "Gpc": false 
-              },
-              "usva": {
-                  "Version": 1,
-                  "SharingNotice": 1,
-                  "SaleOptOutNotice": 1,
-                  "TargetedAdvertisingOptOutNotice": 1,
-                  "SaleOptOut": 1,
-                  "TargetedAdvertisingOptOut": 1,
-                  "SensitiveDataProcessing": [
-                      1, 1, 1, 1, 1, 1, 1, 1
-                  ],
-                  "KnownChildSensitiveDataConsents": 1,
-                  "MspaCoveredTransaction": 2,
-                  "MspaOptOutOptionMode": 0,
-                  "MspaServiceProviderMode": 0
-              }
+        "gppVersion": "1.1",
+        "cmpStatus": "loaded",
+        "cmpDisplayStatus": "visible",
+        "signalStatus": "ready",
+        "supportedAPIs": [
+          "6:uspv1",
+          "7:usnat",
+          "8:usca"
+        ],
+        "cmpId": 28,
+        "sectionList": [
+          6,
+          7,
+          8
+        ],
+        "applicableSections": [8],
+        "gppString": "DBABzYA~1YYN~BVVVVVVVVVWA.QA~BVVVVVWA.QA",
+        "parsedSections": {
+          "uspv1": "1YYN",
+          "usnat": {
+            "Version": 1,
+            "SharingNotice": 1,
+            "SaleOptOutNotice": 1,
+            "SharingOptOutNotice": 1,
+            "TargetedAdvertisingOptOutNotice": 1,
+            "SensitiveDataProcessingOptOutNotice": 1,
+            "SensitiveDataLimitUseNotice": 1,
+            "SaleOptOut": 1,
+            "SharingOptOut": 1,
+            "TargetedAdvertisingOptOut": 1,
+            "SensitiveDataProcessing": [
+              1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+            ],
+            "KnownChildSensitiveDataConsents": [1, 1, 1],
+            "PersonalDataConsents": 1,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 0,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
+          },
+          "usca": {
+            "Version": 1,
+            "SaleOptOutNotice": 1,
+            "SharingOptOutNotice": 1,
+            "SensitiveDataLimitUseNotice": 1,
+            "SaleOptOut": 1,
+            "SharingOptOut": 1,
+            "SensitiveDataProcessing": [
+              1, 1, 1, 1, 1, 1, 1, 1, 1
+            ],
+            "KnownChildSensitiveDataConsents": [1, 1],
+            "PersonalDataConsents": 1,
+            "MspaCoveredTransaction": 2,
+            "MspaOptOutOptionMode": 0,
+            "MspaServiceProviderMode": 0,
+            "GpcSegmentType": 1,
+            "Gpc": false
           }
+        }
       };
 
       //Execute the Callback function according to the relevant command
-      if (command === "ping") {
+      if (command === "ping") { 
           callback(gppData, true);  // Pass the PingReturn object w/ success
       } else if (command === "hasSection") {
           const hasSection = gppData.supportedAPIs.some((section) => section.includes(parameter));
@@ -98,6 +90,7 @@ const overWriteGPP = `
       } else if (command === "getSection") {
           const section = gppData.parsedSections[parameter];
           if (section) {
+              // Return the section as-is (array or object based on spec)
               callback(section, true);
           } else {
               callback(null, false);
@@ -107,8 +100,14 @@ const overWriteGPP = `
               const [section, field] = parameter.split(".");
               const sectionData = gppData.parsedSections[section];
 
-              if (sectionData && sectionData[field]) {
-                  callback(sectionData[field], true);
+              if (sectionData) {
+                  // Handle array sections (e.g., usnat) vs object sections (e.g., usca)
+                  const data = Array.isArray(sectionData) ? sectionData[0] : sectionData;
+                  if (data && data[field] !== undefined) {
+                      callback(data[field], true);
+                  } else {
+                      callback(null, false);
+                  }
               } else {
                   callback(null, false);
               }
@@ -117,21 +116,40 @@ const overWriteGPP = `
           }
       } else if (command === "addEventListener") {
           const listenerId = nextListenerId++;
-          registeredListeners[listenerId] = {
-              eventName: "listenerRegistered",
-              listenerId: listenerId,
-              data: {listenerRegistered: true},
-              pingData: gppData
-          };
-          callback(registeredListeners[listenerId], true);
+          registeredListeners[listenerId] = callback;
+        //We just add asynchronous signal which needs to run after listenerRegistered Event
+           setTimeout(() => {
+            const readyEvent = {
+            eventName: "signalStatus",
+            data: "ready",
+            listenerId,
+            pingData: gppData
+            };
+            callback(readyEvent, true);
+            }, 0);
+          //Return a synchronous event object immediately
+            return {
+            eventName: "listenerRegistered",
+            data: true,
+            listenerId: listenerId,
+            pingData: gppData
+            };
+
       } else if (command === "removeEventListener") {
-          const listenerId = parameter;
-          if (registeredListeners[listenerId]) {
-              delete registeredListeners[listenerId];
-              callback(true, true);
-          } else {
-              callback(false, true);
-          }
+        const listenerId = parameter;
+        let success = false;
+
+        if (registeredListeners[listenerId]) {
+            delete registeredListeners[listenerId];
+            success = true;
+        }
+
+      return {
+        eventName: "listenerRemoved",
+        listenerId,
+        data: success,
+        pingData: gppData
+      };
       } else {
           //Invalid command
           callback(null, false);
@@ -141,7 +159,7 @@ const overWriteGPP = `
   }
 
   //Define a property that intercepts reads/writes:
-  Object.defineProperty(window, "__gpp", {
+Object.defineProperty(window, "__gpp", {
     configurable: false,
 
     get() {
@@ -150,8 +168,7 @@ const overWriteGPP = `
     },
     set(newValue) {
       //If any code tries to overwrite __gpp, log and do nothing
-      console.log("overwrite_gpp:", newValue);
-      console.log("overwrite_gpp_stack:",new Error().stack);
+      console.log("overwrite_gpp:", newValue, "overwrite_gpp_stack:", new Error().stack);
     }
   });
 })();

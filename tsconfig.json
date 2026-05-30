@@ -18,6 +18,7 @@
         "./*.js"
     ],
     "exclude": [
-        "./node_modules/chalk/types/index.d.ts"
+        "./node_modules/chalk/types/index.d.ts",
+        "./test_tlds.js"
     ]
 }

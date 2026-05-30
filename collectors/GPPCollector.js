@@ -8,6 +8,7 @@ const uspPing = require("../helpers/uspPing");
 const gppPing = require("../helpers/gppPing");
 const callGPPhasSections = require("../helpers/gppHasSections");
 const callGPPgetSections = require("../helpers/gppGetSections");
+const gppAddEventListener = require("../helpers/gppAddEventListener");
 const tcfPing = require("../helpers/tcfPing");
 const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, quantcastPresence} = require("../helpers/CMPConsentFunctions");
 
@@ -16,6 +17,7 @@ const {oneTrustActiveGroups, didomiUserStatus, cookieBotConsent, quantcastPresen
  * @property {string[]} gppObjects
  * @property {{ api: any; hasSection: any; }[]} hasSections
  * @property {{ api: any; getSection: any; }[]} getSections
+ * @property {any[]} gppAddEventListenerData
  * @property {string[]} uspString
  * @property {string[]} tcfString
  * @property {any} cmpConsentObject
@@ -45,6 +47,7 @@ class GPPCollector extends BaseCollector {
             gppObjects: [],
             hasSections: [],
             getSections: [],
+            gppAddEventListenerData: [],
             uspString: [],
             tcfString: [],
             cmpConsentObject: [],
@@ -129,9 +132,6 @@ class GPPCollector extends BaseCollector {
             // Checking for the Quantcast CMP and retrieving the consent object
             const quantCastPresent = await quantcastPresence(page);
             this.scanResult.cmpConsentObject.push(quantCastPresent);
-           
-            
-            
 
 
             //get GPP ping 
@@ -150,6 +150,12 @@ class GPPCollector extends BaseCollector {
             const getSection = await callGPPgetSections(page, gppObject);
             if (getSection) {
                 getSections.push(...getSection);
+            }
+
+            //register GPP addEventListener
+            const addEventListenerData = await gppAddEventListener(page);
+            if (addEventListenerData) {
+                this.scanResult.gppAddEventListenerData.push(addEventListenerData);
             }
 
             //get uspString
@@ -173,6 +179,7 @@ class GPPCollector extends BaseCollector {
             gppObjects,
             hasSections,
             getSections,
+            gppAddEventListenerData: this.scanResult.gppAddEventListenerData,
             uspString: this.scanResult.uspString,
             tcfString: this.scanResult.tcfString,
             cmpConsentObject: this.scanResult.cmpConsentObject,

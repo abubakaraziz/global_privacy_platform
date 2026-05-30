@@ -34,7 +34,7 @@ function normalizeHeaders(headers) {
      */
     const normalized = {};
 
-    Object.keys(headers).forEach(name => {
+    Object.keys(headers || {}).forEach(name => {
         normalized[name.toLowerCase().trim()] = headers[name];
     });
 

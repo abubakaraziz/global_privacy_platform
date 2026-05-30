@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 const {getAllInitiators} = require('../helpers/initiators');
-const {filterHeaders, normalizeHeaders} = require('../helpers/headers');
+const {filterHeaders, normalizeHeaders} = require('../helpers/headers'); // eslint-disable-line @typescript-eslint/no-unused-vars
 const BaseCollector = require('./BaseCollector');
 
 const URL = require('url').URL;
@@ -92,7 +92,7 @@ class RequestCollector extends BaseCollector {
         try {
             const result = imageSize(buffer);
             return result;
-        } catch (error) {
+        } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
             return null;
         }
     }
@@ -484,6 +484,7 @@ module.exports = RequestCollector;
  * @property {Timestamp=} endTime
  * @property {string=} responseBodyHash
  * @property {string=} postData
+ * @property {{width: number, height: number}=} imageDimensions
  */
 
 /**

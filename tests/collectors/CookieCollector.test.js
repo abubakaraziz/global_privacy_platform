@@ -39,12 +39,12 @@ const fakeCDPClient = {
      * @param {string} command 
      */
     send(command) {
-        if (command === 'Network.getAllCookies') {
+        if (command === 'Network.getAllCookies' || command === 'Storage.getCookies') {
             return Promise.resolve({cookies});
         } else if (command === 'Page.enable') {
             return Promise.resolve();
         }
-        
+
         throw new Error('Unexpected command called: ' + command);
     }
 };
@@ -65,7 +65,9 @@ collector.getData()
                 path: '/test/',
                 expires: 1577836800325,
                 session: false,
-                sameSite: 'Lax'
+                sameSite: 'Lax',
+                secure: false,
+                httpOnly: false
             },
             {
                 name: 'session_id',
@@ -74,7 +76,9 @@ collector.getData()
                 path: '/',
                 expires: undefined,
                 session: true,
-                sameSite: 'Strict'
+                sameSite: 'Strict',
+                secure: false,
+                httpOnly: false
             }
         ]);
     });

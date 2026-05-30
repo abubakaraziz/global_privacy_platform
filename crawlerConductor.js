@@ -11,7 +11,7 @@ const createDeferred = require('./helpers/deferred');
 const BaseCollector = require('./collectors/BaseCollector');
 const f = require('fs');
 // const notABot = require('./helpers/notABot');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer'); // eslint-disable-line @typescript-eslint/no-unused-vars
 const notABot = f.readFileSync('./helpers/stealth.min.js', 'utf8');
 const {openBrowser, VISUAL_DEBUG} = require('./crawler');
 
@@ -113,6 +113,7 @@ module.exports = async options => {
     // if (options.chromiumVersion) {
     //     executablePath = await downloadCustomChromium(log, options.chromiumVersion);
     // }
+    /** @type {import('puppeteer').BrowserContext|null} */
     let browserContext = null;
     let browser = null;
 
@@ -170,6 +171,6 @@ module.exports = async options => {
     }
 
     if (browser && !options.headless) {
-    await browser.close();
+        await browser.close();
     }
 };
