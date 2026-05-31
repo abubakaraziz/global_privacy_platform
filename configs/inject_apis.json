@@ -1,0 +1,22 @@
+{
+    "output": "./data/inject_apis/",
+    "logPath": "./logs/inject_apis/",
+    "crawlers": 8,
+    "maxLoadTimeMs": 90000,
+    "extraExecutionTimeMs": 5000,
+    "verbose": true,
+    "forceOverwrite": false,
+    "filterOutFirstParty": false,
+    "emulateMobile": false,
+    "disableAntiBot": false,
+    "loadCookies": false,
+    "saveCookies": false,
+    "statefulCrawl": false,
+    "headless": true,
+    "delayAfterScrollingMs": 20000,
+    "executablePath": "./chrome/chrome-linux64-chromefortesting-132.0.6834.110/chrome",
+    "injectAPIs": true,
+    "dataCollectors": ["apis", "cookies", "requests", "gpp", "console"],
+    "reporters": ["cli"],
+    "urls": "configs/default_urls.txt"
+}

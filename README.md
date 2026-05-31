@@ -51,6 +51,16 @@ npm run crawl -- --config configs/default.json
 
 Output is written to `./data/default/`. The URL list is in `configs/default_urls.txt` — edit it to use your own sites.
 
+### GPP/USP API Injection
+
+Injects stub `__gpp` and `__uspapi` privacy APIs into every page to test how sites respond when the GPP/USP API is present.
+
+```sh
+npm run crawl -- --config configs/inject_apis.json
+```
+
+Output is written to `./data/inject_apis/`.
+
 ### GPC (Global Privacy Control)
 
 Crawls with the GPC signal active: sets the `Sec-GPC: 1` HTTP header on every request and injects `navigator.globalPrivacyControl = true` into every page context.
