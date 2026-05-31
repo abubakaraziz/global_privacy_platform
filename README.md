@@ -71,7 +71,7 @@ npm run crawl -- --config configs/gpc.json
 
 Output is written to `./data/gpc/`.
 
-> **Proxy note:** The original experiments used a California-based SOCKS5 proxy (`"proxyConfig": "socks5://localhost:11000"`) to simulate CCPA jurisdiction. The config here omits the proxy — add `"proxyConfig"` to the JSON if you need geolocation.
+> **Proxy note:** The original crawls were run from California (over AWS, via a SOCKS5 proxy: `"proxyConfig": "socks5://localhost:11000"`) to test CCPA behavior. These configs omit the proxy. Add `"proxyConfig"` to the JSON to route traffic through a different location.
 
 > **Chrome binary:** This tool was tested with Chrome for Testing `132.0.6834.110`. The binary is already included in the repo at:
 > ```
